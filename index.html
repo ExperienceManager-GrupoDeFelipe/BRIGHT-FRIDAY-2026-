@@ -91,6 +91,14 @@ input:focus,button:focus-visible{outline:3px solid var(--gold);outline-offset:1p
 .who input{width:100%;font:inherit;padding:12px 14px;border:1.5px solid #CFC3AE;border-radius:12px;background:#fff;color:var(--navy)}
 .sexw{display:flex;flex-direction:column;gap:6px} .sexw>span{font-size:13px;font-weight:700;color:var(--muted)} .sexw .chip{padding:9px 12px;font-size:14px}
 @media (max-width:760px){ .who{grid-template-columns:1fr} }
+.tabs.sub{grid-template-columns:1fr 1fr!important;background:#EFE7DA}
+.pend{background:#FFF1D6;border:1px solid #E9C987;color:#6B4A12;border-radius:12px;padding:10px 14px;font-size:15px;margin-bottom:14px}
+.gp{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.gp label{margin:0;display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;color:var(--muted)}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.split div{background:var(--navy2);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:2px}
+.split span{font-size:13px;color:#C9C3B8} .split b{font-size:24px} .split small{font-size:12px;color:#C9C3B8}
+@media (max-width:560px){ .gp,.split{grid-template-columns:1fr} }
 .langs{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
 .chip.on{background:var(--navy);color:var(--cream);border-color:var(--navy)}
 .tph{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}
@@ -146,19 +154,355 @@ footer{padding:0 16px 30px;font-size:12px;color:var(--soft)}
   .prod{grid-template-columns:1fr 1fr 40px} .prod .pn{grid-column:1/-1}
   .final{font-size:44px}
 }
+
+:root{--navy:#1E2840;--navy2:#2B3858;--cream:#F5F0E8;--card:#FFFDF9;--line:#E2D8C6;--bronze:#8A5E2C;--gold:#D9B27C;--muted:#4A5063;--soft:#6B6F7A;--green:#2F6B4F;--red:#9A3B2E}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--cream);color:var(--navy);font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:17px;line-height:1.45}
+.wrap{max-width:780px;margin:0 auto}
+header{background:var(--navy);color:var(--cream);padding:22px 20px 24px}
+.eyebrow{font-size:12px;letter-spacing:3px;color:var(--bronze);text-transform:uppercase;margin:0;font-weight:700}
+header .eyebrow{color:var(--gold)}
+h1{font-family:Georgia,serif;font-weight:400;font-size:34px;margin:4px 0 0;line-height:1.1}
+.rules{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.rules span{background:var(--navy2);border-radius:999px;padding:5px 11px;font-size:13px}
+main{padding:18px 16px 120px}
+.tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;background:#E8DFD0;padding:5px;border-radius:14px;margin-bottom:16px}
+.tabs button{border:0;background:transparent;font:inherit;font-weight:700;padding:12px 6px;border-radius:10px;color:var(--muted);cursor:pointer}
+.tabs button.on{background:var(--card);color:var(--navy);box-shadow:0 1px 3px rgba(30,40,64,.15)}
+.box{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:16px}
+.box h2{font-family:Georgia,serif;font-weight:400;font-size:24px;margin:0 0 14px;display:flex;align-items:center;gap:10px}
+.num{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--navy);color:var(--cream);font-family:Arial,sans-serif;font-size:15px;font-weight:700}
+input[type=search],input[type=number]{width:100%;font:inherit;padding:14px 16px;border:1.5px solid #CFC3AE;border-radius:12px;background:#fff;color:var(--navy)}
+input[type=search]{font-size:18px}
+input:focus,button:focus-visible{outline:3px solid var(--gold);outline-offset:1px}
+.lbl{font-size:13px;font-weight:700;color:var(--soft);text-transform:uppercase;letter-spacing:1px;margin:18px 0 8px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid #CFC3AE;background:#fff;border-radius:999px;padding:9px 14px;font:inherit;font-size:15px;cursor:pointer;color:var(--navy)}
+.chip:hover{border-color:var(--navy)} .chip.cat{background:transparent}
+.chip.added{background:#E5F0EA;border-color:var(--green);color:var(--green)}
+.list{display:flex;flex-direction:column;margin-top:10px;border-top:1px solid var(--line)}
+.opt{display:grid;grid-template-columns:1fr auto 40px;gap:12px;align-items:center;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);padding:12px 4px;font:inherit;color:var(--navy);cursor:pointer}
+.opt:hover{background:#FAF5EC}
+.opt small{display:block;font-size:13px;color:var(--soft)} .opt small.x,.x{color:var(--red)!important;font-weight:700}
+.opt .pr{font-weight:700;white-space:nowrap}
+.plus{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--navy);color:var(--cream);font-size:20px;font-weight:700}
+.opt.added .plus{background:var(--green)}
+.opt.no{opacity:.75}
+.crumb{display:flex;gap:14px;align-items:center;margin-top:8px}
+.hint{color:var(--soft);font-size:15px;margin:10px 0 0}
+.item{display:grid;grid-template-columns:1fr auto 120px 40px;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.item.new{animation:hl 1s ease-out}
+@keyframes hl{from{background:#F3E6CF}to{background:transparent}}
+.iname small{display:block;font-size:13px;color:var(--soft);margin-top:2px}
+.iname small.same{color:var(--bronze);font-weight:700}
+.item.no .iname{color:var(--soft)}
+.qty{display:flex;align-items:center;gap:6px}
+.qty button{width:34px;height:34px;border-radius:50%;border:1.5px solid #CFC3AE;background:#fff;font-size:18px;cursor:pointer;color:var(--navy)}
+.qty span{min-width:18px;text-align:center;font-weight:700}
+.price{position:relative;display:block;margin:0}
+.price input{padding:10px 30px 10px 12px;text-align:right}
+.price .e{position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--soft);pointer-events:none}
+.price.wide{max-width:260px} .price.wide input{font-size:22px;padding:14px 34px 14px 14px}
+.del{width:36px;height:36px;border-radius:50%;border:0;background:#F3E3DF;color:var(--red);font-size:22px;cursor:pointer;line-height:1}
+.itemsfoot{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.itemsfoot .hint{margin:12px 0 0}
+.link{background:none;border:0;padding:0;font:inherit;font-size:15px;cursor:pointer;text-decoration:underline;color:var(--navy)}
+.link.light{color:var(--gold)}
+.res{background:var(--navy);color:var(--cream);border-radius:16px;padding:22px 22px 24px;margin-bottom:16px}
+.res .eyebrow{color:var(--gold)}
+.price-line{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin:6px 0 4px}
+.final{font-family:Georgia,serif;font-size:56px;line-height:1}
+.old{text-decoration:line-through;color:#A9A6A0;font-size:22px}
+.badge{background:var(--gold);color:var(--navy);font-weight:700;border-radius:999px;padding:4px 12px;font-size:16px}
+.say{font-size:18px;margin:8px 0 0} .sub{color:#E8E1D4;margin:10px 0 0;font-size:15px} .sub.warn{color:#F3B7AC}
+.big2{font-size:22px;margin:0 0 6px}
+.tip{background:var(--navy2);border-radius:12px;padding:14px 16px;margin-top:16px;font-size:15px}
+.tip b{color:var(--gold)} .tip span{color:#C9C3B8}
+.btn{background:var(--cream);color:var(--navy);border:0;border-radius:12px;padding:14px 20px;font:inherit;font-weight:700;cursor:pointer;margin-top:18px;width:100%}
+.box .btn.ghost{background:transparent;border:1.5px solid var(--navy);width:auto;margin-top:12px}
+.prod{display:grid;grid-template-columns:1fr 130px auto 40px;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.pname{width:100%;font:inherit;padding:10px 12px;border:1.5px solid #CFC3AE;border-radius:10px;background:#fff;color:var(--navy)}
+.chk{display:flex;gap:6px;align-items:center;font-size:14px;color:var(--muted);white-space:nowrap}
+.chk input{width:20px;height:20px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--navy);color:var(--cream);transform:translateY(100%);transition:transform .2s;box-shadow:0 -4px 14px rgba(0,0,0,.18)}
+.bar.show{transform:none}
+.barin{display:flex;gap:14px;align-items:center;justify-content:space-between;padding:14px 16px;flex-wrap:wrap}
+.barin b{font-size:20px}
+.kv{display:grid;grid-template-columns:110px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.kv>span:first-child{font-size:13px;font-weight:700;color:var(--soft);text-transform:uppercase;letter-spacing:1px}
+.iban{font-family:"Courier New",monospace;font-size:18px;letter-spacing:.5px;word-break:break-all}
+.mini{border:1.5px solid var(--navy);background:#fff;border-radius:999px;padding:6px 14px;font:inherit;font-size:14px;font-weight:700;cursor:pointer;color:var(--navy)}
+.btn.dark{background:var(--navy);color:var(--cream)}
+@media (max-width:560px){ .tabs{grid-template-columns:1fr 1fr} .tph{flex-direction:column} .kv{grid-template-columns:1fr auto} .kv>span:first-child{grid-column:1/-1} }
+.who{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:end;padding:16px}
+.who label{margin:0;font-size:13px;font-weight:700;color:var(--muted);display:flex;flex-direction:column;gap:6px}
+.who input{width:100%;font:inherit;padding:12px 14px;border:1.5px solid #CFC3AE;border-radius:12px;background:#fff;color:var(--navy)}
+.sexw{display:flex;flex-direction:column;gap:6px} .sexw>span{font-size:13px;font-weight:700;color:var(--muted)} .sexw .chip{padding:9px 12px;font-size:14px}
+@media (max-width:760px){ .who{grid-template-columns:1fr} }
+.tabs.sub{grid-template-columns:1fr 1fr!important;background:#EFE7DA}
+.pend{background:#FFF1D6;border:1px solid #E9C987;color:#6B4A12;border-radius:12px;padding:10px 14px;font-size:15px;margin-bottom:14px}
+.gp{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.gp label{margin:0;display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;color:var(--muted)}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.split div{background:var(--navy2);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:2px}
+.split span{font-size:13px;color:#C9C3B8} .split b{font-size:24px} .split small{font-size:12px;color:#C9C3B8}
+@media (max-width:560px){ .gp,.split{grid-template-columns:1fr} }
+.langs{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.chip.on{background:var(--navy);color:var(--cream);border-color:var(--navy)}
+.tph{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}
+.btn.cpy{width:auto;margin:0;padding:12px 22px;flex:none}
+.tog{margin-top:12px}
+.tptext{white-space:pre-wrap;background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;margin-top:10px;font-size:15px;line-height:1.55}
+mark{background:#FCE7B6;color:var(--navy);border-radius:4px;padding:0 3px}
+.slots{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.slot{background:#DEEAF6;border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:8px}
+.slot:nth-child(even){background:#CFE0F1}
+.slot.full{box-shadow:inset 0 0 0 2px #7FA3C8}
+.slh{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#34507A}
+.slh .link{font-size:13px;text-transform:none;letter-spacing:0;color:#34507A}
+.slot select{width:100%;font:inherit;font-size:15px;padding:10px 8px;border:1.5px solid #9DB6D2;border-radius:10px;background:#fff;color:var(--navy)}
+.slp{font-size:22px;font-weight:700;color:var(--navy);text-align:right}
+.qres{display:grid;grid-template-columns:1fr 1fr 1.3fr;gap:10px}
+.qb{border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.qb span{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#5A4B2A}
+.qb b{font-size:34px;line-height:1.1}
+.qb small{font-size:14px;font-weight:700}
+.qb1{background:#FEF2CB}.qb2{background:#FBE4D5}.qb3{background:#E2EFD9}.qb3 span,.qb3 small{color:#2F5A2F}.qb3 b{color:#1F4A2A}
+.note{background:#FBF3E4;border:1px solid #EBD9B8;border-radius:12px;padding:10px 14px;font-size:15px;margin:12px 0 0}
+.note.tip2{background:#EEF3F9;border-color:#C9D7E8}
+@media (max-width:760px){ .slots{grid-template-columns:1fr 1fr}} @media (max-width:560px){ .slots{grid-template-columns:1fr} .slot{display:grid;grid-template-columns:1fr auto;align-items:center} .slot .slh{grid-column:1/-1} .slp{min-width:90px}} @media (max-width:760px){ .qres{grid-template-columns:1fr 1fr} .qb3{grid-column:1/-1} }
+.tabhelp{background:#FBF3E4;border:1px solid #EBD9B8;border-radius:12px;padding:12px 16px;font-size:15px;margin-bottom:16px}
+.legend3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}
+.legend3 div{border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:2px;font-size:14px}
+.legend3 b{font-size:15px}
+.legend3 .l1{background:#FAF6EE}.legend3 .l2{background:#F5EEDF}.legend3 .l3{background:#EFE3CB}
+.ex{margin:8px 0 0;font-size:15px}
+@media (max-width:560px){ .legend3{grid-template-columns:1fr} }
+.tbox{padding:16px 16px 6px}
+.tbox h2{font-size:22px;margin-bottom:8px}
+table.pt{width:100%;border-collapse:collapse;font-size:16px;table-layout:fixed}
+.pt th{text-align:right;font-size:12px;font-weight:700;color:var(--soft);text-transform:uppercase;letter-spacing:.5px;padding:6px 6px;border-bottom:2px solid var(--navy);line-height:1.25;vertical-align:bottom}
+.pt th:first-child{text-align:left}
+.pt td{padding:9px 6px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+.pt td:first-child{text-align:left;white-space:normal;font-weight:700}
+.pt td.pr0{color:var(--soft)}
+.pt .c1{background:#FAF6EE} .pt .c2{background:#F5EEDF} .pt .c3{background:#EFE3CB;font-weight:700}
+.pt th.c1,.pt th.c2,.pt th.c3{color:var(--navy)}
+.tadd{width:32px;height:32px;border-radius:50%;border:0;background:var(--navy);color:var(--cream);font-size:18px;font-weight:700;cursor:pointer}
+.toast{position:fixed;left:50%;top:16px;transform:translate(-50%,-80px);background:var(--green);color:#fff;padding:10px 18px;border-radius:999px;font-weight:700;font-size:15px;transition:transform .2s;z-index:5;max-width:92vw;text-align:center}
+.toast{visibility:hidden}.toast.show{transform:translate(-50%,0);visibility:visible}
+.pm{display:none}
+@media (max-width:560px){ .tabs{grid-template-columns:1fr 1fr} .tph{flex-direction:column} .tabs button{padding:10px 4px;font-size:15px} table.pt{font-size:13px} .pt td,.pt th{padding:8px 2px} .pt th{font-size:11px} .pt td.pr0,.pt th:nth-child(2){display:none} .pm{display:block;font-weight:400;color:var(--soft);font-size:12px} .tadd{width:28px;height:28px;font-size:16px} .tbox{padding:14px 10px 4px} }
+footer{padding:0 16px 30px;font-size:12px;color:var(--soft)}
+.err{background:#F8E6E2;color:#7A2D22;border:1px solid #E5BFB6;border-radius:10px;padding:14px}
+@media (max-width:560px){
+  h1{font-size:28px}
+  .item{grid-template-columns:1fr 40px;grid-template-areas:"n d" "q p"}
+  .item .iname{grid-area:n} .item .del{grid-area:d} .item .qty{grid-area:q} .item .price{grid-area:p;max-width:140px;justify-self:end}
+  .prod{grid-template-columns:1fr 1fr 40px} .prod .pn{grid-column:1/-1}
+  .final{font-size:44px}
+}
+
+.brand{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
+.brand>span{font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-right:4px}
+.tabs{grid-template-columns:repeat(6,1fr)!important}
+.tabs button{font-size:14px;padding:12px 6px;line-height:1.25}
+.box h2 .new,.new{font-family:Arial,sans-serif;font-size:12px;background:#2F6B4F;color:#fff;border-radius:999px;padding:3px 9px;vertical-align:middle;margin-left:6px}
+.ph{color:var(--bronze);font-weight:700}
+.say{border-left:4px solid var(--bronze);padding:4px 0 4px 14px;font-style:italic;margin:10px 0}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.tile{background:#FBF3E4;border-top:3px solid var(--bronze);padding:12px 14px;display:flex;flex-direction:column;gap:4px}
+.tile b{font-family:Georgia,serif;font-size:26px;font-weight:400} .tile span{font-size:14px;color:var(--muted)}
+.chk2{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line);font-size:16px;cursor:pointer}
+.chk2 input{width:20px;height:20px;margin-top:2px;flex:none}
+.legend2{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px}
+.legend2 p{margin:0 0 4px}
+.why{background:var(--navy);color:var(--cream);border-radius:12px;padding:14px 16px}
+.why b{color:var(--gold);display:block;font-size:13px;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.abcd{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.abcd div{background:var(--navy);color:var(--cream);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:6px}
+.abcd b{color:var(--gold);font-family:Georgia,serif;font-size:20px;font-weight:400} .abcd span{font-size:14px;color:#E8E1D4}
+.stps{display:flex;flex-direction:column}
+.stp{display:grid;grid-template-columns:44px 210px 1fr;gap:14px;align-items:start;padding:12px 0;border-top:1px solid var(--line)}
+.lt{font-family:Georgia,serif;font-size:34px;color:var(--bronze);line-height:1}
+.stp h3{margin:0 0 2px;font-size:17px} .stp .hint{margin:0} .stp .say{margin:0}
+.opts2{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px}
+.opt2{text-align:left;background:#fff;border:1.5px solid #CFC3AE;border-radius:12px;padding:12px 14px;font:inherit;font-size:15px;cursor:pointer;color:var(--navy)}
+.opt2:hover{border-color:var(--navy)} .opt2.on{background:var(--navy);color:var(--cream);border-color:var(--navy)}
+.rc{border-radius:14px;padding:16px 18px;margin-top:14px;border:1.5px solid}
+.rc p{margin:6px 0}
+.rct{font-weight:700;font-size:18px;margin:0 0 6px!important}
+.rc.ok{background:#EEF5F0;border-color:#9CC3AC} .rc.gift{background:#F4EFFA;border-color:#C2B2DE} .rc.wa{background:#EEF3F9;border-color:#B6CBE4} .rc.no{background:#F5F2EC;border-color:#D8CFC0}
+.pend{background:#FFF1D6;border:1px solid #E9C987;color:#6B4A12;border-radius:10px;padding:8px 12px;font-size:14px;margin-top:10px!important}
+.gp{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+.gp label{margin:0;display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;color:var(--muted)}
+.g1{grid-template-columns:1fr!important;max-width:360px}.g2{grid-template-columns:1fr 1fr!important}
+.optA{border-top:1px solid var(--line);padding-top:12px;margin-top:12px}
+.gres{display:grid;grid-template-columns:1fr 1fr 1.2fr;gap:8px;margin:6px 0 10px}
+.gres div{background:#fff;border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:2px;border:1px solid #DCD2EC}
+.gres span{font-size:13px;color:var(--muted)} .gres b{font-size:22px} .gres small{font-size:12px;color:var(--soft)}
+.gres .tot{background:var(--navy);border-color:var(--navy)} .gres .tot span,.gres .tot small{color:#C9C3B8} .gres .tot b{color:var(--cream)}
+.btn.go{width:auto;margin-top:10px;padding:10px 18px;font-size:15px}
+.acc{font-size:14px;color:var(--muted);margin:10px 0 0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.w{border-radius:12px;padding:14px 16px} .w p{margin:6px 0 0} .w.ok{background:#EEF5F0} .w.no{background:#F7ECE8}
+table.tt{width:100%;border-collapse:collapse;font-size:15px}
+.tt th{text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--soft);padding:8px;border-bottom:2px solid var(--navy)}
+.tt td{padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+@media (max-width:860px){ .tabs{grid-template-columns:repeat(3,1fr)!important} .tiles,.abcd{grid-template-columns:1fr 1fr} .legend2{grid-template-columns:1fr} }
+@media (max-width:560px){ .tabs{grid-template-columns:1fr 1fr!important} .stp{grid-template-columns:36px 1fr} .stp .say{grid-column:1/-1} .gp,.gres,.two{grid-template-columns:1fr} .tiles{grid-template-columns:1fr 1fr} }
+
+/* ===== Tema De Felipe: más claro y legible ===== */
+:root{--navy:#586676;--navy2:#6C7987;--cream:#FFFFFF;--card:#FFFFFF;--line:#E6E8EA;--bronze:#2F6F8A;--gold:#D6E4EB;--muted:#4A5562;--soft:#66707C;--ink:#2B333D;--tint:#EEF4F7;--grey:#F3F4F6;--sage:#5E8F68}
+html,body{background:#F5F6F7;color:var(--ink);font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:17px;line-height:1.6}
+header{background:var(--navy);padding:26px 20px 22px}
+header .eyebrow{color:#E3E8EC;font-weight:400;letter-spacing:2px}
+h1{font-family:inherit;font-weight:300;font-size:32px;letter-spacing:.2px;color:#fff}
+.rules span{background:rgba(255,255,255,.14);color:#fff;font-size:13px}
+main{padding-top:22px}
+.box{border:1px solid var(--line);border-radius:12px;padding:22px 24px;box-shadow:none}
+.box h2{font-family:inherit;font-weight:600;font-size:20px;color:var(--ink);letter-spacing:0}
+.num{background:var(--navy);width:28px;height:28px;font-size:14px}
+.hint{color:var(--soft);font-size:15px}
+.brand .chip{font-size:15px}
+.chip{border:1px solid #CDD3D9;color:var(--ink)}
+.chip.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.tabs{background:transparent;padding:0;gap:0;border-bottom:1px solid #D5DAE0;border-radius:0;margin-bottom:20px}
+.tabs button{border-radius:0;color:var(--soft);font-weight:600;border-bottom:3px solid transparent;padding:12px 8px 10px;background:transparent!important;box-shadow:none!important}
+.tabs button.on{color:var(--ink);border-bottom-color:var(--navy)}
+.say{font-style:normal;background:var(--tint);border-left:3px solid #89AFC0;border-radius:0;padding:10px 14px;color:var(--ink)}
+.ph{color:var(--bronze);font-weight:700}
+mark{background:#FFF1CC;color:var(--ink)}
+.tile{background:var(--grey);border-top:none;border-left:3px solid var(--navy);border-radius:0}
+.tile b{font-family:inherit;font-weight:600;font-size:22px;color:var(--ink)}
+.abcd div{background:var(--grey);color:var(--ink);border-left:3px solid var(--navy);border-radius:0}
+.abcd b{font-family:inherit;font-weight:600;font-size:18px;color:var(--navy)}
+.abcd span{color:var(--muted);font-size:15px}
+.lt{font-family:inherit;font-weight:300;font-size:30px;color:var(--navy)}
+.stp h3{font-weight:600}
+.why{background:var(--tint);color:var(--ink);border-radius:10px}
+.why b{color:var(--bronze)}
+.opt2{border:1px solid #CDD3D9;border-radius:10px;font-size:16px;color:var(--ink)}
+.opt2.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.rc{background:#fff!important;border:1px solid var(--line);border-left:4px solid;border-radius:0 10px 10px 0}
+.rc.ok{border-left-color:var(--sage)} .rc.gift{border-left-color:var(--navy)} .rc.wa{border-left-color:#89AFC0} .rc.no{border-left-color:#B8BFC7}
+.rct{font-size:18px;color:var(--ink)}
+.pend{background:#FFF7E3;border:1px solid #F0DDA8;color:#6B5212}
+.gres div{border:1px solid var(--line);background:var(--grey)}
+.gres .tot{background:var(--navy);border-color:var(--navy)}
+.gres b{font-weight:600}
+.btn.dark,.btn.cpy,.btn.go{background:var(--navy);color:#fff;border-radius:10px}
+.btn.dark:hover{background:#4A5766}
+.note{background:var(--tint);border:1px solid #D3E2EA;color:var(--ink)}
+.tptext{background:#FBFCFC;border-color:var(--line);font-size:16px}
+.new{background:var(--sage)}
+.w.ok{background:#EEF4EF} .w.no{background:#F6F0EE}
+.tt th{border-bottom:2px solid var(--navy);color:var(--soft)}
+.chk2{font-size:16px}
+.who input,input[type=number],input[type=text]{border:1px solid #CDD3D9;border-radius:10px}
+footer{color:var(--soft)}
+
+/* ===== Herramienta unificada ===== */
+.mainnav{display:flex;gap:4px;margin-top:18px;overflow-x:auto;scrollbar-width:none}
+.mainnav button{flex:1 0 auto;background:transparent;border:0;color:#E3E8EC;font:inherit;font-size:15px;font-weight:600;padding:12px 16px;border-radius:10px 10px 0 0;cursor:pointer;text-align:left;line-height:1.25}
+.mainnav button span{display:block;font-size:12px;font-weight:400;color:#C3CCD4;margin-top:2px}
+.mainnav button.on{background:#F5F6F7;color:var(--ink)}
+.mainnav button.on span{color:var(--soft)}
+.mainnav button:focus-visible{outline:3px solid #89AFC0;outline-offset:-3px}
+header{padding-bottom:0!important}
+/* resultados: claros y legibles */
+.res{background:#fff;color:var(--ink);border:1px solid var(--line);border-left:4px solid var(--navy);border-radius:0 12px 12px 0}
+.res .eyebrow{color:var(--soft)}
+.final{font-family:inherit;font-weight:600;color:var(--ink)}
+.old{color:#8A929B}
+.badge{background:var(--navy);color:#fff}
+.res .say{color:var(--ink)} .sub{color:var(--muted)!important} .sub.warn{color:#9A3B2E!important}
+.tip{background:var(--tint);color:var(--ink)} .tip b{color:var(--bronze)} .tip span{color:var(--muted)}
+.btn{background:var(--navy);color:#fff}
+.box .btn.ghost{color:var(--navy);border-color:var(--navy);background:#fff}
+.split div{background:var(--grey);border:1px solid var(--line)} .split span,.split small{color:var(--muted)} .split b{color:var(--ink)}
+/* calculadora de tratamientos */
+.slot{background:var(--grey)!important;border:1px solid var(--line);border-radius:12px;box-shadow:none!important}
+.slot.full{border-color:#9AA6B2}
+.slh{color:var(--soft)} .slh .link{color:var(--bronze)}
+.slot select{border:1px solid #CDD3D9;border-radius:10px}
+.slp{color:var(--ink)}
+.qb{background:var(--grey)!important;border:1px solid var(--line)}
+.qb span{color:var(--soft)!important} .qb b{color:var(--ink)!important;font-weight:600}
+.qb3{background:var(--navy)!important;border-color:var(--navy)} .qb3 span,.qb3 small{color:#E3E8EC!important} .qb3 b{color:#fff!important}
+.note{border-radius:10px}
+.kv>span:first-child{color:var(--soft)}
+.iban{color:var(--ink)}
+.mini{border-color:var(--navy);color:var(--navy)}
+.tabs.sub{background:transparent}
+.bar{background:var(--navy)}
+@media (max-width:760px){ .mainnav button{font-size:14px;padding:10px 12px} .mainnav button span{display:none} }
+
+.mainnav{display:grid;grid-template-columns:repeat(5,1fr);overflow:visible}
+.mainnav button{white-space:normal}
+#addslot,.btn.ghost{background:#fff!important;color:var(--navy)!important;border:1px solid var(--navy)!important;font-size:15px;padding:10px 18px}
+@media (max-width:760px){
+  .mainnav{grid-template-columns:1fr 1fr;gap:6px;padding-bottom:14px}
+  .mainnav button{border-radius:10px;background:rgba(255,255,255,.12);padding:10px 12px}
+  .mainnav button.on{background:#F5F6F7}
+  .rules{display:none}
+  h1{font-size:26px}
+}
+
+.mainnav{grid-template-columns:repeat(6,1fr)}
+#sc-view .tabs{grid-template-columns:repeat(3,1fr)!important}
+details.prep{padding:0}
+details.prep>summary{list-style:none;cursor:pointer;padding:16px 22px;font-weight:600;font-size:17px;display:flex;flex-direction:column;gap:2px}
+details.prep>summary::-webkit-details-marker{display:none}
+details.prep>summary::after{content:"Mostrar ▾";font-size:13px;font-weight:600;color:var(--bronze);margin-top:4px}
+details.prep[open]>summary::after{content:"Ocultar ▴"}
+details.prep>summary span{font-weight:400;font-size:14px;color:var(--soft)}
+details.prep[open]{padding:0 22px 22px}
+details.prep[open]>summary{padding-left:0;padding-right:0}
+.next{background:var(--grey);border-radius:10px;padding:10px 14px;margin:12px 0 0!important;font-size:15px}
+.next b{color:var(--ink)}
+details.more{margin-top:10px}
+details.more>summary{cursor:pointer;color:var(--bronze);font-weight:600;font-size:15px;padding:4px 0}
+details.more[open]>summary{margin-bottom:6px}
+.lbl2{font-weight:600;font-size:15px;color:var(--ink);margin:14px 0 4px!important}
+.prnote{background:var(--grey);border-radius:10px;padding:10px 14px;font-size:14px;color:var(--muted);margin:0 0 14px}
+@media (max-width:760px){ #sc-view .tabs{grid-template-columns:1fr!important} #sc-view .tabs button{text-align:left;padding:10px 4px} }
+
+.mainnav button span{display:none}
+.mainnav button{text-align:center;padding:14px 8px;font-size:14px}
+@media (max-width:760px){
+  .mainnav{grid-template-columns:1fr 1fr}
+  .mainnav button{text-align:left}
+  #sc-view .tabs{border-bottom:none;gap:6px}
+  #sc-view .tabs button{border:1px solid var(--line)!important;border-radius:10px;background:#fff!important;padding:12px 14px}
+  #sc-view .tabs button.on{border-color:var(--navy)!important;box-shadow:inset 4px 0 0 var(--navy)!important}
+}
+
+.mainnav{grid-template-columns:repeat(7,1fr)}
+details.faq{border-bottom:1px solid var(--line);padding:4px 0}
+details.faq>summary{cursor:pointer;padding:12px 0;font-weight:600;font-size:16px;list-style:none;display:flex;gap:12px;align-items:baseline}
+details.faq>summary::-webkit-details-marker{display:none}
+details.faq>summary::before{content:"+";color:var(--bronze);font-weight:700;width:14px;flex:none}
+details.faq[open]>summary::before{content:"−"}
+details.faq p{margin:0 0 14px 26px;color:var(--ink)}
+.fcat{order:2;margin-left:auto;font-size:12px;font-weight:600;color:var(--soft);background:var(--grey);border-radius:999px;padding:2px 10px;white-space:nowrap}
+#flist{padding-top:8px;padding-bottom:8px}
+@media (max-width:760px){ .mainnav{grid-template-columns:1fr 1fr} .fcat{display:none} }
 </style>
 </head>
 <body>
 <header><div class="wrap">
   <p class="eyebrow">Grupo Dermatológico De Felipe</p>
   <h1>Herramienta Bright Friday 2026</h1>
-  <div class="rules"><span>1 tratamiento −10 %</span><span>2 −15 %</span><span>3 o más −20 %</span><span>Mismo producto = 1</span><span>Pago 26 y 27/11</span><span>Empezar antes del 25/02/2027</span></div>
+  <div class="rules"><span>26 y 27/11</span><span>1 · 2 · 3+ tratamientos → −10 · −15 · −20 %</span><span>Mismo producto = 1</span><span>Empezar antes del 25/02/2027</span></div>
+  <nav class="mainnav" id="mainnav" aria-label="Secciones"></nav>
 </div></header>
-<noscript><div class="wrap err" style="margin:16px auto">Esta calculadora necesita JavaScript activado.</div></noscript>
-<main><div class="wrap" id="view"></div></main>
+<noscript><div class="wrap err" style="margin:16px auto">Esta herramienta necesita JavaScript activado.</div></noscript>
+<main><div class="wrap" id="sc-view"></div><div class="wrap" id="view" style="display:none"></div><div class="wrap" id="faq-view" style="display:none"></div></main>
 <div class="bar" id="bar" aria-live="polite"></div>
 <div class="toast" id="toast" role="status"></div>
-<footer><div class="wrap">Precios de la web pública de De Felipe (no incluye Remind ni London). Si un precio no coincide, cámbialo en la línea. Ante un caso dudoso, consulta con tu líder de apoyo antes de confirmar el precio al paciente.</div></footer>
+<footer><div class="wrap">Precios de la calculadora: lista de la web pública de De Felipe y calculadora BF 2025. Si un precio no coincide, cámbialo. Ante un caso dudoso, consulta con tu líder de apoyo.</div></footer>
 <script>
 (function(){
   "use strict";
@@ -167,8 +511,8 @@ footer{padding:0 16px 30px;font-size:12px;color:var(--soft)}
   try {
   /* ======= DATOS DE PAGO: edita solo estas líneas ======= */
   var PAGO = [
-    { titulo:"Tratamientos y tarjetas regalo de tratamientos", cuenta:"Cuenta de tratamientos", beneficiario:"Clínica Dermatológica De Felipe SLP", iban:"ES6200754732710600099010" },
-    { titulo:"Productos y tarjetas regalo de productos", cuenta:"Cuenta de productos", beneficiario:"IC Dermatology group SL", iban:"ES6901824027290201856773" }
+    { titulo:"Clínica Dermatológica De Felipe · tratamientos y tarjetas regalo de tratamientos", cuenta:"Cuenta de tratamientos De Felipe", beneficiario:"Clínica Dermatológica De Felipe SLP", iban:"ES6200754732710600099010" },
+    { titulo:"Remind Hair · productos · tarjetas regalo de productos", cuenta:"Cuenta Remind Hair y productos", beneficiario:"IC Dermatology group SL", iban:"ES6901824027290201856773" }
   ];
   var CONCEPTO = "Nombre completo y Número de Identidad";
   /* ===================================================== */
@@ -282,7 +626,7 @@ footer{padding:0 16px 30px;font-size:12px;color:var(--soft)}
 
   function draw(){
     var v=$("#view"), h="";
-    h+='<div class="tabs" role="tablist">'+[["tab","Calculadora de tratamientos"],["p","Calculadora de productos"],["g","Tarjeta regalo"],["tpl","Plantillas"],["pay","Datos de pago"]].map(function(m){ return '<button role="tab" aria-selected="'+(C.mode===m[0])+'" class="'+(C.mode===m[0]?"on":"")+'" data-mode="'+m[0]+'">'+m[1]+'</button>'; }).join("")+'</div>';
+    if(false) h+=[].map(function(m){ return '<button role="tab" aria-selected="'+(C.mode===m[0])+'" class="'+(C.mode===m[0]?"on":"")+'" data-mode="'+m[0]+'">'+m[1]+'</button>'; }).join("")+'</div>';
     if(C.mode==="t") h+=drawT(); else if(C.mode==="p") h+=drawP(); else if(C.mode==="pay") h+=drawPay(); else if(C.mode==="tab") h+=drawQuick(); else if(C.mode==="tpl") h+=drawTpl(); else h+=drawG();
     v.innerHTML=h; bind(); drawBar();
   }
@@ -349,11 +693,28 @@ footer{padding:0 16px 30px;font-size:12px;color:var(--soft)}
     return h;
   }
   function drawG(){
-    var g=Number(C.gift)||0;
-    var h='<section class="box"><h2><span class="num">1</span>Valor de la tarjeta</h2><label class="price wide"><span class="sr">Valor</span><input type="number" inputmode="decimal" min="0" id="gift" value="'+esc(C.gift)+'" placeholder="Ej.: 300"><span class="e">€</span></label>';
-    h+='<p class="hint">Siempre −10 %, sea cual sea el importe. 12 meses para usarla. Al comprarla se decide si es para tratamientos o para productos, nunca las dos. Si regala tratamientos concretos, calcúlalos en «Calculadora de tratamientos»: ahí cuenta el tramo.</p></section>';
-    h+='<section id="result">'+(g?'<div class="res"><p class="eyebrow">Paga ahora</p><div class="price-line"><span class="final">'+eur(g*0.9)+'</span><span class="old">'+eur(g)+'</span><span class="badge">−10 %</span></div><p class="say">Tarjeta de '+eur(g)+' por '+eur(g*0.9)+'. Ahorra <b>'+eur(g*0.1)+'</b>.</p></div>':'')+'</section>';
+    var gm=C.gmode||"libre";
+    var h='<div class="tabs sub" role="tablist">'+[["libre","Importe libre"],["prog","Tratamiento nuevo"]].map(function(m){ return '<button role="tab" aria-selected="'+(gm===m[0])+'" class="'+(gm===m[0]?"on":"")+'" data-gmode="'+m[0]+'">'+m[1]+'</button>'; }).join("")+'</div>';
+    if(gm==="libre"){
+      h+='<section class="box"><h2><span class="num">1</span>Valor de la tarjeta</h2><label class="price wide"><span class="sr">Valor</span><input type="number" inputmode="decimal" min="0" id="gift" value="'+esc(C.gift)+'" placeholder="Ej.: 300"><span class="e">€</span></label>';
+      h+='<p class="hint">Siempre −10 %, sea cual sea el importe, y va aparte: no suma para el tramo de otros tratamientos. 12 meses para usarla. Al comprarla se decide si es para tratamientos o para productos, nunca las dos. Una tarjeta de un tratamiento concreto sí cuenta como un tratamiento más: calcúlala en «Calculadora de tratamientos».</p></section>';
+    } else {
+      h+='<section class="box"><h2><span class="num">1</span>Programa que le interesa</h2><p class="hint" style="margin:0 0 12px">Para quien quiere un tratamiento nuevo y prefiere tener margen para decidir con el doctor: tarjeta regalo por el importe del programa, con la primera consulta incluida.</p>'
+        +'<div class="gp" style="grid-template-columns:1fr;max-width:360px"><label>Precio orientativo del programa<span class="price"><input type="number" inputmode="decimal" min="0" id="gprog" value="'+esc(C.gprog||"")+'" placeholder="Ej.: 900"><span class="e">€</span></span></label></div></section>';
+    }
+    h+='<section id="result">'+giftResult()+'</section>';
     return h;
+  }
+  function giftResult(){
+    if((C.gmode||"libre")==="libre"){ var g=Number(C.gift)||0; if(!g) return '';
+      return '<div class="res"><p class="eyebrow">Paga ahora</p><div class="price-line"><span class="final">'+eur(g*0.9)+'</span><span class="old">'+eur(g)+'</span><span class="badge">−10 %</span></div><p class="say">Tarjeta de '+eur(g)+' por '+eur(g*0.9)+'. Ahorra <b>'+eur(g*0.1)+'</b>.</p></div>'; }
+    var pr=Number(C.gprog)||0;
+    if(!pr) return '';
+    var pay=pr*0.9;
+    return '<div class="res"><p class="eyebrow">Paga ahora</p><div class="price-line"><span class="final">'+eur(pay)+'</span><span class="old">'+eur(pr)+'</span><span class="badge">−10 %</span></div>'
+      +'<p class="say">Tarjeta regalo de '+eur(pr)+' por '+eur(pay)+'. Ahorra <b>'+eur(pr-pay)+'</b>.</p>'
+      +'<p class="sub">La primera consulta está incluida: cuando vaya a consulta, la tarjeta cubre el programa. Puede usarla durante 12 meses en el tratamiento que le indique el doctor.</p>'
+      +'<p class="sub">Qué decir: «Puede reservar ya una tarjeta regalo Bright Friday de '+eur(pr)+' por '+eur(pay)+'. Como referencia, un programa así con nosotros suele estar en torno a '+eur(pr)+', y la primera consulta con el doctor está incluida».</p></div>';
   }
   function fmtIban(s){ return String(s).replace(/\s+/g,"").toUpperCase().replace(/(.{4})/g,"$1 ").trim(); }
   function copyTxt(t,b,label){
@@ -373,7 +734,7 @@ footer{padding:0 16px 30px;font-size:12px;color:var(--soft)}
       if(!falta) h+='<button class="btn dark" data-cpall="'+i+'">Copiar los tres datos</button>';
       h+='</section>';
     });
-    h+='<p class="hint">Tarjeta regalo: al comprarla se decide si es para tratamientos o para productos, porque cada una va a una cuenta distinta.</p>';
+    h+='<p class="hint">Tarjeta regalo: al comprarla se decide si es para tratamientos o para productos, porque cada una va a una cuenta distinta. En Remind Hair, todo va a la cuenta de IC Dermatology group SL.</p>';
     return h;
   }
   var TABLE = [
@@ -396,7 +757,7 @@ footer{padding:0 16px 30px;font-size:12px;color:var(--soft)}
   }
   function drawQuick(){
     var r=quickCalc();
-    var h='<p class="hint" style="margin:0 0 12px">Elige lo que coge el paciente en cada hueco y abajo sale el precio Bright Friday.</p><div class="slots">';
+    var h='<p class="prnote">Precios de Clínica Dermatológica De Felipe. Para Remind Hair o un precio que no esté en la lista, elige «Otro tratamiento» con su importe.</p><p class="hint" style="margin:0 0 12px">Elige lo que coge el paciente en cada hueco y abajo sale el precio Bright Friday.</p><div class="slots">';
     C.slots.forEach(function(id,i){ var p=id!=null?PRICES[id]:null;
       h+='<div class="slot'+(p?' full':'')+'"><div class="slh"><span>Tratamiento '+(i+1)+'</span>'+(C.slots.length>4||p?'<button class="link" data-sclr="'+i+'" aria-label="Quitar tratamiento '+(i+1)+'">'+(C.slots.length>4&&!p?'Quitar':'Borrar')+'</button>':'')+'</div>'
         +'<select data-slot="'+i+'" aria-label="Tratamiento '+(i+1)+'">'+optsHTML(id)+'</select>'
@@ -486,7 +847,10 @@ footer{padding:0 16px 30px;font-size:12px;color:var(--soft)}
     document.querySelectorAll("[data-mode]").forEach(function(b){ b.addEventListener("click", function(){ C.mode=b.getAttribute("data-mode"); draw(); }); });
     var q=$("#q"); if(q) q.addEventListener("input", function(){ C.q=q.value; if(C.q) C.cat=""; $("#res").innerHTML=drawRes(); bindDyn(); });
     var ap=$("#addp"); if(ap) ap.addEventListener("click", function(){ C.prods.push({name:"",price:"",ex:false}); draw(); var ins=document.querySelectorAll("[data-pp]"); ins[ins.length-1].focus(); });
-    var gi=$("#gift"); if(gi) gi.addEventListener("input", function(){ C.gift=gi.value; var pos=gi.selectionStart; $("#result").innerHTML=drawG().split('<section id="result">')[1].replace(/<\/section>$/,""); });
+    var gi=$("#gift"); if(gi) gi.addEventListener("input", function(){ C.gift=gi.value; $("#result").innerHTML=giftResult(); });
+    var gp=$("#gprog"); if(gp) gp.addEventListener("input", function(){ C.gprog=gp.value; $("#result").innerHTML=giftResult(); });
+    var gv=$("#gvis"); if(gv) gv.addEventListener("input", function(){ C.gvis=gv.value; $("#result").innerHTML=giftResult(); });
+    document.querySelectorAll("[data-gmode]").forEach(function(b){ b.onclick=function(){ C.gmode=b.getAttribute("data-gmode"); draw(); }; });
     bindDyn();
   }
   function bindDyn(){
@@ -529,10 +893,381 @@ footer{padding:0 16px 30px;font-size:12px;color:var(--soft)}
       if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(ok,fb); else fb();
     };
   }
-  draw();
+  window.BFCALC = {
+    show:function(m){ C.mode=m; draw(); },
+    quick:function(){ var ids=C.slots.filter(function(x){ return x!=null; }); var r=quickCalc(); return { names:ids.map(function(id){ return PRICES[id][1]; }), full:r.full, bf:r.bf, eur:eur }; },
+    prod:function(){ var r=prodCalc(); return { names:r.ps.map(function(p){ return (p.name||"").trim(); }), full:r.full, bf:r.bf, eur:eur }; }
+  };
 
   } catch(e){ document.getElementById("view").innerHTML='<div class="err"><b>No se ha podido cargar la calculadora.</b> Recarga la página. Si sigue fallando, avisa a Natalia.</div>'; if(window.console) console.error(e); }
 })();
+</script>
+<script>
+(function(){
+  "use strict";
+  function $(s){ return document.querySelector(s); }
+  function esc(v){ return String(v==null?"":v).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];}); }
+  function eur(n){ n=Math.round(n*100)/100; var ent=Math.floor(n), dec=Math.round((n-ent)*100); var s=String(ent).replace(/\B(?=(\d{3})+(?!\d))/g,"."); if(dec) s+=","+(dec<10?"0":"")+dec; return s+" €"; }
+  function fmtIban(s){ return String(s).replace(/\s+/g,"").replace(/(.{4})/g,"$1 ").trim(); }
+  function store(k,v){ try{ if(v===undefined) return localStorage.getItem("bf26sc_"+k); localStorage.setItem("bf26sc_"+k,v); }catch(_){ return null; } }
+
+  /* ======= DATOS DE LAS MARCAS: edita solo este bloque ======= */
+  var IC = { ben:"IC Dermatology group SL", iban:"ES6901824027290201856773" };
+  var BRANDS = {
+    df:{ label:"Clínica Dermatológica De Felipe", es:"Clínica Dermatológica De Felipe", ca:"Clínica Dermatològica De Felipe", en:"Clínica Dermatológica De Felipe",
+         accT:{ ben:"Clínica Dermatológica De Felipe SLP", iban:"ES6200754732710600099010" }, accP:IC,
+         excl:"Consultas, actos, AP y cirugía dermatológica y plástica",
+         cross:[["Arrugas dinámicas","Bótox","Bioestimuladores · Skinbooster · Profhilo"],["Arrugas estáticas","Ácido hialurónico","CO2 · Bioestimulador · Skinbooster · Profhilo"],["Acné","Programa acné","Limpieza facial con extracción · Test genético · Programa cicatrices"],["Cicatrices de acné","Programa cicatrices","Exosomas · Bioestimulador · Skinbooster · Profhilo"],["Envejecimiento","PRF","Limpieza facial · Bioestimulador · Liftera · Morpheus8"],["Flacidez","Liftera","Bioestimulador · Morpheus8"],["Calidad de piel","PRF (láseres combinados)","Limpieza facial · Bioestimulador · Skinbooster · Profhilo"],["Corporal","Criolipólisis","Programa nutrición · Programa corporal"]] },
+    rh:{ label:"Remind Hair", es:"Remind Hair", ca:"Remind Hair", en:"Remind Hair",
+         accT:IC, accP:IC,
+         excl:"Consultas, actos y trasplante capilar (es cirugía)",
+         cross:[["Alopecia","Programa alopecia","Exosomas · Test genético · Bótox capilar · Nanofat"]] }
+  };
+  var CONCEPTO = { es:"Nombre completo y Número de Identidad.", ca:"Nom complet i número d'identitat.", en:"Full name and identification number." };
+  /* =========================================================== */
+
+  var S = { tab:"antes", brand:store("brand")||"df", lang:"es", me:store("me")||"", pac:"", sex:"x", want:null, end:null, prog:"", vis:"50", gtype:"t", open:null, checks:{} };
+  function B(){ return BRANDS[S.brand]; }
+  function bname(l){ return B()[l||"es"]; }
+  function me(){ return S.me.trim() || "[tu nombre]"; }
+  function ph(t){ return '<span class="ph">'+t+'</span>'; }
+
+  /* ---------- Plantillas ---------- */
+  var GREET = { es:{o:"Apreciado",a:"Apreciada",x:"Apreciado/a",p:"[Nombre del paciente]",m:"[Tu nombre]"}, ca:{o:"Benvolgut",a:"Benvolguda",x:"Benvolgut/da",p:"[Nom del pacient]",m:"[El teu nom]"}, en:{o:"Dear",a:"Dear",x:"Dear",p:"[Patient's name]",m:"[Your name]"} };
+  var TPLS = [
+    { id:"seg", n:"Seguimiento tras la llamada", nueva:true, when:"Ha hablado contigo, le interesa pero no ha cerrado. Le abres conversación para enviarle los detalles cuando responda.", ch:"WhatsApp desde Salesforce", wa:true,
+      es:"Hola, {PAC}. Le escribe {ME}, de {BRAND}. Gracias por la conversación de hoy. Tal y como le comentábamos, el 26 y el 27 de noviembre tenemos la campaña Bright Friday y nos gustaría que pudiera disfrutarla. Si quiere recibir los detalles de su asesoramiento y los siguientes pasos, responda a este mensaje y se los enviamos. Un cordial saludo.",
+      ca:"Hola, {PAC}. Us escriu {ME}, de {BRAND}. Gràcies per la conversa d'avui. Tal com us comentàvem, el 26 i el 27 de novembre tenim la campanya Bright Friday i ens agradaria que en poguéssiu gaudir. Si voleu rebre els detalls del vostre assessorament i els passos següents, responeu aquest missatge i us els enviarem. Una cordial salutació.",
+      en:"Hello {PAC}, this is {ME} from {BRAND}. Thank you for speaking with us today. As we mentioned, our Bright Friday campaign takes place on 26 and 27 November and we would love you to benefit from it. If you would like to receive the details of your consultation and the next steps, simply reply to this message and we will send them to you. Kind regards." },
+    { id:"ap", n:"Apertura · llamada fallida", when:"No contesta o no puede hablar. Abre la conversación para conseguir la llamada.", ch:"WhatsApp desde Salesforce o email",
+      es:"Encantados de saludarle.\n\nDesde {BRAND} queremos asegurarnos de que su experiencia con nosotros continúe siendo excelente y acompañarle en su bienestar.\n\nBasándonos en su paso por nuestra clínica, creemos que podría interesarle una campaña que realizamos los días 26 y 27 de noviembre, especialmente diseñada para acompañar los objetivos de salud y belleza de nuestros pacientes, manteniendo los estándares de calidad de siempre.\n\nSi desea conocer más o valorar si puede ser útil en su caso, estaremos encantados de atenderle por esta misma vía o telefónicamente.\n\nSaludos cordiales,\n{BRAND}",
+      ca:"Ens complau saludar-vos.\n\nDes de {BRAND} volem assegurar-nos que la vostra experiència amb nosaltres continuï sent excel·lent i acompanyar-vos en el vostre benestar.\n\nTenint en compte la vostra experiència a la nostra clínica, creiem que us podria interessar una campanya que durem a terme els dies 26 i 27 de novembre, especialment dissenyada per acompanyar els objectius de salut i bellesa dels nostres pacients, mantenint els estàndards de qualitat de sempre.\n\nSi voleu obtenir-ne més informació o valorar si pot ser útil en el vostre cas, estarem encantats d'atendre-us per aquesta mateixa via o telefònicament.\n\nCordialment,\n{BRAND}",
+      en:"We are delighted to be in touch.\n\nAt {BRAND}, we value the trust you place in us and remain committed to providing you with the highest standards of care.\n\nAs a previous patient of our clinic, we thought you might be interested in a special campaign taking place on 26 and 27 November. It has been designed to support our patients in achieving their individual skin health and aesthetic goals, while maintaining the same standards of care and expertise you have come to expect from us.\n\nShould you wish to receive further information or discuss whether any of the available options may be suitable for you, our team would be pleased to assist you. You can simply reply to this message or contact us by telephone.\n\nKind regards,\n{BRAND}" },
+    { id:"info", n:"Información de campaña", when:"Responde interesado o pregunta por escrito. Después, vuelve a llamarle.", ch:"WhatsApp desde Salesforce o email",
+      es:"Encantados de saludarle,\n\nTal y como nos ha solicitado, le enviamos los detalles de nuestra campaña Bright Friday 2026, vigente los días 26 y 27 de noviembre.\n\nLa campaña ofrece:\n· 10% de descuento en 1 tratamiento\n· 15% de descuento en 2 tratamientos\n· 20% de descuento en 3 o más tratamientos\n\nLa campaña de Bright Friday permite comenzar los tratamientos con una bonificación para su disfrute hasta el 25 de febrero de 2027.\n\nSi desea que le ayudemos a valorar qué opción puede adaptarse mejor a sus objetivos, estaremos encantados de orientarle.\n\nReciba un cordial saludo,\n{BRAND}",
+      ca:"Ens complau saludar-vos,\n\nTal com ens heu sol·licitat, us fem arribar els detalls de la nostra campanya Bright Friday 2026, vigent els dies 26 i 27 de novembre.\n\nLa campanya ofereix:\n· 10% de descompte en 1 tractament\n· 15% de descompte en 2 tractaments\n· 20% de descompte en 3 tractaments o més\n\nLa campanya Bright Friday us permet començar els tractaments amb una bonificació que podreu gaudir fins al 25 de febrer de 2027.\n\nSi voleu que us ajudem a valorar quina opció s'adapta millor als vostres objectius, estarem encantats d'assessorar-vos.\n\nRebeu una cordial salutació,\n{BRAND}",
+      en:"It is a pleasure to be in touch.\n\nAs requested, please find below the details of our Bright Friday 2026 campaign, available on 26 and 27 November.\n\nThe campaign offers:\n· 10% off 1 treatment\n· 15% off 2 treatments\n· 20% off 3 or more treatments\n\nThe benefits of our Bright Friday campaign can be applied to treatments commenced by 25 February 2027.\n\nShould you wish to discuss which option would best suit your individual goals, our team would be delighted to provide further guidance.\n\nKind regards,\n{BRAND}" },
+    { id:"tinfo", n:"Información de tarjeta regalo", when:"Pregunta por las tarjetas regalo, o el tratamiento que le interesa no está valorado por un doctor.", ch:"WhatsApp desde Salesforce o email",
+      es:"Encantados de saludarle. Tal y como nos ha solicitado, le enviamos la información de nuestras tarjetas regalo durante la campaña Bright Friday, los días 26 y 27 de noviembre:\n\n· Bonificación del 10 %: por ejemplo, una tarjeta de 1.000 € tiene un precio de 900 €.\n· Se puede utilizar durante 12 meses desde la compra.\n· Cada tarjeta es para tratamientos o para productos, nunca para ambos. Si desea regalar las dos cosas, podemos preparar dos tarjetas.\n· Puede recibirla en formato digital o por mensajería. Los envíos se realizan a partir del 30 de noviembre.\n\nSi lo desea, le llamamos para ayudarle a elegir el importe que mejor encaje.\n\nReciba un cordial saludo,\n{BRAND}",
+      ca:"Ens plau saludar-vos. Tal com ens heu demanat, us fem arribar la informació de les nostres targetes regal durant la campanya Bright Friday, els dies 26 i 27 de novembre:\n\n· Bonificació del 10 %: per exemple, una targeta de 1.000 € té un preu de 900 €.\n· Es pot utilitzar durant 12 mesos des de la compra.\n· Cada targeta és per a tractaments o per a productes, mai per a totes dues coses. Si voleu regalar-ne de tots dos, us en podem preparar dues.\n· La podeu rebre en format digital o per missatgeria. Els enviaments es fan a partir del 30 de novembre.\n\nSi voleu, us truquem per ajudar-vos a triar l'import que millor s'hi adigui.\n\nRebeu una cordial salutació,\n{BRAND}",
+      en:"We hope this message finds you well. As requested, please find below the details of our gift cards during the Bright Friday campaign, on 26 and 27 November:\n\n· 10% off: for example, a gift card worth 1,000 € costs 900 €.\n· It can be used for 12 months from the date of purchase.\n· Each card is for treatments or for products, never both. If you would like to give both, we can prepare two cards.\n· You can receive it digitally or by courier. Deliveries start on 30 November.\n\nIf you wish, we can call you to help choose the amount that suits best.\n\nKind regards,\n{BRAND}" },
+    { id:"ct", n:"Cierre de compra · tratamientos", when:"Confirma tratamientos. Es el último mensaje que recibe.", ch:"Siempre por email", acc:"t",
+      es:"Encantados de saludarle,\n\nTras nuestra conversación, le enviamos la información relativa a los tratamientos en los que ha mostrado interés:\n\nTratamiento(s):\n{LIST}\n\nPrecio habitual: {HAB}\nPrecio Bright Friday: {BF}\n\nPara disfrutar de la promoción, el importe total deberá abonarse durante los días 26 y 27 de noviembre, en cualquiera de nuestras clínicas o mediante transferencia bancaria:\n\nBeneficiario: {BEN}\nNúmero de cuenta: {IBAN}\nConcepto: {CONC}\n\nAgradeceremos que nos envíe el justificante bancario respondiendo a este mismo email.\n\nLa campaña de Bright Friday permite comenzar los tratamientos con descuento para su disfrute hasta el 25 de febrero de 2027.\n\nTodo nuestro equipo está a su disposición para cualquier duda y esperamos que disfrute de sus tratamientos.\n\nReciba un cordial saludo,\n{BRAND}",
+      ca:"Ens complau saludar-vos,\n\nDesprés de la nostra conversa, us fem arribar la informació relativa als tractaments pels quals heu mostrat interès:\n\nTractament(s):\n{LIST}\n\nPreu habitual: {HAB}\nPreu Bright Friday: {BF}\n\nPer beneficiar-vos de les condicions de la campanya, l'import total s'haurà d'abonar durant els dies 26 i 27 de novembre, a qualsevol dels nostres centres o mitjançant transferència bancària:\n\nBeneficiari: {BEN}\nNúmero de compte: {IBAN}\nConcepte: {CONC}\n\nUs agrairem que ens feu arribar el comprovant bancari responent a aquest mateix correu electrònic.\n\nLa campanya Bright Friday us permet iniciar els tractaments amb les condicions preferents de la campanya, que podreu gaudir fins al 25 de febrer de 2027.\n\nTot el nostre equip està a la vostra disposició per resoldre qualsevol dubte. Esperem que gaudiu dels vostres tractaments.\n\nRebeu una cordial salutació,\n{BRAND}",
+      en:"Further to our conversation, please find below the details of the treatments you expressed an interest in:\n\nTreatment(s):\n{LIST}\n\nStandard price: {HAB}\nBright Friday price: {BF}\n\nTo benefit from the campaign terms, the full amount must be paid on 26 or 27 November, either at any of our clinics or by bank transfer:\n\nAccount name: {BEN}\nAccount number (IBAN): {IBAN}\nPayment reference: {CONC}\n\nWe would appreciate it if you could reply to this email with a copy of your bank transfer confirmation.\n\nThe Bright Friday campaign allows you to begin your treatments under the campaign's preferential terms, which remain available until 25 February 2027.\n\nOur team remains at your disposal should you have any questions, and we hope you enjoy your treatments.\n\nKind regards,\n{BRAND}" },
+    { id:"cg", n:"Cierre de compra · tarjeta regalo", when:"Confirma una tarjeta regalo, también la del caso «tratamiento sin valorar». Elige si es de tratamientos o de productos.", ch:"Siempre por email", acc:"g",
+      es:"Muchas gracias por su compra. Le confirmamos los datos de su tarjeta regalo Bright Friday:\n\nTipo de tarjeta: {GTYPE}\nValor de la tarjeta: [importe]\nPrecio Bright Friday: [importe con bonificación]\nFormato: [Digital / Mensajería a la dirección indicada]\nTexto del reverso: [tratamiento, importe o dedicatoria / sin texto]\n\nPara completar la compra, el importe deberá abonarse el 26 o el 27 de noviembre, en cualquiera de nuestras clínicas o mediante transferencia bancaria:\n\nBeneficiario: {BEN}\nNúmero de cuenta: {IBAN}\nConcepto: {CONC}\n\nLe agradeceremos que nos envíe el justificante respondiendo a este mismo email. Una vez confirmado el pago, recibirá su tarjeta [en formato digital / por mensajería a partir del 30 de noviembre].\n\nLa tarjeta podrá utilizarse durante 12 meses, hasta el [fecha].\n\nTodo nuestro equipo queda a su disposición para cualquier duda.\n\nReciba un cordial saludo,\n{BRAND}",
+      ca:"Moltes gràcies per la vostra compra. Us confirmem les dades de la vostra targeta regal Bright Friday:\n\nTipus de targeta: {GTYPE}\nValor de la targeta: [import]\nPreu Bright Friday: [import amb bonificació]\nFormat: [Digital / Missatgeria a l'adreça indicada]\nText del revers: [tractament, import o dedicatòria / sense text]\n\nPer completar la compra, caldrà abonar l'import el 26 o el 27 de novembre, a qualsevol de les nostres clíniques o mitjançant transferència bancària:\n\nBeneficiari: {BEN}\nNúmero de compte: {IBAN}\nConcepte: {CONC}\n\nUs agrairem que ens envieu el justificant responent aquest mateix correu. Un cop confirmat el pagament, rebreu la targeta [en format digital / per missatgeria a partir del 30 de novembre].\n\nLa targeta es podrà utilitzar durant 12 mesos, fins al [data].\n\nTot el nostre equip resta a la vostra disposició per a qualsevol dubte.\n\nRebeu una cordial salutació,\n{BRAND}",
+      en:"Thank you very much for your purchase. Please find below the details of your Bright Friday gift card:\n\nCard type: {GTYPE}\nCard value: [amount]\nBright Friday price: [discounted amount]\nFormat: [Digital / Courier to the address provided]\nText on the back: [treatment, amount or message / no text]\n\nTo complete your purchase, the amount must be paid on 26 or 27 November, either at any of our clinics or by bank transfer:\n\nAccount name: {BEN}\nAccount number (IBAN): {IBAN}\nPayment reference: {CONC}\n\nPlease send us proof of payment by replying to this email. Once payment is confirmed, you will receive your card [digitally / by courier from 30 November].\n\nThe card can be used for 12 months, until [date].\n\nOur whole team remains at your disposal for any questions.\n\nKind regards,\n{BRAND}" },
+    { id:"cp", n:"Cierre de compra · productos", when:"Confirma productos.", ch:"Siempre por email", acc:"p",
+      es:"Encantados de saludarle,\n\nTras nuestra conversación, le enviamos la información relativa a los productos en los que ha mostrado interés:\n\nProducto(s):\n{LIST}\n\nPrecio habitual: {HAB}\nPrecio Bright Friday: {BF}\n\nPara disfrutar de la promoción, el importe total deberá abonarse durante los días 26 y 27 de noviembre, en cualquiera de nuestras clínicas o mediante transferencia bancaria:\n\nBeneficiario: {BEN}\nNúmero de cuenta: {IBAN}\nConcepto: {CONC}\n\nAgradeceremos que nos envíe el justificante bancario respondiendo a este mismo email.\n\nTodo nuestro equipo está a su disposición para cualquier duda y esperamos que disfrute de sus productos.\n\nReciba un cordial saludo,\n{BRAND}",
+      ca:"Ens complau saludar-vos,\n\nDesprés de la nostra conversa, us fem arribar la informació relativa als productes pels quals heu mostrat interès:\n\nProducte(s):\n{LIST}\n\nPreu habitual: {HAB}\nPreu Bright Friday: {BF}\n\nPer beneficiar-vos de les condicions de la campanya, l'import total s'haurà d'abonar durant els dies 26 i 27 de novembre, a qualsevol dels nostres centres o mitjançant transferència bancària:\n\nBeneficiari: {BEN}\nNúmero de compte: {IBAN}\nConcepte: {CONC}\n\nUs agrairem que ens feu arribar el comprovant bancari responent a aquest mateix correu electrònic.\n\nTot el nostre equip està a la vostra disposició per resoldre qualsevol dubte. Esperem que gaudiu dels vostres productes.\n\nRebeu una cordial salutació,\n{BRAND}",
+      en:"Further to our conversation, please find below the details of the products you expressed an interest in:\n\nProduct(s):\n{LIST}\n\nStandard price: {HAB}\nBright Friday price: {BF}\n\nTo benefit from the campaign terms, the full amount must be paid on 26 or 27 November, either at any of our clinics or by bank transfer:\n\nAccount name: {BEN}\nAccount number (IBAN): {IBAN}\nPayment reference: {CONC}\n\nWe would appreciate it if you could reply to this email with a copy of your bank transfer confirmation.\n\nOur team remains at your disposal should you have any questions, and we hope you enjoy your products.\n\nKind regards,\n{BRAND}" }
+  ];
+  // Apertura y seguimiento tras la llamada están dadas de alta en Salesforce
+  TPLS = TPLS.filter(function(t){ return t.id!=="seg" && t.id!=="ap"; });
+  var GTYPE = { t:{es:"Tratamientos",ca:"Tractaments",en:"Treatments"}, p:{es:"Productos",ca:"Productes",en:"Products"} };
+  function tplById(id){ for(var i=0;i<TPLS.length;i++) if(TPLS[i].id===id) return TPLS[i]; }
+  function accFor(tp){ if(tp.acc==="p") return B().accP; if(tp.acc==="g") return S.gtype==="p"?B().accP:B().accT; return B().accT; }
+  var FILLPH = { t:{es:["[Tratamiento 1]","[Tratamiento 2]","[Tratamiento 3]"],ca:["[Tractament 1]","[Tractament 2]","[Tractament 3]"],en:["[Treatment 1]","[Treatment 2]","[Treatment 3]"]}, p:{es:["[Producto 1]","[Producto 2]","[Producto 3]"],ca:["[Producte 1]","[Producte 2]","[Producte 3]"],en:["[Product 1]","[Product 2]","[Product 3]"]}, hab:{es:"[importe]",ca:"[import]",en:"[amount]"}, bf:{es:"[importe con bonificación]",ca:"[import amb la bonificació aplicada]",en:"[amount including campaign benefit]"} };
+  function fillCalc(tp,s,L){
+    if(s.indexOf("{LIST}")<0) return s;
+    var kind = tp.id==="cp" ? "p" : "t", d=null;
+    try{ if(window.BFCALC) d = kind==="p" ? BFCALC.prod() : BFCALC.quick(); }catch(_){}
+    if(d && d.names.length){
+      var ph=FILLPH[kind][L];
+      return s.replace("{LIST}", d.names.map(function(n,i){ return "· "+(n||ph[Math.min(i,2)].replace(/\d/,String(i+1))); }).join("\n")).replace("{HAB}", d.eur(d.full)).replace("{BF}", d.eur(d.bf));
+    }
+    return s.replace("{LIST}", FILLPH[kind][L].map(function(x){ return "· "+x; }).join("\n")).replace("{HAB}",FILLPH.hab[L]).replace("{BF}",FILLPH.bf[L]);
+  }
+  function tplText(tp,L,salesforce){
+    var g=GREET[L], s=tp[L], acc=accFor(tp);
+    if(tp.wa){
+      if(salesforce) return s.replace("{PAC}","{{1}}").replace("{ME}","{{2}}").replace(/\{BRAND\}/g,bname(L));
+      return s.replace("{PAC}",S.pac.trim()||g.p).replace("{ME}",S.me.trim()||g.m).replace(/\{BRAND\}/g,bname(L));
+    }
+    s=fillCalc(tp,s,L);
+    s=s.replace("{BEN}",acc.ben).replace("{IBAN}",acc.iban).replace("{CONC}",CONCEPTO[L]).replace("{GTYPE}",GTYPE[S.gtype][L]);
+    var i=s.lastIndexOf("\n");
+    s=s.slice(0,i)+"\n"+(S.me.trim()||g.m)+"\n"+s.slice(i+1);
+    s=s.replace(/\{BRAND\}/g,bname(L));
+    return g[S.sex]+" "+(S.pac.trim()||g.p)+(L==="en"?",":":")+"\n\n"+s;
+  }
+  function hl(s){ return esc(s).replace(/\[[^\]]+\]|\{\{\d\}\}/g,function(m){ return '<mark>'+m+'</mark>'; }); }
+
+  /* ---------- Copiar ---------- */
+  function copyTxt(t,b,label){
+    function ok(){ b.textContent="Copiado ✓"; setTimeout(function(){ b.textContent=label; },1800); }
+    function fb(){ try{ var ta=document.createElement("textarea"); ta.value=t; ta.setAttribute("readonly",""); ta.style.position="fixed"; ta.style.opacity="0"; document.body.appendChild(ta); ta.select(); var d=document.execCommand("copy"); document.body.removeChild(ta); if(d) ok(); else b.textContent="No se ha podido copiar"; }catch(_){ b.textContent="No se ha podido copiar"; } }
+    if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(ok,fb); else fb();
+  }
+
+  /* ---------- Pestañas ---------- */
+  var TABS=[["llamada","1 · En la llamada"],["ofrezco","2 · Propuesta personalizada"],["lenguaje","3 · Frases, objeciones y cross-selling"]];
+  S.tab="llamada"; S.view="sc";
+  function brandBar(){ return '<div class="brand" role="group" aria-label="Marca"><span>Llamo desde</span>'+[["df","Clínica Dermatológica De Felipe"],["rh","Remind Hair"]].map(function(b){ return '<button class="chip'+(S.brand===b[0]?' on':'')+'" data-brand="'+b[0]+'">'+b[1]+'</button>'; }).join("")+'</div>'; }
+  function draw(){
+    var h=brandBar();
+    if(S.view==="tpl"){ h+=vDespues(); }
+    else {
+      h+='<div class="tabs" role="tablist">'+TABS.map(function(t){ return '<button role="tab" aria-selected="'+(S.tab===t[0])+'" class="'+(S.tab===t[0]?"on":"")+'" data-tab="'+t[0]+'">'+t[1]+'</button>'; }).join("")+'</div>';
+      h+=({llamada:function(){ return vAntes()+vLlamada(); },ofrezco:vOfrezco,lenguaje:function(){ return vLenguaje()+vCross(); }})[S.tab]();
+    }
+    $("#sc-view").innerHTML=h; bind();
+  }
+  window.BFSC={ show:function(v){ S.view=v; draw(); } };
+
+  function vAntes(){
+    var items=["He leído la HC y la nota de mi lista: sé qué valoró y por qué no lo empezó.","Sé qué le interesa y si ya lo ha valorado un doctor o si habrá que confirmar su viabilidad en consulta.","Sé calcular el precio en «Calculadora de tratamientos» y dónde están los datos de pago.","Auriculares y Salesforce funcionan."];
+    var h='<details class="box prep"><summary>Antes de la primera llamada <span>Claves de 2026, check list y guía de lectura</span></summary><h2 style="margin-top:16px">Las claves de 2026</h2><div class="tiles">'
+      +'<div class="tile"><b>26 y 27</b><span>de noviembre. Pago esos dos días.</span></div>'
+      +'<div class="tile"><b>10 · 15 · 20 %</b><span>1, 2 o 3 o más tratamientos distintos, en todo el conjunto.</span></div>'
+      +'<div class="tile"><b>25/02/2027</b><span>Fecha límite para empezar los tratamientos.</span></div>'
+      +'<div class="tile"><b>Mié 25 · 21 h</b><span>Hasta entonces, la campaña es confidencial.</span></div></div>'
+      +'<p class="hint">No entra: '+esc(B().excl)+'. Solo tratamientos nuevos; las bonificaciones no son acumulables.</p>';
+    h+='<h2 style="margin-top:22px">Check list</h2>'+items.map(function(t,i){ return '<label class="chk2"><input type="checkbox" data-ck="'+i+'"'+(S.checks[i]?' checked':'')+'> <span>'+esc(t)+'</span></label>'; }).join("");
+    h+='<h2 style="margin-top:22px">Guía de lectura</h2><div class="legend2">'
+      +'<div><p class="say">«Expresiones orientativas»</p><p class="hint">Frases de referencia para acompañar la conversación. Cada asesor las adapta con naturalidad a su estilo y a cada paciente; no están pensadas para leerse de forma literal.</p></div>'
+      +'<div><p><span class="ph">[Información personalizada]</span></p><p class="hint">Datos que se completan a partir de la historia clínica y del listado de cada paciente, para que cada propuesta responda a su caso.</p></div>'
+      +'<div><p><b>A · B · C · D</b></p><p class="hint">Abrir, escuchar, resumir y proponer: las cuatro fases de cada conversación, siempre en este orden.</p></div></div>'
+      +'<div class="why"><b>Nuestro principio</b>En '+esc(bname())+' el asesoramiento se inspira, nunca se impone. Cada propuesta parte del criterio médico: antes de empezar cualquier tratamiento, un doctor evalúa su viabilidad y confirma que es el adecuado.</div></details>';
+    return h;
+  }
+
+  function step(l,t,d,say){ return '<div class="stp"><div class="lt">'+l+'</div><div><h3>'+t+'</h3><p class="hint">'+d+'</p></div><p class="say">'+say+'</p></div>'; }
+  function vLlamada(){
+    var bn=esc(bname()), nm=ph(esc(me()));
+    var h='<section class="box"><h2>El método: cuatro pasos en toda llamada</h2><div class="abcd">'
+      +['A · Abrir|Tono cálido y sin prisa. Motivo: su seguimiento.','B · Escuchar|Preguntas abiertas. Entender su momento.','C · Resumir|Frase espejo para confirmar.','D · Proponer|Bright Friday como solución, pasando antes por «Propuesta personalizada».'].map(function(x){ var p=x.split("|"); return '<div><b>'+p[0]+'</b><span>'+p[1]+'</span></div>'; }).join("")
+      +'</div><p class="hint">La campaña solo aparece en el paso D. Si en B no has entendido qué necesita, todavía no toca proponer.</p></section>';
+    h+='<section class="box"><h2>Llamada saliente · paciente que duda o está poco interesado</h2><div class="stps">'
+      +step("A","Abrir","Cercanía, sin prisa.",'«Hola, '+ph("[nombre]")+', le atiende '+nm+', de '+bn+'. Le llamo para saber cómo fue su última visita».')
+      +step("B","Escuchar","Pregunta y deja hablar.",'«¿Pudimos resolver todas sus dudas? ¿Qué le gustaría mejorar ahora?»')
+      +step("C","Resumir","Con su necesidad o con la HC.",'«Entiendo, lo que le gustaría es '+ph("[necesidad]")+'» o «En su visita el doctor le recomendó '+ph("[tratamiento de la HC]")+'».')
+      +step("D","Proponer","Le devolvemos la elección.",'«Por si le ayuda a decidir: el 26 y el 27 tenemos Bright Friday. En su caso, '+ph("[propuesta según «Propuesta personalizada»]")+'. Usted decide si le encaja».')
+      +'</div></section>';
+    h+='<section class="box"><h2>Llamada saliente · paciente que sigue interesado</h2><div class="stps">'
+      +step("A","Abrir","Igual que con el que duda.",'«Hola, '+ph("[nombre]")+', le atiende '+nm+', de '+bn+'. Le llamo para saber cómo ha ido desde su visita».')
+      +step("B","Escuchar","Profundiza en lo que le preocupa.",'«¿Cómo ha evolucionado desde entonces? ¿Qué es lo que más le preocupa ahora?»')
+      +step("C","Resumir","Frase espejo.",'«Entiendo, lo que le gustaría ahora es trabajar '+ph("[necesidad]")+'».')
+      +step("D","Proponer","Aquí entra el cross o el upselling.",'«Por lo que me cuenta, le puede interesar: el 26 y el 27 tenemos Bright Friday. Le recomendaría '+ph("[propuesta]")+' y tendría '+ph("[beneficio]")+'».')
+      +'</div></section>';
+    h+='<section class="box"><h2>Llamada entrante · llama el paciente</h2><div class="stps">'
+      +step("A","Abrir","Atención habitual.",'«'+bn+', le atiende '+nm+'. ¿En qué puedo ayudarle?»')
+      +step("B","Escuchar","Resuelve primero lo que pide.",'Atiende su consulta como siempre, sin mencionar todavía la campaña.')
+      +step("C","Resumir","Confirma su necesidad.",'«Entiendo, lo que necesita es '+ph("[necesidad o duda]")+'».')
+      +step("D","Proponer","Conecta con un beneficio.",'«Además, el 26 y el 27 tenemos Bright Friday. En su caso, '+ph("[propuesta según «Propuesta personalizada»]")+'».')
+      +'</div><p class="hint">Para despedirte: «¡Hasta la próxima!»</p></section>';
+    return h;
+  }
+
+  var WANT=[["paut","Un tratamiento que ya le ha indicado el doctor o un mantenimiento"],["nuevo","Un tratamiento nuevo que no le ha valorado ningún doctor"],["ambos","Las dos cosas: algo ya indicado y algo nuevo"],["regalo","Quiere hacer un regalo"],["prod","Productos"]];
+  var END=[["compra","Compra en la llamada"],["piensa","Le interesa pero no cierra"],["nocontesta","No contesta o no puede hablar"],["escrito","Pide la información por escrito"],["no","No le interesa"]];
+  function vOfrezco(){
+    var h='<section class="box"><h2><span class="num">1</span>¿Qué le interesa al paciente?</h2><p class="hint" style="margin:0 0 12px">Míralo en la HC antes de proponer nada.</p><div class="opts2">'
+      +WANT.map(function(w){ return '<button class="opt2'+(S.want===w[0]?' on':'')+'" data-want="'+w[0]+'">'+esc(w[1])+'</button>'; }).join("")+'</div>';
+    if(S.want) h+=wantResult();
+    h+='</section>';
+    h+='<section class="box"><h2><span class="num">2</span>¿Cómo ha acabado la llamada?</h2><div class="opts2">'
+      +END.map(function(w){ return '<button class="opt2'+(S.end===w[0]?' on':'')+'" data-end="'+w[0]+'">'+esc(w[1])+'</button>'; }).join("")+'</div>';
+    if(S.end) h+=endResult();
+    h+='</section>';
+    return h;
+  }
+  function card(kind,title,body){ return '<div class="rc '+kind+'"><p class="rct">'+title+'</p>'+body+'</div>'; }
+  function card2(kind,title,say,next,more){ return '<div class="rc '+kind+'"><p class="rct">'+title+'</p>'+say+(next?'<p class="next"><b>Siguiente paso:</b> '+next+'</p>':'')+(more?'<details class="more"><summary>Ver explicación</summary>'+more+'</details>':'')+'</div>'; }
+  function pend(t){ return '<p class="pend">Pendiente de validar por Carlos: '+t+'</p>'; }
+  var DOCTOR='<div class="why" style="margin-top:12px"><b>Si el doctor cambia algo</b>Si tras la valoración un tratamiento debe modificarse o cancelarse, se ajusta la reserva manteniendo la bonificación o, si fuera necesario, se gestiona la devolución.</div>';
+  function wantResult(){
+    var w=S.want;
+    if(w==="paut") return card2("ok","Ofrécelo con bonificación",
+      '<p class="say">«Como el doctor le indicó '+ph("[tratamiento]")+', estos días puede empezarlo con un '+ph("[10/15/20] %")+'. Si además '+ph("[otro tratamiento]")+', serían dos y pasaría al 15 % en los dos, o incluso con un tercero, al 20 % en todo».</p>',
+      'calcula el precio en «Calculadora de tratamientos». Si compra, envía «Cierre de compra · tratamientos».',
+      '<p>−10 % con 1 tratamiento, −15 % con 2 distintos y −20 % con 3 o más, en todo el conjunto. Cross-selling con tratamientos relacionados con su necesidad. Recuérdale que, antes de empezar, el doctor confirma la viabilidad del tratamiento.</p>');
+    if(w==="nuevo") return card2("gift","Tratamiento nuevo: el doctor confirma su viabilidad",
+      '<p class="lbl2">Opción 1 · Abonarlo con las condiciones de Bright Friday</p><p class="say">«Puede dejar el '+ph("[programa de cicatrices]")+' abonado con las condiciones de Bright Friday. Antes de empezar, el doctor evaluará su viabilidad y le confirmará si es el adecuado para usted; si hubiera que ajustarlo o cambiarlo por otro, lo ajustamos sin ningún problema».</p>'
+      +'<p class="lbl2">Opción 2 · Tarjeta regalo, si prefiere más margen</p><p class="say">«Si prefiere asesorarse con más calma, puede optar por una tarjeta regalo Bright Friday: tiene un 10 % y 12 meses para utilizarla, así decide con el doctor el tratamiento que más le convenga».</p>'+giftCalc(),
+      'opción 1: «Cierre de compra · tratamientos». Opción 2: «Cierre de compra · tarjeta regalo» (de tratamientos).',
+      '<p>No hace falta que el tratamiento esté pautado: cuenta para el tramo como cualquier otro. Lo importante es comunicar que, antes de empezar, un doctor evaluará su viabilidad y confirmará si puede hacerlo o si hay que ajustarlo o cambiarlo por otro. La tarjeta regalo se ofrece por el importe del programa con un −10 %, con la primera consulta incluida.</p>'+DOCTOR);
+    if(w==="ambos") return card2("ok","Los dos juntos, como un combinado",
+      '<p class="say">«Como el '+ph("[mantenimiento capilar]")+' ya lo tiene indicado, puede reservar su primera sesión. El '+ph("[bótox]")+' lo valorará antes el doctor, pero si reserva los dos juntos tendrá un 15 % en ambos, que es como más le beneficia la campaña. Si tras la valoración hubiera que ajustar algo, lo ajustamos sin ningún problema».</p>',
+      'calcula los dos en «Calculadora de tratamientos» y, si compra, envía «Cierre de compra · tratamientos».',
+      '<p>Se reservan como un combinado con la bonificación que corresponde al número de tratamientos distintos: es como el paciente sale más beneficiado. Si además quiere una tarjeta regalo: la de importe va aparte con su −10 %; la de un tratamiento concreto suma para el tramo.</p>'+DOCTOR);
+    if(w==="regalo") return card2("gift","Tarjeta regalo",
+      '<p class="say">«Puede regalar una tarjeta Bright Friday con un 10 %: por ejemplo, una de 300 € le sale por 270 €, y se puede usar durante 12 meses».</p>',
+      'pregunta si es para tratamientos o para productos. Información: «Información de tarjeta regalo». Si compra: «Cierre de compra · tarjeta regalo».',
+      '<div class="two"><div class="w ok"><b>Tarjeta de importe</b><p>Siempre −10 %. Va aparte: no suma para el tramo de los tratamientos que compre a la vez.</p></div><div class="w ok"><b>Tarjeta de un tratamiento concreto</b><p>Cuenta como un tratamiento más y suma para el tramo.</p></div></div><p>Cada tarjeta es para tratamientos o para productos, nunca las dos: van a cuentas distintas. Formato digital o por mensajería a partir del 30/11.</p>');
+    return card2("ok","Productos",
+      '<p class="say">«Con '+ph("[1/2/3]")+' productos tendría un '+ph("[10/15/20] %")+' en todos».</p>',
+      'calcula en «Calculadora de productos». Si compra: «Cierre de compra · productos».',
+      '<p>−10 % con 1 producto, −15 % con 2 y −20 % con 3 o más. ZO y All Skin Med cuentan para el tramo pero no se bonifican. La tienda online mantiene la bonificación hasta el domingo 29 a las 23:59.</p>');
+  }
+
+  function giftCalc(){
+    var pr=Number(S.prog)||0, out="";
+    if(pr){ var pay=pr*0.9;
+      out='<div class="gres g2"><div><span>Tarjeta regalo de '+eur(pr)+'</span><b>'+eur(pay)+'</b><small>−10 % · ahorra '+eur(pr-pay)+'</small></div><div class="tot"><span>Primera consulta</span><b>Incluida</b><small>Al ir a consulta, la tarjeta cubre el programa con la consulta incluida</small></div></div>'
+        +'<p class="say">«Puede reservar ya una tarjeta regalo Bright Friday de '+eur(pr)+' por '+eur(pay)+'. Como referencia, un programa así con nosotros suele estar en torno a '+eur(pr)+', y la primera consulta con el doctor está incluida. La tarjeta la puede usar durante 12 meses en el tratamiento que le indique el doctor».</p>'
+        ;
+    }
+    return '<div class="gp g1"><label>Precio orientativo del programa<span class="price"><input type="number" inputmode="decimal" min="0" id="prog" value="'+esc(S.prog)+'" placeholder="Ej.: 900"><span class="e">€</span></span></label></div><div id="gout">'+out+'</div>';
+  }
+  function endResult(){
+    var e=S.end, w=S.want;
+    var closeT = w==="prod" ? "cp" : (w==="regalo" ? "cg" : "ct");
+    var go=function(id,label){ return '<button class="btn dark go" data-go="'+id+'">'+label+' →</button>'; };
+    if(e==="compra") return card("ok","Formaliza por email",'<p>Envía la plantilla de cierre por email con los tratamientos, los precios y los datos de pago. Es siempre el último mensaje que recibe el paciente: nunca se cierra una compra solo por WhatsApp. Anota la venta en la HC, en el Excel de facturación (columna BF) y en tu lista.</p>'+(w?'':'<p class="hint">Marca arriba qué le interesaba para saber qué cierre usar.</p>')+go(closeT,"Abrir la plantilla de cierre"));
+    if(e==="piensa") return card("wa","Ábrele conversación por WhatsApp desde Salesforce",'<p>Envíale desde Salesforce la plantilla de seguimiento tras la llamada. Cuando responda, le mandas «Información de campaña» (o la de tarjeta regalo) y le vuelves a llamar para cerrar.</p>'+go("info","Abrir «Información de campaña»"));
+    if(e==="nocontesta") return card("wa","Mensaje desde Salesforce y nuevo intento",'<p>Envía desde Salesforce la plantilla de apertura (llamada fallida), márcalo en tu lista y vuelve a intentarlo más tarde. El objetivo sigue siendo la llamada.</p>');
+    if(e==="escrito") return card("wa","Responde por escrito y busca la llamada",'<p>Envía «Información de campaña» (o la de tarjeta regalo si pregunta por eso) y ofrécele llamarle para orientarle.</p>'+go(w==="regalo"||w==="nuevo"?"tinfo":"info","Abrir la plantilla de información"));
+    return card("no","Agradece y cierra bien",'<p>Agradécele el tiempo, sin insistir, y despídete con «¡hasta la próxima!». Márcalo en tu lista.</p>');
+  }
+
+  function vDespues(){
+    var L=S.lang;
+    var h='<section class="box who"><label>Nombre del paciente<input type="text" id="pac" autocomplete="off" placeholder="Ej.: María García" value="'+esc(S.pac)+'"></label>'
+      +'<div class="sexw"><span>Saludo</span><div class="chips">'+[["x","Apreciado/a"],["a","Apreciada"],["o","Apreciado"]].map(function(s){ return '<button class="chip'+(S.sex===s[0]?' on':'')+'" data-sex="'+s[0]+'">'+s[1]+'</button>'; }).join("")+'</div></div>'
+      +'<label>Tu nombre (firma)<input type="text" id="me" autocomplete="off" placeholder="Ej.: Laura" value="'+esc(S.me)+'"></label></section>';
+    h+='<div class="langs">'+[["es","Castellano"],["ca","Català"],["en","English"]].map(function(l){ return '<button class="chip'+(L===l[0]?' on':'')+'" data-lang="'+l[0]+'">'+l[1]+'</button>'; }).join("")+'</div>';
+    h+='<p class="hint" style="margin:0 0 14px">Las plantillas de apertura y de seguimiento tras la llamada están en Salesforce. Lo <mark>marcado</mark> lo completas tú. Los cierres de compra van siempre por email.</p>';
+    TPLS.forEach(function(tp,i){
+      var open=S.open===tp.id, acc=tp.acc?accFor(tp):null;
+      h+='<section class="box tpl" id="tpl-'+tp.id+'"><div class="tph"><div><h2 style="margin:0 0 4px">'+esc(tp.n)+(tp.nueva?' <span class="new">Nueva</span>':'')+'</h2><p class="hint" style="margin:0">'+esc(tp.when)+' <b>'+esc(tp.ch)+'.</b></p></div><button class="btn dark cpy" data-cpt="'+i+'">Copiar</button></div>';
+      if(tp.wa) h+='<p class="note">Para darla de alta en Salesforce: copia la versión con variables ({{1}} = nombre del paciente, {{2}} = quien escribe). Las plantillas de WhatsApp que inicia la empresa normalmente tiene que aprobarlas Meta antes de usarlas. <button class="link" data-cps="'+i+'">Copiar versión para Salesforce</button></p>';
+      if(tp.acc==="g") h+='<div class="chips" style="margin-top:12px">'+[["t","Tarjeta de tratamientos"],["p","Tarjeta de productos"]].map(function(g){ return '<button class="chip'+(S.gtype===g[0]?' on':'')+'" data-gtype="'+g[0]+'">'+g[1]+'</button>'; }).join("")+'</div>';
+      if(tp.id==="ct"||tp.id==="cp") h+='<p class="note">Se rellena sola con lo que calcules en «'+(tp.id==="ct"?'Calculadora de tratamientos':'Calculadora de productos')+'». Revisa siempre los importes antes de enviar.</p>';
+      if(acc) h+='<p class="acc">Cuenta: <b>'+esc(acc.ben)+'</b> · '+esc(fmtIban(acc.iban))+'</p>';
+      h+='<button class="link tog" data-tog="'+tp.id+'">'+(open?'Ocultar texto ▴':'Ver texto ▾')+'</button>';
+      if(open) h+='<div class="tptext" data-id="'+tp.id+'">'+hl(tplText(tp,L))+'</div>';
+      h+='</section>';
+    });
+    return h;
+  }
+
+  function vLenguaje(){
+    var rows=[["«Buenos días, Bright Friday, ¿desea comprar?»","«Le llamo para saber cómo ha ido desde su última visita»."],["«Si no lo hace ahora, pierde la oportunidad».","«Usted decide si le encaja; lo importante es que le resulte cómodo»."],["«Le garantizo que desaparecerán las arrugas».","«El doctor le hará el seguimiento para ver cómo responde su piel»."],["«Le hago el tratamiento ya» (sin valoración de un doctor)","«Puede dejarlo abonado y reservamos primero su cita con el doctor, que confirmará que es el adecuado para usted»."],["«Tenemos un 20 % de descuento».","«Con tres tratamientos tendría una bonificación del 20 % en todo»."]];
+    var obj=[["«Me lo tengo que pensar»","«Claro. ¿Qué le ayudaría a decidir? Si quiere, le escribo por WhatsApp y le llamo mañana»."],["«No sé si me dará tiempo»","«Tiene hasta el 25 de febrero para empezar; después sigue el ritmo que le indique el doctor»."],["«Prefiero pagarlo poco a poco»","«Puede fraccionar el programa: la bonificación va en el primer pago, que se abona estos días»."],["«Quiero hacerme algo nuevo»","«Todos nuestros programas los pauta un doctor. Puede dejarlo abonado y reservar su cita, o elegir una tarjeta regalo para decidir con más margen»."],["«¿Y lo que ya tengo empezado?»","«La campaña es para tratamientos nuevos; para complementarlo le recomendaría "+ph("[tratamiento]")+"»."]];
+    function tbl(a,h1,h2){ return '<table class="tt"><thead><tr><th>'+h1+'</th><th>'+h2+'</th></tr></thead><tbody>'+a.map(function(r){ return '<tr><td>'+r[0]+'</td><td>'+r[1]+'</td></tr>'; }).join("")+'</tbody></table>'; }
+    return '<section class="box"><h2>Las palabras</h2><div class="two"><div class="w ok"><b>Usamos</b><p>bonificación · programa · asesoramiento · personalizado · tratamiento · resultados · seguimiento · beneficio</p></div><div class="w no"><b>Evitamos</b><p>descuento · oferta · promo · exclusividad · «solo hoy» · «última oportunidad»</p></div></div><p class="hint">Presentamos soluciones médicas a medida, no una rebaja. Desde la confianza, nunca desde la urgencia.</p></section>'
+      +'<section class="box"><h2>En lugar de… mejor…</h2>'+tbl(rows,"En lugar de…","Mejor…")+'</section>'
+      +'<section class="box"><h2>Si el paciente dice…</h2>'+tbl(obj,"Si dice…","Puedes responder…")+'</section>';
+  }
+
+  function vCross(){
+    var c=B().cross;
+    return '<section class="box"><h2>Cross-selling: complementar lo que ya busca</h2><p class="say">«Como buscamos mejorar '+ph("[X]")+', le recomendaría complementarlo con '+ph("[Y]")+'. Con Bright Friday, tendría '+ph("[Z]")+'».</p>'
+      +'<p class="hint">Solo si tiene relación con su necesidad. Antes de empezar, el doctor evalúa la viabilidad de cada tratamiento y, si hay que ajustarlo o cambiarlo, se ajusta. Un tratamiento distinto más sube el tramo: de 15 % a 20 % en todo.</p>'
+      +'<table class="tt"><thead><tr><th>Necesidad</th><th>Tratamiento base</th><th>Complementos</th></tr></thead><tbody>'+c.map(function(r){ return '<tr><td><b>'+esc(r[0])+'</b></td><td>'+esc(r[1])+'</td><td>'+esc(r[2])+'</td></tr>'; }).join("")+'</tbody></table></section>'
+      +'<section class="box"><h2>Upselling ético: más valor, no más precio</h2><p class="say">«Para lo que busca, le recomendaría el '+ph("[programa]")+' en lugar de una sesión suelta: incluye '+ph("[sesiones y seguimiento]")+' y, con Bright Friday, tendría '+ph("[beneficio]")+'».</p><p class="hint">Siempre desde el beneficio clínico y sujeto a la valoración del doctor.</p></section>';
+  }
+
+  function bind(){
+    document.querySelectorAll("[data-brand]").forEach(function(b){ b.onclick=function(){ S.brand=b.getAttribute("data-brand"); store("brand",S.brand); draw(); }; });
+    document.querySelectorAll("[data-tab]").forEach(function(b){ b.onclick=function(){ S.tab=b.getAttribute("data-tab"); draw(); window.scrollTo(0,0); }; });
+    document.querySelectorAll("[data-ck]").forEach(function(c){ c.onchange=function(){ S.checks[c.getAttribute("data-ck")]=c.checked; }; });
+    document.querySelectorAll("[data-want]").forEach(function(b){ b.onclick=function(){ S.want=b.getAttribute("data-want"); draw(); }; });
+    document.querySelectorAll("[data-end]").forEach(function(b){ b.onclick=function(){ S.end=b.getAttribute("data-end"); draw(); }; });
+    var pr=$("#prog"); if(pr) pr.oninput=function(){ S.prog=pr.value; refreshGift(); };
+    var vi=$("#vis"); if(vi) vi.oninput=function(){ S.vis=vi.value; refreshGift(); };
+    document.querySelectorAll("[data-go]").forEach(function(b){ b.onclick=function(){ var id=b.getAttribute("data-go"); S.open=id; if(id==="cg"&&S.want==="prod") S.gtype="p"; if(window.BFGO) BFGO("tpl"); else { S.view="tpl"; draw(); } setTimeout(function(){ var el=document.getElementById("tpl-"+id); if(el) el.scrollIntoView({behavior:"smooth",block:"start"}); },50); }; });
+    var pi=$("#pac"); if(pi) pi.oninput=function(){ S.pac=pi.value; refreshTpl(); };
+    var mi=$("#me"); if(mi) mi.oninput=function(){ S.me=mi.value; store("me",mi.value); refreshTpl(); };
+    document.querySelectorAll("[data-sex]").forEach(function(b){ b.onclick=function(){ S.sex=b.getAttribute("data-sex"); document.querySelectorAll("[data-sex]").forEach(function(x){ x.classList.toggle("on",x===b); }); refreshTpl(); }; });
+    document.querySelectorAll("[data-lang]").forEach(function(b){ b.onclick=function(){ S.lang=b.getAttribute("data-lang"); draw(); }; });
+    document.querySelectorAll("[data-gtype]").forEach(function(b){ b.onclick=function(){ S.gtype=b.getAttribute("data-gtype"); draw(); }; });
+    document.querySelectorAll("[data-tog]").forEach(function(b){ b.onclick=function(){ var id=b.getAttribute("data-tog"); S.open=S.open===id?null:id; draw(); var el=document.getElementById("tpl-"+id); if(el) el.scrollIntoView({block:"nearest"}); }; });
+    document.querySelectorAll("[data-cpt]").forEach(function(b){ b.onclick=function(){ copyTxt(tplText(TPLS[+b.getAttribute("data-cpt")],S.lang),b,"Copiar"); }; });
+    document.querySelectorAll("[data-cps]").forEach(function(b){ b.onclick=function(){ copyTxt(tplText(TPLS[+b.getAttribute("data-cps")],S.lang,true),b,"Copiar versión para Salesforce"); }; });
+  }
+  function refreshGift(){ var g=$("#gout"); if(!g) return; var tmp=document.createElement("div"); tmp.innerHTML=giftCalc(); var n=tmp.querySelector("#gout"); g.innerHTML=n?n.innerHTML:""; }
+  function refreshTpl(){ document.querySelectorAll(".tptext").forEach(function(el){ var tp=tplById(el.getAttribute("data-id")); if(tp) el.innerHTML=hl(tplText(tp,S.lang)); }); }
+
+  try { /* el router decide qué mostrar */ }
+  catch(e){ $("#sc-view").innerHTML='<div class="err"><b>No se ha podido cargar la herramienta.</b> Recarga la página. Si sigue fallando, avisa a Natalia.</div>'; if(window.console) console.error(e); }
+})();
+
+</script>
+<script>
+(function(){
+  "use strict";
+  /* ======= PREGUNTAS FRECUENTES =======
+     Para añadir una pregunta, copia una línea y cambia el texto.
+     c = categoría (Campaña, Pago, Tarjeta regalo, Productos, Registro y plantillas)
+     q = pregunta · a = respuesta
+     Actualiza también la fecha de ACTUALIZADO. */
+  var ACTUALIZADO = "23/11/2026";
+  var FAQ = [
+    {c:"Campaña", q:"¿Qué bonificación tiene?", a:"1 tratamiento: −10 %. 2 tratamientos distintos: −15 %. 3 o más: −20 %. Se aplica a todo el conjunto."},
+    {c:"Campaña", q:"¿Qué cuenta como un solo tratamiento?", a:"Los programas, aunque tengan varias sesiones, y las combinaciones de varios viales o zonas de un mismo producto (por ejemplo, 2 viales de ácido hialurónico o 2 zonas de bótox)."},
+    {c:"Campaña", q:"¿Qué no entra en la campaña?", a:"Consultas, actos, AP y cirugía dermatológica y plástica. En Remind Hair, tampoco el trasplante capilar, porque es cirugía."},
+    {c:"Campaña", q:"¿Hasta cuándo puede empezar el tratamiento?", a:"Hasta el 25/02/2027. Los programas se empiezan antes de esa fecha y después siguen con la periodicidad que indique el doctor."},
+    {c:"Campaña", q:"¿Puedo ofrecer un tratamiento que todavía no ha valorado un doctor?", a:"Sí. No hace falta que esté pautado: lo que hay que comunicar es que, antes de empezar, un doctor evaluará su viabilidad y confirmará si puede hacerlo o si hay que ajustarlo o cambiarlo por otro."},
+    {c:"Campaña", q:"¿Y si tras la valoración el doctor cambia o cancela un tratamiento?", a:"Se ajusta la reserva manteniendo la bonificación del combinado o, si fuera necesario, se gestiona la devolución de uno de los tratamientos o de todos."},
+    {c:"Campaña", q:"¿Se acumula con otras promociones?", a:"No. Las bonificaciones de precio no son acumulables."},
+    {c:"Campaña", q:"¿Desde cuándo podemos hablar de la campaña?", a:"La campaña es confidencial hasta el miércoles 25 a las 21 h. Hasta entonces, nadie la menciona a pacientes."},
+    {c:"Pago", q:"¿El primer pago fraccionado tiene bonificación?", a:"Sí, si se abona durante los días de Bright Friday (26 y 27/11). El porcentaje depende del número de tratamientos. El resto de pagos se cobran a precio habitual."},
+    {c:"Pago", q:"¿Entran las cuotas de un tratamiento ya empezado o los pagos pendientes?", a:"No. La campaña es solo para tratamientos nuevos: no aplica a segundos o terceros pagos, pagos pendientes ni tratamientos ya abonados."},
+    {c:"Pago", q:"¿Número de cuenta o enlace de pago?", a:"Número de cuenta. Va en la plantilla de cierre de compra, que se envía siempre por email."},
+    {c:"Pago", q:"¿A qué cuenta va cada pago?", a:"Tratamientos de Clínica Dermatológica De Felipe: Clínica Dermatológica De Felipe SLP. Productos, y todo lo de Remind Hair: IC Dermatology group SL. Los datos completos están en «Datos de pago»."},
+    {c:"Pago", q:"El paciente hace la transferencia el 27, pero llega después. ¿Entra?", a:"Sí. Pide siempre el justificante respondiendo al email de cierre."},
+    {c:"Tarjeta regalo", q:"¿Qué bonificación tiene la tarjeta regalo?", a:"Una tarjeta de importe tiene siempre un −10 % (1.000 € → paga 900 €) y va aparte: no suma para el tramo de los tratamientos que compre a la vez. Se puede usar durante 12 meses."},
+    {c:"Tarjeta regalo", q:"¿Y si la tarjeta es para un tratamiento concreto?", a:"Cuenta como un tratamiento más y suma para el tramo. Por ejemplo, con otros dos tratamientos distintos, −20 % en todo."},
+    {c:"Tarjeta regalo", q:"¿La tarjeta puede ser para tratamientos y productos a la vez?", a:"No. Al comprarla se decide si es para tratamientos o para productos, porque cada una va a una cuenta distinta. Si quiere las dos cosas, se preparan dos tarjetas."},
+    {c:"Tarjeta regalo", q:"El paciente quiere un tratamiento nuevo pero prefiere tener margen. ¿Qué le ofrezco?", a:"Una tarjeta regalo por el importe del programa con un −10 %: por ejemplo, de 900 € por 810 €. La primera consulta está incluida: cuando vaya a consulta, la tarjeta cubre el programa."},
+    {c:"Tarjeta regalo", q:"¿Cómo recibe la tarjeta?", a:"En formato digital o por mensajería. Los envíos se hacen desde Barcelona a partir del 30 de noviembre."},
+    {c:"Tarjeta regalo", q:"¿Una tarjeta comprada en España se puede usar en London?", a:"En principio no. Dile que lo consultas: las excepciones las valora Carlos."},
+    {c:"Productos", q:"¿Qué bonificación tienen los productos?", a:"1 producto: −10 %. 2: −15 %. 3 o más: −20 %. ZO y All Skin Med cuentan para el tramo pero no se bonifican."},
+    {c:"Productos", q:"¿Hasta cuándo dura en la tienda online?", a:"En shop.defelipe.com, hasta el domingo 29 a las 23:59. Los envíos se hacen a partir del 30 de noviembre."},
+    {c:"Registro y plantillas", q:"¿Cómo marco una venta de Bright Friday en el Excel de facturación?", a:"Con «BF» en la columna de la derecha. Las tarjetas regalo tienen su propia columna durante la campaña."},
+    {c:"Registro y plantillas", q:"¿Puedo cerrar una compra por WhatsApp?", a:"No. El último mensaje al paciente que compra es siempre el cierre de compra por email, con los tratamientos, los precios y los datos de pago."},
+    {c:"Registro y plantillas", q:"¿Dónde están las plantillas de apertura y de seguimiento tras la llamada?", a:"En Salesforce, como plantillas de WhatsApp. En esta herramienta están las de información y las de cierre de compra."}
+  ];
+  /* ==================================== */
+  var CATS=["Todas"]; FAQ.forEach(function(f){ if(CATS.indexOf(f.c)<0) CATS.push(f.c); });
+  var F={q:"",c:"Todas"};
+  function esc(v){ return String(v==null?"":v).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];}); }
+  function norm(s){ return String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,""); }
+  function list(){
+    var ws=norm(F.q).trim().split(/\s+/).filter(Boolean);
+    var rows=FAQ.filter(function(f){ if(F.c!=="Todas"&&f.c!==F.c) return false; var t=norm(f.q+" "+f.a+" "+f.c); return ws.every(function(w){ return t.indexOf(w)>=0; }); });
+    if(!rows.length) return '<p class="hint">No hay ninguna pregunta con esa búsqueda. Si es una duda nueva, consúltala con tu líder de apoyo: la añadiremos aquí.</p>';
+    return rows.map(function(f){ return '<details class="faq"'+(ws.length?' open':'')+'><summary><span class="fcat">'+esc(f.c)+'</span>'+esc(f.q)+'</summary><p>'+esc(f.a)+'</p></details>'; }).join("");
+  }
+  function draw(){
+    var el=document.getElementById("faq-view");
+    el.innerHTML='<section class="box"><h2>Preguntas frecuentes</h2><p class="hint" style="margin:0 0 14px">Lista viva: la iremos completando con las dudas que surjan, también durante la campaña. Última actualización: '+esc(ACTUALIZADO)+'.</p>'
+      +'<input type="search" id="fq" autocomplete="off" placeholder="Busca: tarjeta, fraccionado, cuenta, London…" value="'+esc(F.q)+'" aria-label="Buscar en las preguntas frecuentes">'
+      +'<div class="chips" style="margin-top:12px">'+CATS.map(function(c){ return '<button class="chip'+(F.c===c?' on':'')+'" data-fc="'+esc(c)+'">'+esc(c)+'</button>'; }).join("")+'</div></section>'
+      +'<section class="box" id="flist">'+list()+'</section>';
+    var q=document.getElementById("fq"); q.oninput=function(){ F.q=q.value; document.getElementById("flist").innerHTML=list(); };
+    document.querySelectorAll("[data-fc]").forEach(function(b){ b.onclick=function(){ F.c=b.getAttribute("data-fc"); draw(); }; });
+  }
+  window.BFFAQ={ show:draw };
+})();
+
+</script>
+<script>
+
+(function(){
+  var MAIN=[["sc","Selling Ceremony","Guía para cada llamada"],["tab","Calculadora tratamientos","¿Cuánto le sale?"],["p","Calculadora productos","Bonificación por tramos"],["g","Tarjeta regalo","Importe o tratamiento nuevo"],["tpl","Plantillas","Emails y mensajes"],["pay","Datos de pago","Cuentas y concepto"],["faq","FAQ","Preguntas frecuentes"]];
+  var cur="sc";
+  function nav(){
+    document.getElementById("mainnav").innerHTML=MAIN.map(function(m){ return '<button class="'+(cur===m[0]?'on':'')+'" data-main="'+m[0]+'" aria-current="'+(cur===m[0]?'page':'false')+'">'+m[1]+'<span>'+m[2]+'</span></button>'; }).join("");
+    document.querySelectorAll("[data-main]").forEach(function(b){ b.onclick=function(){ go(b.getAttribute("data-main")); }; });
+  }
+  function go(m){
+    cur=m; nav();
+    var sc=document.getElementById("sc-view"), cv=document.getElementById("view"), fv=document.getElementById("faq-view"), bar=document.getElementById("bar");
+    fv.style.display="none";
+    if(m==="faq"){ sc.style.display="none"; cv.style.display="none"; fv.style.display=""; if(bar) bar.className="bar"; if(window.BFFAQ) BFFAQ.show(); }
+    else if(m==="sc"||m==="tpl"){ sc.style.display=""; cv.style.display="none"; if(bar) bar.className="bar"; if(window.BFSC) BFSC.show(m); }
+    else { sc.style.display="none"; cv.style.display=""; if(window.BFCALC) BFCALC.show(m); }
+    if(m!=="tpl") window.scrollTo(0,0);
+  }
+  window.BFGO=go;
+  go("sc");
+})();
+
 </script>
 </body>
 </html>
