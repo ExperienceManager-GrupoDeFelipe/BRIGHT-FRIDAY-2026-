@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Bright Friday 2026 Tool · De Felipe London</title>
+<style>
+:root{--navy:#1E2840;--navy2:#2B3858;--cream:#F5F0E8;--card:#FFFDF9;--line:#E2D8C6;--bronze:#8A5E2C;--gold:#D9B27C;--muted:#4A5063;--soft:#6B6F7A;--green:#2F6B4F;--red:#9A3B2E}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--cream);color:var(--navy);font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:17px;line-height:1.45}
+.wrap{max-width:780px;margin:0 auto}
+header{background:var(--navy);color:var(--cream);padding:22px 20px 24px}
+.eyebrow{font-size:12px;letter-spacing:3px;color:var(--bronze);text-transform:uppercase;margin:0;font-weight:700}
+header .eyebrow{color:var(--gold)}
+h1{font-family:Georgia,serif;font-weight:400;font-size:34px;margin:4px 0 0;line-height:1.1}
+.rules{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.rules span{background:var(--navy2);border-radius:999px;padding:5px 11px;font-size:13px}
+main{padding:18px 16px 120px}
+.tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;background:#E8DFD0;padding:5px;border-radius:14px;margin-bottom:16px}
+.tabs button{border:0;background:transparent;font:inherit;font-weight:700;padding:12px 6px;border-radius:10px;color:var(--muted);cursor:pointer}
+.tabs button.on{background:var(--card);color:var(--navy);box-shadow:0 1px 3px rgba(30,40,64,.15)}
+.box{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:16px}
+.box h2{font-family:Georgia,serif;font-weight:400;font-size:24px;margin:0 0 14px;display:flex;align-items:center;gap:10px}
+.num{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--navy);color:var(--cream);font-family:Arial,sans-serif;font-size:15px;font-weight:700}
+input[type=search],input[type=number]{width:100%;font:inherit;padding:14px 16px;border:1.5px solid #CFC3AE;border-radius:12px;background:#fff;color:var(--navy)}
+input[type=search]{font-size:18px}
+input:focus,button:focus-visible{outline:3px solid var(--gold);outline-offset:1px}
+.lbl{font-size:13px;font-weight:700;color:var(--soft);text-transform:uppercase;letter-spacing:1px;margin:18px 0 8px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid #CFC3AE;background:#fff;border-radius:999px;padding:9px 14px;font:inherit;font-size:15px;cursor:pointer;color:var(--navy)}
+.chip:hover{border-color:var(--navy)} .chip.cat{background:transparent}
+.chip.added{background:#E5F0EA;border-color:var(--green);color:var(--green)}
+.list{display:flex;flex-direction:column;margin-top:10px;border-top:1px solid var(--line)}
+.opt{display:grid;grid-template-columns:1fr auto 40px;gap:12px;align-items:center;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);padding:12px 4px;font:inherit;color:var(--navy);cursor:pointer}
+.opt:hover{background:#FAF5EC}
+.opt small{display:block;font-size:13px;color:var(--soft)} .opt small.x,.x{color:var(--red)!important;font-weight:700}
+.opt .pr{font-weight:700;white-space:nowrap}
+.plus{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--navy);color:var(--cream);font-size:20px;font-weight:700}
+.opt.added .plus{background:var(--green)}
+.opt.no{opacity:.75}
+.crumb{display:flex;gap:14px;align-items:center;margin-top:8px}
+.hint{color:var(--soft);font-size:15px;margin:10px 0 0}
+.item{display:grid;grid-template-columns:1fr auto 120px 40px;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.item.new{animation:hl 1s ease-out}
+@keyframes hl{from{background:#F3E6CF}to{background:transparent}}
+.iname small{display:block;font-size:13px;color:var(--soft);margin-top:2px}
+.iname small.same{color:var(--bronze);font-weight:700}
+.item.no .iname{color:var(--soft)}
+.qty{display:flex;align-items:center;gap:6px}
+.qty button{width:34px;height:34px;border-radius:50%;border:1.5px solid #CFC3AE;background:#fff;font-size:18px;cursor:pointer;color:var(--navy)}
+.qty span{min-width:18px;text-align:center;font-weight:700}
+.price{position:relative;display:block;margin:0}
+.price input{padding:10px 30px 10px 12px;text-align:right}
+.price .e{position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--soft);pointer-events:none}
+.price.wide{max-width:260px} .price.wide input{font-size:22px;padding:14px 34px 14px 14px}
+.del{width:36px;height:36px;border-radius:50%;border:0;background:#F3E3DF;color:var(--red);font-size:22px;cursor:pointer;line-height:1}
+.itemsfoot{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.itemsfoot .hint{margin:12px 0 0}
+.link{background:none;border:0;padding:0;font:inherit;font-size:15px;cursor:pointer;text-decoration:underline;color:var(--navy)}
+.link.light{color:var(--gold)}
+.res{background:var(--navy);color:var(--cream);border-radius:16px;padding:22px 22px 24px;margin-bottom:16px}
+.res .eyebrow{color:var(--gold)}
+.price-line{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin:6px 0 4px}
+.final{font-family:Georgia,serif;font-size:56px;line-height:1}
+.old{text-decoration:line-through;color:#A9A6A0;font-size:22px}
+.badge{background:var(--gold);color:var(--navy);font-weight:700;border-radius:999px;padding:4px 12px;font-size:16px}
+.say{font-size:18px;margin:8px 0 0} .sub{color:#E8E1D4;margin:10px 0 0;font-size:15px} .sub.warn{color:#F3B7AC}
+.big2{font-size:22px;margin:0 0 6px}
+.tip{background:var(--navy2);border-radius:12px;padding:14px 16px;margin-top:16px;font-size:15px}
+.tip b{color:var(--gold)} .tip span{color:#C9C3B8}
+.btn{background:var(--cream);color:var(--navy);border:0;border-radius:12px;padding:14px 20px;font:inherit;font-weight:700;cursor:pointer;margin-top:18px;width:100%}
+.box .btn.ghost{background:transparent;border:1.5px solid var(--navy);width:auto;margin-top:12px}
+.prod{display:grid;grid-template-columns:1fr 130px auto 40px;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.pname{width:100%;font:inherit;padding:10px 12px;border:1.5px solid #CFC3AE;border-radius:10px;background:#fff;color:var(--navy)}
+.chk{display:flex;gap:6px;align-items:center;font-size:14px;color:var(--muted);white-space:nowrap}
+.chk input{width:20px;height:20px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--navy);color:var(--cream);transform:translateY(100%);transition:transform .2s;box-shadow:0 -4px 14px rgba(0,0,0,.18)}
+.bar.show{transform:none}
+.barin{display:flex;gap:14px;align-items:center;justify-content:space-between;padding:14px 16px;flex-wrap:wrap}
+.barin b{font-size:20px}
+.kv{display:grid;grid-template-columns:110px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.kv>span:first-child{font-size:13px;font-weight:700;color:var(--soft);text-transform:uppercase;letter-spacing:1px}
+.iban{font-family:"Courier New",monospace;font-size:18px;letter-spacing:.5px;word-break:break-all}
+.mini{border:1.5px solid var(--navy);background:#fff;border-radius:999px;padding:6px 14px;font:inherit;font-size:14px;font-weight:700;cursor:pointer;color:var(--navy)}
+.btn.dark{background:var(--navy);color:var(--cream)}
+@media (max-width:560px){ .tabs{grid-template-columns:1fr 1fr} .tph{flex-direction:column} .kv{grid-template-columns:1fr auto} .kv>span:first-child{grid-column:1/-1} }
+.who{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:end;padding:16px}
+.who label{margin:0;font-size:13px;font-weight:700;color:var(--muted);display:flex;flex-direction:column;gap:6px}
+.who input{width:100%;font:inherit;padding:12px 14px;border:1.5px solid #CFC3AE;border-radius:12px;background:#fff;color:var(--navy)}
+.sexw{display:flex;flex-direction:column;gap:6px} .sexw>span{font-size:13px;font-weight:700;color:var(--muted)} .sexw .chip{padding:9px 12px;font-size:14px}
+@media (max-width:760px){ .who{grid-template-columns:1fr} }
+.tabs.sub{grid-template-columns:1fr 1fr!important;background:#EFE7DA}
+.pend{background:#FFF1D6;border:1px solid #E9C987;color:#6B4A12;border-radius:12px;padding:10px 14px;font-size:15px;margin-bottom:14px}
+.gp{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.gp label{margin:0;display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;color:var(--muted)}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.split div{background:var(--navy2);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:2px}
+.split span{font-size:13px;color:#C9C3B8} .split b{font-size:24px} .split small{font-size:12px;color:#C9C3B8}
+@media (max-width:560px){ .gp,.split{grid-template-columns:1fr} }
+.langs{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.chip.on{background:var(--navy);color:var(--cream);border-color:var(--navy)}
+.tph{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}
+.btn.cpy{width:auto;margin:0;padding:12px 22px;flex:none}
+.tog{margin-top:12px}
+.tptext{white-space:pre-wrap;background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;margin-top:10px;font-size:15px;line-height:1.55}
+mark{background:#FCE7B6;color:var(--navy);border-radius:4px;padding:0 3px}
+.slots{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.slot{background:#DEEAF6;border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:8px}
+.slot:nth-child(even){background:#CFE0F1}
+.slot.full{box-shadow:inset 0 0 0 2px #7FA3C8}
+.slh{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#34507A}
+.slh .link{font-size:13px;text-transform:none;letter-spacing:0;color:#34507A}
+.slot select{width:100%;font:inherit;font-size:15px;padding:10px 8px;border:1.5px solid #9DB6D2;border-radius:10px;background:#fff;color:var(--navy)}
+.slp{font-size:22px;font-weight:700;color:var(--navy);text-align:right}
+.qres{display:grid;grid-template-columns:1fr 1fr 1.3fr;gap:10px}
+.qb{border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.qb span{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#5A4B2A}
+.qb b{font-size:34px;line-height:1.1}
+.qb small{font-size:14px;font-weight:700}
+.qb1{background:#FEF2CB}.qb2{background:#FBE4D5}.qb3{background:#E2EFD9}.qb3 span,.qb3 small{color:#2F5A2F}.qb3 b{color:#1F4A2A}
+.note{background:#FBF3E4;border:1px solid #EBD9B8;border-radius:12px;padding:10px 14px;font-size:15px;margin:12px 0 0}
+.note.tip2{background:#EEF3F9;border-color:#C9D7E8}
+@media (max-width:760px){ .slots{grid-template-columns:1fr 1fr}} @media (max-width:560px){ .slots{grid-template-columns:1fr} .slot{display:grid;grid-template-columns:1fr auto;align-items:center} .slot .slh{grid-column:1/-1} .slp{min-width:90px}} @media (max-width:760px){ .qres{grid-template-columns:1fr 1fr} .qb3{grid-column:1/-1} }
+.tabhelp{background:#FBF3E4;border:1px solid #EBD9B8;border-radius:12px;padding:12px 16px;font-size:15px;margin-bottom:16px}
+.legend3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}
+.legend3 div{border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:2px;font-size:14px}
+.legend3 b{font-size:15px}
+.legend3 .l1{background:#FAF6EE}.legend3 .l2{background:#F5EEDF}.legend3 .l3{background:#EFE3CB}
+.ex{margin:8px 0 0;font-size:15px}
+@media (max-width:560px){ .legend3{grid-template-columns:1fr} }
+.tbox{padding:16px 16px 6px}
+.tbox h2{font-size:22px;margin-bottom:8px}
+table.pt{width:100%;border-collapse:collapse;font-size:16px;table-layout:fixed}
+.pt th{text-align:right;font-size:12px;font-weight:700;color:var(--soft);text-transform:uppercase;letter-spacing:.5px;padding:6px 6px;border-bottom:2px solid var(--navy);line-height:1.25;vertical-align:bottom}
+.pt th:first-child{text-align:left}
+.pt td{padding:9px 6px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+.pt td:first-child{text-align:left;white-space:normal;font-weight:700}
+.pt td.pr0{color:var(--soft)}
+.pt .c1{background:#FAF6EE} .pt .c2{background:#F5EEDF} .pt .c3{background:#EFE3CB;font-weight:700}
+.pt th.c1,.pt th.c2,.pt th.c3{color:var(--navy)}
+.tadd{width:32px;height:32px;border-radius:50%;border:0;background:var(--navy);color:var(--cream);font-size:18px;font-weight:700;cursor:pointer}
+.toast{position:fixed;left:50%;top:16px;transform:translate(-50%,-80px);background:var(--green);color:#fff;padding:10px 18px;border-radius:999px;font-weight:700;font-size:15px;transition:transform .2s;z-index:5;max-width:92vw;text-align:center}
+.toast{visibility:hidden}.toast.show{transform:translate(-50%,0);visibility:visible}
+.pm{display:none}
+@media (max-width:560px){ .tabs{grid-template-columns:1fr 1fr} .tph{flex-direction:column} .tabs button{padding:10px 4px;font-size:15px} table.pt{font-size:13px} .pt td,.pt th{padding:8px 2px} .pt th{font-size:11px} .pt td.pr0,.pt th:nth-child(2){display:none} .pm{display:block;font-weight:400;color:var(--soft);font-size:12px} .tadd{width:28px;height:28px;font-size:16px} .tbox{padding:14px 10px 4px} }
+footer{padding:0 16px 30px;font-size:12px;color:var(--soft)}
+.err{background:#F8E6E2;color:#7A2D22;border:1px solid #E5BFB6;border-radius:10px;padding:14px}
+@media (max-width:560px){
+  h1{font-size:28px}
+  .item{grid-template-columns:1fr 40px;grid-template-areas:"n d" "q p"}
+  .item .iname{grid-area:n} .item .del{grid-area:d} .item .qty{grid-area:q} .item .price{grid-area:p;max-width:140px;justify-self:end}
+  .prod{grid-template-columns:1fr 1fr 40px} .prod .pn{grid-column:1/-1}
+  .final{font-size:44px}
+}
+
+:root{--navy:#1E2840;--navy2:#2B3858;--cream:#F5F0E8;--card:#FFFDF9;--line:#E2D8C6;--bronze:#8A5E2C;--gold:#D9B27C;--muted:#4A5063;--soft:#6B6F7A;--green:#2F6B4F;--red:#9A3B2E}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--cream);color:var(--navy);font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:17px;line-height:1.45}
+.wrap{max-width:780px;margin:0 auto}
+header{background:var(--navy);color:var(--cream);padding:22px 20px 24px}
+.eyebrow{font-size:12px;letter-spacing:3px;color:var(--bronze);text-transform:uppercase;margin:0;font-weight:700}
+header .eyebrow{color:var(--gold)}
+h1{font-family:Georgia,serif;font-weight:400;font-size:34px;margin:4px 0 0;line-height:1.1}
+.rules{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.rules span{background:var(--navy2);border-radius:999px;padding:5px 11px;font-size:13px}
+main{padding:18px 16px 120px}
+.tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;background:#E8DFD0;padding:5px;border-radius:14px;margin-bottom:16px}
+.tabs button{border:0;background:transparent;font:inherit;font-weight:700;padding:12px 6px;border-radius:10px;color:var(--muted);cursor:pointer}
+.tabs button.on{background:var(--card);color:var(--navy);box-shadow:0 1px 3px rgba(30,40,64,.15)}
+.box{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:16px}
+.box h2{font-family:Georgia,serif;font-weight:400;font-size:24px;margin:0 0 14px;display:flex;align-items:center;gap:10px}
+.num{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--navy);color:var(--cream);font-family:Arial,sans-serif;font-size:15px;font-weight:700}
+input[type=search],input[type=number]{width:100%;font:inherit;padding:14px 16px;border:1.5px solid #CFC3AE;border-radius:12px;background:#fff;color:var(--navy)}
+input[type=search]{font-size:18px}
+input:focus,button:focus-visible{outline:3px solid var(--gold);outline-offset:1px}
+.lbl{font-size:13px;font-weight:700;color:var(--soft);text-transform:uppercase;letter-spacing:1px;margin:18px 0 8px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid #CFC3AE;background:#fff;border-radius:999px;padding:9px 14px;font:inherit;font-size:15px;cursor:pointer;color:var(--navy)}
+.chip:hover{border-color:var(--navy)} .chip.cat{background:transparent}
+.chip.added{background:#E5F0EA;border-color:var(--green);color:var(--green)}
+.list{display:flex;flex-direction:column;margin-top:10px;border-top:1px solid var(--line)}
+.opt{display:grid;grid-template-columns:1fr auto 40px;gap:12px;align-items:center;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);padding:12px 4px;font:inherit;color:var(--navy);cursor:pointer}
+.opt:hover{background:#FAF5EC}
+.opt small{display:block;font-size:13px;color:var(--soft)} .opt small.x,.x{color:var(--red)!important;font-weight:700}
+.opt .pr{font-weight:700;white-space:nowrap}
+.plus{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--navy);color:var(--cream);font-size:20px;font-weight:700}
+.opt.added .plus{background:var(--green)}
+.opt.no{opacity:.75}
+.crumb{display:flex;gap:14px;align-items:center;margin-top:8px}
+.hint{color:var(--soft);font-size:15px;margin:10px 0 0}
+.item{display:grid;grid-template-columns:1fr auto 120px 40px;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.item.new{animation:hl 1s ease-out}
+@keyframes hl{from{background:#F3E6CF}to{background:transparent}}
+.iname small{display:block;font-size:13px;color:var(--soft);margin-top:2px}
+.iname small.same{color:var(--bronze);font-weight:700}
+.item.no .iname{color:var(--soft)}
+.qty{display:flex;align-items:center;gap:6px}
+.qty button{width:34px;height:34px;border-radius:50%;border:1.5px solid #CFC3AE;background:#fff;font-size:18px;cursor:pointer;color:var(--navy)}
+.qty span{min-width:18px;text-align:center;font-weight:700}
+.price{position:relative;display:block;margin:0}
+.price input{padding:10px 30px 10px 12px;text-align:right}
+.price .e{position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--soft);pointer-events:none}
+.price.wide{max-width:260px} .price.wide input{font-size:22px;padding:14px 34px 14px 14px}
+.del{width:36px;height:36px;border-radius:50%;border:0;background:#F3E3DF;color:var(--red);font-size:22px;cursor:pointer;line-height:1}
+.itemsfoot{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.itemsfoot .hint{margin:12px 0 0}
+.link{background:none;border:0;padding:0;font:inherit;font-size:15px;cursor:pointer;text-decoration:underline;color:var(--navy)}
+.link.light{color:var(--gold)}
+.res{background:var(--navy);color:var(--cream);border-radius:16px;padding:22px 22px 24px;margin-bottom:16px}
+.res .eyebrow{color:var(--gold)}
+.price-line{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin:6px 0 4px}
+.final{font-family:Georgia,serif;font-size:56px;line-height:1}
+.old{text-decoration:line-through;color:#A9A6A0;font-size:22px}
+.badge{background:var(--gold);color:var(--navy);font-weight:700;border-radius:999px;padding:4px 12px;font-size:16px}
+.say{font-size:18px;margin:8px 0 0} .sub{color:#E8E1D4;margin:10px 0 0;font-size:15px} .sub.warn{color:#F3B7AC}
+.big2{font-size:22px;margin:0 0 6px}
+.tip{background:var(--navy2);border-radius:12px;padding:14px 16px;margin-top:16px;font-size:15px}
+.tip b{color:var(--gold)} .tip span{color:#C9C3B8}
+.btn{background:var(--cream);color:var(--navy);border:0;border-radius:12px;padding:14px 20px;font:inherit;font-weight:700;cursor:pointer;margin-top:18px;width:100%}
+.box .btn.ghost{background:transparent;border:1.5px solid var(--navy);width:auto;margin-top:12px}
+.prod{display:grid;grid-template-columns:1fr 130px auto 40px;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.pname{width:100%;font:inherit;padding:10px 12px;border:1.5px solid #CFC3AE;border-radius:10px;background:#fff;color:var(--navy)}
+.chk{display:flex;gap:6px;align-items:center;font-size:14px;color:var(--muted);white-space:nowrap}
+.chk input{width:20px;height:20px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--navy);color:var(--cream);transform:translateY(100%);transition:transform .2s;box-shadow:0 -4px 14px rgba(0,0,0,.18)}
+.bar.show{transform:none}
+.barin{display:flex;gap:14px;align-items:center;justify-content:space-between;padding:14px 16px;flex-wrap:wrap}
+.barin b{font-size:20px}
+.kv{display:grid;grid-template-columns:110px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.kv>span:first-child{font-size:13px;font-weight:700;color:var(--soft);text-transform:uppercase;letter-spacing:1px}
+.iban{font-family:"Courier New",monospace;font-size:18px;letter-spacing:.5px;word-break:break-all}
+.mini{border:1.5px solid var(--navy);background:#fff;border-radius:999px;padding:6px 14px;font:inherit;font-size:14px;font-weight:700;cursor:pointer;color:var(--navy)}
+.btn.dark{background:var(--navy);color:var(--cream)}
+@media (max-width:560px){ .tabs{grid-template-columns:1fr 1fr} .tph{flex-direction:column} .kv{grid-template-columns:1fr auto} .kv>span:first-child{grid-column:1/-1} }
+.who{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:end;padding:16px}
+.who label{margin:0;font-size:13px;font-weight:700;color:var(--muted);display:flex;flex-direction:column;gap:6px}
+.who input{width:100%;font:inherit;padding:12px 14px;border:1.5px solid #CFC3AE;border-radius:12px;background:#fff;color:var(--navy)}
+.sexw{display:flex;flex-direction:column;gap:6px} .sexw>span{font-size:13px;font-weight:700;color:var(--muted)} .sexw .chip{padding:9px 12px;font-size:14px}
+@media (max-width:760px){ .who{grid-template-columns:1fr} }
+.tabs.sub{grid-template-columns:1fr 1fr!important;background:#EFE7DA}
+.pend{background:#FFF1D6;border:1px solid #E9C987;color:#6B4A12;border-radius:12px;padding:10px 14px;font-size:15px;margin-bottom:14px}
+.gp{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.gp label{margin:0;display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;color:var(--muted)}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.split div{background:var(--navy2);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:2px}
+.split span{font-size:13px;color:#C9C3B8} .split b{font-size:24px} .split small{font-size:12px;color:#C9C3B8}
+@media (max-width:560px){ .gp,.split{grid-template-columns:1fr} }
+.langs{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.chip.on{background:var(--navy);color:var(--cream);border-color:var(--navy)}
+.tph{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}
+.btn.cpy{width:auto;margin:0;padding:12px 22px;flex:none}
+.tog{margin-top:12px}
+.tptext{white-space:pre-wrap;background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;margin-top:10px;font-size:15px;line-height:1.55}
+mark{background:#FCE7B6;color:var(--navy);border-radius:4px;padding:0 3px}
+.slots{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.slot{background:#DEEAF6;border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:8px}
+.slot:nth-child(even){background:#CFE0F1}
+.slot.full{box-shadow:inset 0 0 0 2px #7FA3C8}
+.slh{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#34507A}
+.slh .link{font-size:13px;text-transform:none;letter-spacing:0;color:#34507A}
+.slot select{width:100%;font:inherit;font-size:15px;padding:10px 8px;border:1.5px solid #9DB6D2;border-radius:10px;background:#fff;color:var(--navy)}
+.slp{font-size:22px;font-weight:700;color:var(--navy);text-align:right}
+.qres{display:grid;grid-template-columns:1fr 1fr 1.3fr;gap:10px}
+.qb{border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.qb span{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#5A4B2A}
+.qb b{font-size:34px;line-height:1.1}
+.qb small{font-size:14px;font-weight:700}
+.qb1{background:#FEF2CB}.qb2{background:#FBE4D5}.qb3{background:#E2EFD9}.qb3 span,.qb3 small{color:#2F5A2F}.qb3 b{color:#1F4A2A}
+.note{background:#FBF3E4;border:1px solid #EBD9B8;border-radius:12px;padding:10px 14px;font-size:15px;margin:12px 0 0}
+.note.tip2{background:#EEF3F9;border-color:#C9D7E8}
+@media (max-width:760px){ .slots{grid-template-columns:1fr 1fr}} @media (max-width:560px){ .slots{grid-template-columns:1fr} .slot{display:grid;grid-template-columns:1fr auto;align-items:center} .slot .slh{grid-column:1/-1} .slp{min-width:90px}} @media (max-width:760px){ .qres{grid-template-columns:1fr 1fr} .qb3{grid-column:1/-1} }
+.tabhelp{background:#FBF3E4;border:1px solid #EBD9B8;border-radius:12px;padding:12px 16px;font-size:15px;margin-bottom:16px}
+.legend3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}
+.legend3 div{border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:2px;font-size:14px}
+.legend3 b{font-size:15px}
+.legend3 .l1{background:#FAF6EE}.legend3 .l2{background:#F5EEDF}.legend3 .l3{background:#EFE3CB}
+.ex{margin:8px 0 0;font-size:15px}
+@media (max-width:560px){ .legend3{grid-template-columns:1fr} }
+.tbox{padding:16px 16px 6px}
+.tbox h2{font-size:22px;margin-bottom:8px}
+table.pt{width:100%;border-collapse:collapse;font-size:16px;table-layout:fixed}
+.pt th{text-align:right;font-size:12px;font-weight:700;color:var(--soft);text-transform:uppercase;letter-spacing:.5px;padding:6px 6px;border-bottom:2px solid var(--navy);line-height:1.25;vertical-align:bottom}
+.pt th:first-child{text-align:left}
+.pt td{padding:9px 6px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+.pt td:first-child{text-align:left;white-space:normal;font-weight:700}
+.pt td.pr0{color:var(--soft)}
+.pt .c1{background:#FAF6EE} .pt .c2{background:#F5EEDF} .pt .c3{background:#EFE3CB;font-weight:700}
+.pt th.c1,.pt th.c2,.pt th.c3{color:var(--navy)}
+.tadd{width:32px;height:32px;border-radius:50%;border:0;background:var(--navy);color:var(--cream);font-size:18px;font-weight:700;cursor:pointer}
+.toast{position:fixed;left:50%;top:16px;transform:translate(-50%,-80px);background:var(--green);color:#fff;padding:10px 18px;border-radius:999px;font-weight:700;font-size:15px;transition:transform .2s;z-index:5;max-width:92vw;text-align:center}
+.toast{visibility:hidden}.toast.show{transform:translate(-50%,0);visibility:visible}
+.pm{display:none}
+@media (max-width:560px){ .tabs{grid-template-columns:1fr 1fr} .tph{flex-direction:column} .tabs button{padding:10px 4px;font-size:15px} table.pt{font-size:13px} .pt td,.pt th{padding:8px 2px} .pt th{font-size:11px} .pt td.pr0,.pt th:nth-child(2){display:none} .pm{display:block;font-weight:400;color:var(--soft);font-size:12px} .tadd{width:28px;height:28px;font-size:16px} .tbox{padding:14px 10px 4px} }
+footer{padding:0 16px 30px;font-size:12px;color:var(--soft)}
+.err{background:#F8E6E2;color:#7A2D22;border:1px solid #E5BFB6;border-radius:10px;padding:14px}
+@media (max-width:560px){
+  h1{font-size:28px}
+  .item{grid-template-columns:1fr 40px;grid-template-areas:"n d" "q p"}
+  .item .iname{grid-area:n} .item .del{grid-area:d} .item .qty{grid-area:q} .item .price{grid-area:p;max-width:140px;justify-self:end}
+  .prod{grid-template-columns:1fr 1fr 40px} .prod .pn{grid-column:1/-1}
+  .final{font-size:44px}
+}
+
+.brand{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
+.brand>span{font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-right:4px}
+.tabs{grid-template-columns:repeat(6,1fr)!important}
+.tabs button{font-size:14px;padding:12px 6px;line-height:1.25}
+.box h2 .new,.new{font-family:Arial,sans-serif;font-size:12px;background:#2F6B4F;color:#fff;border-radius:999px;padding:3px 9px;vertical-align:middle;margin-left:6px}
+.ph{color:var(--bronze);font-weight:700}
+.say{border-left:4px solid var(--bronze);padding:4px 0 4px 14px;font-style:italic;margin:10px 0}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.tile{background:#FBF3E4;border-top:3px solid var(--bronze);padding:12px 14px;display:flex;flex-direction:column;gap:4px}
+.tile b{font-family:Georgia,serif;font-size:26px;font-weight:400} .tile span{font-size:14px;color:var(--muted)}
+.chk2{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line);font-size:16px;cursor:pointer}
+.chk2 input{width:20px;height:20px;margin-top:2px;flex:none}
+.legend2{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px}
+.legend2 p{margin:0 0 4px}
+.why{background:var(--navy);color:var(--cream);border-radius:12px;padding:14px 16px}
+.why b{color:var(--gold);display:block;font-size:13px;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.abcd{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.abcd div{background:var(--navy);color:var(--cream);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:6px}
+.abcd b{color:var(--gold);font-family:Georgia,serif;font-size:20px;font-weight:400} .abcd span{font-size:14px;color:#E8E1D4}
+.stps{display:flex;flex-direction:column}
+.stp{display:grid;grid-template-columns:44px 210px 1fr;gap:14px;align-items:start;padding:12px 0;border-top:1px solid var(--line)}
+.lt{font-family:Georgia,serif;font-size:34px;color:var(--bronze);line-height:1}
+.stp h3{margin:0 0 2px;font-size:17px} .stp .hint{margin:0} .stp .say{margin:0}
+.opts2{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px}
+.opt2{text-align:left;background:#fff;border:1.5px solid #CFC3AE;border-radius:12px;padding:12px 14px;font:inherit;font-size:15px;cursor:pointer;color:var(--navy)}
+.opt2:hover{border-color:var(--navy)} .opt2.on{background:var(--navy);color:var(--cream);border-color:var(--navy)}
+.rc{border-radius:14px;padding:16px 18px;margin-top:14px;border:1.5px solid}
+.rc p{margin:6px 0}
+.rct{font-weight:700;font-size:18px;margin:0 0 6px!important}
+.rc.ok{background:#EEF5F0;border-color:#9CC3AC} .rc.gift{background:#F4EFFA;border-color:#C2B2DE} .rc.wa{background:#EEF3F9;border-color:#B6CBE4} .rc.no{background:#F5F2EC;border-color:#D8CFC0}
+.pend{background:#FFF1D6;border:1px solid #E9C987;color:#6B4A12;border-radius:10px;padding:8px 12px;font-size:14px;margin-top:10px!important}
+.gp{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+.gp label{margin:0;display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;color:var(--muted)}
+.g1{grid-template-columns:1fr!important;max-width:360px}.g2{grid-template-columns:1fr 1fr!important}
+.optA{border-top:1px solid var(--line);padding-top:12px;margin-top:12px}
+.gres{display:grid;grid-template-columns:1fr 1fr 1.2fr;gap:8px;margin:6px 0 10px}
+.gres div{background:#fff;border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:2px;border:1px solid #DCD2EC}
+.gres span{font-size:13px;color:var(--muted)} .gres b{font-size:22px} .gres small{font-size:12px;color:var(--soft)}
+.gres .tot{background:var(--navy);border-color:var(--navy)} .gres .tot span,.gres .tot small{color:#C9C3B8} .gres .tot b{color:var(--cream)}
+.btn.go{width:auto;margin-top:10px;padding:10px 18px;font-size:15px}
+.acc{font-size:14px;color:var(--muted);margin:10px 0 0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.w{border-radius:12px;padding:14px 16px} .w p{margin:6px 0 0} .w.ok{background:#EEF5F0} .w.no{background:#F7ECE8}
+table.tt{width:100%;border-collapse:collapse;font-size:15px}
+.tt th{text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--soft);padding:8px;border-bottom:2px solid var(--navy)}
+.tt td{padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+@media (max-width:860px){ .tabs{grid-template-columns:repeat(3,1fr)!important} .tiles,.abcd{grid-template-columns:1fr 1fr} .legend2{grid-template-columns:1fr} }
+@media (max-width:560px){ .tabs{grid-template-columns:1fr 1fr!important} .stp{grid-template-columns:36px 1fr} .stp .say{grid-column:1/-1} .gp,.gres,.two{grid-template-columns:1fr} .tiles{grid-template-columns:1fr 1fr} }
+
+/* ===== Tema De Felipe: más claro y legible ===== */
+:root{--navy:#586676;--navy2:#6C7987;--cream:#FFFFFF;--card:#FFFFFF;--line:#E6E8EA;--bronze:#2F6F8A;--gold:#D6E4EB;--muted:#4A5562;--soft:#66707C;--ink:#2B333D;--tint:#EEF4F7;--grey:#F3F4F6;--sage:#5E8F68}
+html,body{background:#F5F6F7;color:var(--ink);font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:17px;line-height:1.6}
+header{background:var(--navy);padding:26px 20px 22px}
+header .eyebrow{color:#E3E8EC;font-weight:400;letter-spacing:2px}
+h1{font-family:inherit;font-weight:300;font-size:32px;letter-spacing:.2px;color:#fff}
+.rules span{background:rgba(255,255,255,.14);color:#fff;font-size:13px}
+main{padding-top:22px}
+.box{border:1px solid var(--line);border-radius:12px;padding:22px 24px;box-shadow:none}
+.box h2{font-family:inherit;font-weight:600;font-size:20px;color:var(--ink);letter-spacing:0}
+.num{background:var(--navy);width:28px;height:28px;font-size:14px}
+.hint{color:var(--soft);font-size:15px}
+.brand .chip{font-size:15px}
+.chip{border:1px solid #CDD3D9;color:var(--ink)}
+.chip.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.tabs{background:transparent;padding:0;gap:0;border-bottom:1px solid #D5DAE0;border-radius:0;margin-bottom:20px}
+.tabs button{border-radius:0;color:var(--soft);font-weight:600;border-bottom:3px solid transparent;padding:12px 8px 10px;background:transparent!important;box-shadow:none!important}
+.tabs button.on{color:var(--ink);border-bottom-color:var(--navy)}
+.say{font-style:normal;background:var(--tint);border-left:3px solid #89AFC0;border-radius:0;padding:10px 14px;color:var(--ink)}
+.ph{color:var(--bronze);font-weight:700}
+mark{background:#FFF1CC;color:var(--ink)}
+.tile{background:var(--grey);border-top:none;border-left:3px solid var(--navy);border-radius:0}
+.tile b{font-family:inherit;font-weight:600;font-size:22px;color:var(--ink)}
+.abcd div{background:var(--grey);color:var(--ink);border-left:3px solid var(--navy);border-radius:0}
+.abcd b{font-family:inherit;font-weight:600;font-size:18px;color:var(--navy)}
+.abcd span{color:var(--muted);font-size:15px}
+.lt{font-family:inherit;font-weight:300;font-size:30px;color:var(--navy)}
+.stp h3{font-weight:600}
+.why{background:var(--tint);color:var(--ink);border-radius:10px}
+.why b{color:var(--bronze)}
+.opt2{border:1px solid #CDD3D9;border-radius:10px;font-size:16px;color:var(--ink)}
+.opt2.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.rc{background:#fff!important;border:1px solid var(--line);border-left:4px solid;border-radius:0 10px 10px 0}
+.rc.ok{border-left-color:var(--sage)} .rc.gift{border-left-color:var(--navy)} .rc.wa{border-left-color:#89AFC0} .rc.no{border-left-color:#B8BFC7}
+.rct{font-size:18px;color:var(--ink)}
+.pend{background:#FFF7E3;border:1px solid #F0DDA8;color:#6B5212}
+.gres div{border:1px solid var(--line);background:var(--grey)}
+.gres .tot{background:var(--navy);border-color:var(--navy)}
+.gres b{font-weight:600}
+.btn.dark,.btn.cpy,.btn.go{background:var(--navy);color:#fff;border-radius:10px}
+.btn.dark:hover{background:#4A5766}
+.note{background:var(--tint);border:1px solid #D3E2EA;color:var(--ink)}
+.tptext{background:#FBFCFC;border-color:var(--line);font-size:16px}
+.new{background:var(--sage)}
+.w.ok{background:#EEF4EF} .w.no{background:#F6F0EE}
+.tt th{border-bottom:2px solid var(--navy);color:var(--soft)}
+.chk2{font-size:16px}
+.who input,input[type=number],input[type=text]{border:1px solid #CDD3D9;border-radius:10px}
+footer{color:var(--soft)}
+
+/* ===== Herramienta unificada ===== */
+.mainnav{display:flex;gap:4px;margin-top:18px;overflow-x:auto;scrollbar-width:none}
+.mainnav button{flex:1 0 auto;background:transparent;border:0;color:#E3E8EC;font:inherit;font-size:15px;font-weight:600;padding:12px 16px;border-radius:10px 10px 0 0;cursor:pointer;text-align:left;line-height:1.25}
+.mainnav button span{display:block;font-size:12px;font-weight:400;color:#C3CCD4;margin-top:2px}
+.mainnav button.on{background:#F5F6F7;color:var(--ink)}
+.mainnav button.on span{color:var(--soft)}
+.mainnav button:focus-visible{outline:3px solid #89AFC0;outline-offset:-3px}
+header{padding-bottom:0!important}
+/* resultados: claros y legibles */
+.res{background:#fff;color:var(--ink);border:1px solid var(--line);border-left:4px solid var(--navy);border-radius:0 12px 12px 0}
+.res .eyebrow{color:var(--soft)}
+.final{font-family:inherit;font-weight:600;color:var(--ink)}
+.old{color:#8A929B}
+.badge{background:var(--navy);color:#fff}
+.res .say{color:var(--ink)} .sub{color:var(--muted)!important} .sub.warn{color:#9A3B2E!important}
+.tip{background:var(--tint);color:var(--ink)} .tip b{color:var(--bronze)} .tip span{color:var(--muted)}
+.btn{background:var(--navy);color:#fff}
+.box .btn.ghost{color:var(--navy);border-color:var(--navy);background:#fff}
+.split div{background:var(--grey);border:1px solid var(--line)} .split span,.split small{color:var(--muted)} .split b{color:var(--ink)}
+/* calculadora de tratamientos */
+.slot{background:var(--grey)!important;border:1px solid var(--line);border-radius:12px;box-shadow:none!important}
+.slot.full{border-color:#9AA6B2}
+.slh{color:var(--soft)} .slh .link{color:var(--bronze)}
+.slot select{border:1px solid #CDD3D9;border-radius:10px}
+.slp{color:var(--ink)}
+.qb{background:var(--grey)!important;border:1px solid var(--line)}
+.qb span{color:var(--soft)!important} .qb b{color:var(--ink)!important;font-weight:600}
+.qb3{background:var(--navy)!important;border-color:var(--navy)} .qb3 span,.qb3 small{color:#E3E8EC!important} .qb3 b{color:#fff!important}
+.note{border-radius:10px}
+.kv>span:first-child{color:var(--soft)}
+.iban{color:var(--ink)}
+.mini{border-color:var(--navy);color:var(--navy)}
+.tabs.sub{background:transparent}
+.bar{background:var(--navy)}
+@media (max-width:760px){ .mainnav button{font-size:14px;padding:10px 12px} .mainnav button span{display:none} }
+
+.mainnav{display:grid;grid-template-columns:repeat(5,1fr);overflow:visible}
+.mainnav button{white-space:normal}
+#addslot,.btn.ghost{background:#fff!important;color:var(--navy)!important;border:1px solid var(--navy)!important;font-size:15px;padding:10px 18px}
+@media (max-width:760px){
+  .mainnav{grid-template-columns:1fr 1fr;gap:6px;padding-bottom:14px}
+  .mainnav button{border-radius:10px;background:rgba(255,255,255,.12);padding:10px 12px}
+  .mainnav button.on{background:#F5F6F7}
+  .rules{display:none}
+  h1{font-size:26px}
+}
+
+.mainnav{grid-template-columns:repeat(6,1fr)}
+#sc-view .tabs{grid-template-columns:repeat(3,1fr)!important}
+details.prep{padding:0}
+details.prep>summary{list-style:none;cursor:pointer;padding:16px 22px;font-weight:600;font-size:17px;display:flex;flex-direction:column;gap:2px}
+details.prep>summary::-webkit-details-marker{display:none}
+details.prep>summary::after{content:"Mostrar ▾";font-size:13px;font-weight:600;color:var(--bronze);margin-top:4px}
+details.prep[open]>summary::after{content:"Ocultar ▴"}
+details.prep>summary span{font-weight:400;font-size:14px;color:var(--soft)}
+details.prep[open]{padding:0 22px 22px}
+details.prep[open]>summary{padding-left:0;padding-right:0}
+.next{background:var(--grey);border-radius:10px;padding:10px 14px;margin:12px 0 0!important;font-size:15px}
+.next b{color:var(--ink)}
+details.more{margin-top:10px}
+details.more>summary{cursor:pointer;color:var(--bronze);font-weight:600;font-size:15px;padding:4px 0}
+details.more[open]>summary{margin-bottom:6px}
+.lbl2{font-weight:600;font-size:15px;color:var(--ink);margin:14px 0 4px!important}
+.prnote{background:var(--grey);border-radius:10px;padding:10px 14px;font-size:14px;color:var(--muted);margin:0 0 14px}
+@media (max-width:760px){ #sc-view .tabs{grid-template-columns:1fr!important} #sc-view .tabs button{text-align:left;padding:10px 4px} }
+
+.mainnav button span{display:none}
+.mainnav button{text-align:center;padding:14px 8px;font-size:14px}
+@media (max-width:760px){
+  .mainnav{grid-template-columns:1fr 1fr}
+  .mainnav button{text-align:left}
+  #sc-view .tabs{border-bottom:none;gap:6px}
+  #sc-view .tabs button{border:1px solid var(--line)!important;border-radius:10px;background:#fff!important;padding:12px 14px}
+  #sc-view .tabs button.on{border-color:var(--navy)!important;box-shadow:inset 4px 0 0 var(--navy)!important}
+}
+
+.mainnav{grid-template-columns:repeat(7,1fr)}
+details.faq{border-bottom:1px solid var(--line);padding:4px 0}
+details.faq>summary{cursor:pointer;padding:12px 0;font-weight:600;font-size:16px;list-style:none;display:flex;gap:12px;align-items:baseline}
+details.faq>summary::-webkit-details-marker{display:none}
+details.faq>summary::before{content:"+";color:var(--bronze);font-weight:700;width:14px;flex:none}
+details.faq[open]>summary::before{content:"−"}
+details.faq p{margin:0 0 14px 26px;color:var(--ink)}
+.fcat{order:2;margin-left:auto;font-size:12px;font-weight:600;color:var(--soft);background:var(--grey);border-radius:999px;padding:2px 10px;white-space:nowrap}
+#flist{padding-top:8px;padding-bottom:8px}
+@media (max-width:760px){ .mainnav{grid-template-columns:1fr 1fr} .fcat{display:none} }
+
+.slots{grid-template-columns:1fr!important;gap:10px}
+.slot{display:flex!important;flex-direction:column;gap:8px;padding:14px 16px}
+.slot .sq{width:100%;font:inherit;font-size:17px;padding:12px 14px;border:1px solid #CDD3D9;border-radius:10px;background:#fff;color:var(--ink)}
+.sres{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:10px;background:#fff;overflow:hidden}
+.sri{display:flex;justify-content:space-between;align-items:center;gap:12px;text-align:left;background:#fff;border:0;border-bottom:1px solid var(--line);padding:10px 14px;font:inherit;color:var(--ink);cursor:pointer}
+.sri:last-child{border-bottom:0} .sri:hover,.sri:focus-visible{background:var(--tint)}
+.srn{display:flex;flex-direction:column;font-size:15px;line-height:1.35}
+.srn small{font-size:12px;color:var(--soft)}
+.sri b{white-space:nowrap;font-size:15px}
+.sfill{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.sfill .srn{font-size:17px;font-weight:600} .sfill b{font-size:22px}
+.qp{display:flex;flex-wrap:wrap;gap:6px;align-items:center} .qp>span{font-size:13px;color:var(--soft);margin-right:4px}
+.qp .chip{font-size:13px;padding:6px 10px;background:#fff}
+.link.small{font-size:13px;align-self:flex-start;color:var(--bronze)}
+
+.slot .slh{display:flex;justify-content:space-between;align-items:center;width:100%;text-align:left}
+.slot{text-align:left;align-items:stretch!important}
+.sfill b{white-space:nowrap}
+@media (max-width:560px){ .slot{display:flex!important} .sfill .srn{font-size:16px} .sfill b{font-size:20px} }
+
+/* ===== huecos: aspecto en fila con buscador flotante ===== */
+.slots{grid-template-columns:repeat(4,1fr)!important;gap:10px}
+.slot{position:relative;display:flex!important;flex-direction:column;gap:8px;padding:12px!important;background:var(--grey)!important}
+.slot.full{background:#fff!important;border-color:#9AA6B2!important}
+.slot .slh{font-size:12px;letter-spacing:.5px}
+.slot .sq{font-size:15px!important;padding:10px 12px!important}
+.sbox{position:relative}
+.drop{position:absolute;left:0;top:calc(100% + 4px);z-index:30;width:max(100%,340px)}
+.drop:empty{display:none}
+.drop .sres{box-shadow:0 8px 24px rgba(43,51,61,.16);max-height:330px;overflow:auto}
+.drop .hint{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:0;box-shadow:0 8px 24px rgba(43,51,61,.16)}
+.slot:nth-child(4n) .drop,.slot:nth-child(4n-1) .drop{left:auto;right:0}
+.chosen{background:#fff;border:1px solid #CDD3D9;border-radius:10px;padding:8px 10px;min-height:44px;display:flex;flex-direction:column;justify-content:center}
+.slot.full .chosen{border-color:var(--line);background:var(--grey)}
+.chosen span{font-size:14px;font-weight:600;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.chosen small{font-size:11px;color:var(--soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.slfoot{display:flex;justify-content:space-between;align-items:flex-end}
+.slot .slp{font-size:22px;font-weight:700;color:var(--ink);text-align:right;margin-left:auto}
+.slot:not(.full) .slp{color:#B8BFC7}
+@media (max-width:760px){ .slots{grid-template-columns:1fr 1fr!important} .slot:nth-child(2n) .drop{left:auto;right:0} .slot:nth-child(2n+1) .drop{left:0;right:auto} .drop{width:max(100%,300px)} }
+@media (max-width:560px){ .slots{grid-template-columns:1fr!important} .drop{width:100%;left:0!important;right:auto!important} }
+
+.amts .chip{font-weight:600}
+.steps2{margin-top:12px} .steps2 ol{margin:6px 0 10px 20px;padding:0} .steps2 li{margin:4px 0}
+.cosm{border-left:4px solid #89AFC0}
+
+.plist{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+.plist:empty{display:none}
+.prow{display:grid;grid-template-columns:1fr auto 90px 36px;gap:10px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+.prow.man{grid-template-columns:1fr 120px auto 36px}
+.prow .srn b{font-size:15px} .prow .pp{text-align:right;font-size:16px}
+.nob{color:#8A5E12}
+.pbox .drop{width:100%}
+@media (max-width:560px){ .prow{grid-template-columns:1fr auto 36px} .prow .qty{grid-row:2} .prow .pp{grid-row:2;grid-column:2} .prow.man{grid-template-columns:1fr 1fr 36px} .prow.man .pname{grid-column:1/-1} }
+
+.warn-acc{background:#FFF3D6;border:1px solid #E9C987;border-left:4px solid #C98A12;color:#5A430E;border-radius:0 10px 10px 0;padding:12px 14px;margin-top:12px;font-size:15px;line-height:1.5;animation:wpop .25s ease-out}
+.warn-acc b{color:#3F2F08} .warn-acc .link{display:block;margin-top:6px;color:#7A5410;font-weight:600}
+@keyframes wpop{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+
+.mainnav{grid-template-columns:repeat(6,1fr)!important}
+.scx{grid-template-columns:repeat(3,1fr)!important}
+.langlink{position:absolute;right:20px;top:22px;color:#fff;font-size:14px;font-weight:600;background:rgba(255,255,255,.14);border-radius:999px;padding:6px 14px;text-decoration:none}
+header .wrap{position:relative}
+@media (max-width:760px){ .mainnav{grid-template-columns:1fr 1fr!important} .scx{grid-template-columns:1fr!important} .langlink{position:static;display:inline-block;margin-top:10px} }
+details.prep>summary::after{content:"Show ▾"!important} details.prep[open]>summary::after{content:"Hide ▴"!important}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <p class="eyebrow">Grupo Dermatológico De Felipe · London</p>
+  <h1>Bright Friday 2026 Tool</h1>
+  <a class="langlink" href="index.html">Versión España (español)</a>
+  <div class="rules"><span>26 & 27/11</span><span>1 · 2 · 3+ treatments → −10 · −15 · −20%</span><span>Same product = 1</span><span>Start by 25/02/2027</span></div>
+  <nav class="mainnav" id="mainnav" aria-label="Sections"></nav>
+</div></header>
+<noscript><div class="wrap err" style="margin:16px auto">This tool needs JavaScript enabled.</div></noscript>
+<main><div class="wrap" id="view"></div></main>
+<footer><div class="wrap">Prices: De Felipe London price list. If a price does not match, use “other” with the correct amount. If in doubt, ask your support lead.</div></footer>
+<script>
+(function(){
+  "use strict";
+  function $(s){ return document.querySelector(s); }
+  function esc(v){ return String(v==null?"":v).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];}); }
+  function gbp(n){ n=Math.round(n*100)/100; var ent=Math.floor(n), dec=Math.round((n-ent)*100); return "£"+String(ent).replace(/\B(?=(\d{3})+(?!\d))/g,",")+(dec?"."+(dec<10?"0":"")+dec:""); }
+  function norm(s){ return String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,""); }
+  function tierOf(n){ return n>=3?0.20:(n===2?0.15:(n===1?0.10:0)); }
+  function store(k,v){ try{ if(v===undefined) return localStorage.getItem("bf26uk_"+k); localStorage.setItem("bf26uk_"+k,v); }catch(_){ return null; } }
+
+  /* ======= PAYMENT DETAILS: edit only this block ======= */
+  var BANK = { name:"De Felipe Derma LTD", sort:"30-11-08", account:"26401568" };
+  var REFERENCE = "Patient's full name";
+  var CLINIC = "De Felipe London";
+  /* ===================================================== */
+
+  /* ======= PRICE LIST DE FELIPE LONDON: [category, description, price, group] ======= */
+  var LIST = [["Category", "Description – from £450", 450, "plla"], ["Category", "Description – up to £550", 550, "plla"], ["Programmes", "Programme £800", 800, null], ["Programmes", "Programme £1,000", 1000, null], ["Programmes", "Programme £1,200", 1200, null], ["Programmes", "Programme £1,400", 1400, null], ["Programmes", "Programme £1,500", 1500, null], ["Programmes", "Programme £1,600", 1600, null], ["Regenerative medicine", "Fat stem cell transfer for facial or skin rejuvenation", 1500, "u:Regenerative medicine:Fat stem cell transfer for facial or skin rejuvenation"], ["Regenerative medicine", "Exosomes + Microneedling or Er:YAG fractional laser", 450, "u:Regenerative medicine:Exosomes + Microneedling or Er:YAG fractional laser"], ["Regenerative medicine", "Er:YAG fractional laser + PDRNA and Hyaluronic", 350, "u:Regenerative medicine:Er:YAG fractional laser + PDRNA and Hyaluronic"], ["Regenerative medicine", "1 Sculptra session in an anatomical area", 550, "sculptra"], ["Regenerative medicine", "1 Polylactic acid session in an anatomical area", 450, "plla"], ["Regenerative medicine", "4 Polylactic acid sessions in an anatomical area", 1350, "plla"], ["Other procedures", "Excessive sweating – Underarms", 450, "sweat"], ["Other procedures", "Excessive sweating – Hands", 800, "sweat"], ["Acne", "Microdermabrasion", 50, "microderm"], ["Acne", "Salicylic acid peel", 50, "u:Acne:Salicylic acid peel"], ["Acne", "Photobiological therapy", 50, "photobio"], ["Acne", "Non-ablative fractional laser 1340nm", 250, "l1340"], ["Acne", "De Felipe acne programme 6 sessions", 1000, "prog-Acne"], ["Acne", "De Felipe acne programme 9 sessions", 1400, "prog-Acne"], ["Scars", "Subcision / CROSS technique", 350, "u:Scars:Subcision / CROSS technique"], ["Scars", "Poly-lactic acid filler (PLLA) – from £450", 450, "plla"], ["Scars", "Poly-lactic acid filler (PLLA) – up to £550", 550, "plla"], ["Scars", "PRP treatment", 250, "prp"], ["Scars", "Hyaluronic acid filler", 350, "ha"], ["Scars", "CO2 laser", 550, "co2"], ["Scars", "De Felipe CO2 laser package", 1500, "co2"], ["Rosacea", "Microdermabrasion", 50, "microderm"], ["Rosacea", "Photobiological therapy", 50, "photobio"], ["Rosacea", "IPL laser (Intense Pulsed Light)", 250, "ipl"], ["Rosacea", "De Felipe rosacea programme 6 sessions", 1000, "prog-Rosacea"], ["Rosacea", "De Felipe rosacea programme 9 sessions", 1400, "prog-Rosacea"], ["Hair", "Phototrichoscopic study", 50, "u:Hair:Phototrichoscopic study"], ["Hair", "Capillary infiltration", 100, "u:Hair:Capillary infiltration"], ["Hair", "Low power laser 635nm", 50, "lllt"], ["Hair", "Platelet Rich Plasma (PRP)", 250, "prp"], ["Hair", "De Felipe hair programme 6 sessions", 1200, "prog-Hair"], ["Hair", "De Felipe hair programme 9 sessions", 1600, "prog-Hair"], ["Melasma", "Microdermabrasion", 50, "microderm"], ["Melasma", "Fractional Er:YAG + Glutathione", 250, "u:Melasma:Fractional Er:YAG + Glutathione"], ["Melasma", "Photobiological therapy red – 635nm", 50, "photobio"], ["Melasma", "De Felipe age spot programme 6 sessions", 1000, "prog-Melasma"], ["Melasma", "De Felipe age spot programme 9 sessions", 1400, "prog-Melasma"], ["Rejuvenation", "Vitamin and Hyaluronic mesotherapy", 250, "u:Rejuvenation:Vitamin and Hyaluronic mesotherapy"], ["Rejuvenation", "Mesotherapy with Platelet Rich Plasma", 250, "prp"], ["Rejuvenation", "Mesotherapy with growth factors", 250, "u:Rejuvenation:Mesotherapy with growth factors"], ["Rejuvenation", "Mesotherapy with Glutathione/PDRA", 250, "u:Rejuvenation:Mesotherapy with Glutathione/PDRA"], ["Rejuvenation", "Microneedling", 250, "u:Rejuvenation:Microneedling"], ["Rejuvenation", "Non-ablative fractional laser 1340nm", 250, "l1340"], ["Rejuvenation", "Spot/Vascular laser IPL 540nm", 250, "ipl"], ["Rejuvenation", "Fractional Er:YAG and Glutathione laser", 250, "u:Rejuvenation:Fractional Er:YAG and Glutathione laser"], ["Rejuvenation", "Chemical peels Phenol/TCA", 250, "u:Rejuvenation:Chemical peels Phenol/TCA"], ["Rejuvenation", "De Felipe rejuvenation programme 4 treatments", 800, "prog-Rejuvenation"], ["Rejuvenation", "De Felipe rejuvenation programme 6 treatments", 1000, "prog-Rejuvenation"], ["CO2 Laser", "Collimated fractional resurfacing (high intensity) – 1 area (periocular, perioral or up to 20cm2)", 850, "co2"], ["CO2 Laser", "Collimated fractional resurfacing (high intensity) – 2 areas (periocular, perioral and/or up to 20cm2)", 1200, "co2"], ["CO2 Laser", "Collimated fractional resurfacing (high intensity) – Full face", 1500, "co2"], ["CO2 Laser", "Fractional resurfacing (medium intensity) – 1 area – 1 session", 450, "co2"], ["CO2 Laser", "Fractional resurfacing (medium intensity) – 1 area – 4 sessions", 1005, "co2"], ["CO2 Laser", "Fractional resurfacing (medium intensity) – 2 areas – 1 session", 550, "co2"], ["CO2 Laser", "Fractional resurfacing (medium intensity) – 2 areas – 4 sessions", 1300, "co2"], ["CO2 Laser", "Fractional resurfacing (medium intensity) – Full face – 1 session", 650, "co2"], ["CO2 Laser", "Fractional resurfacing (medium intensity) – Full face – 4 sessions", 1500, "co2"], ["CO2 Laser", "Fractional resurfacing (medium intensity) – Full face and neck – 1 session", 850, "co2"], ["CO2 Laser", "Fractional resurfacing (medium intensity) – Full face and neck – 4 sessions", 2000, "co2"], ["CO2 Laser", "CO2 for acne scars – 1 session", 550, "co2"], ["CO2 Laser", "CO2 for rhinophyma – 1 session", 550, "co2"], ["CO2 Laser", "Felipe's CO2 acne scar programme", 1500, "co2"], ["HIFU Liftera", "1 Liftera session in an anatomical area", 900, "liftera"], ["HIFU Liftera", "2 Liftera sessions in one or more anatomical areas", 1500, "liftera"], ["Aesthetic dermatology", "Hyaluronic acid – 1 vial", 350, "ha"], ["Aesthetic dermatology", "Hyaluronic acid – 2 vials", 600, "ha"], ["Aesthetic dermatology", "Hyaluronic acid – 3 vials", 850, "ha"], ["Aesthetic dermatology", "Hyaluronic acid – 4 vials", 1100, "ha"], ["Aesthetic dermatology", "Body hyaluronic acid 20ml", 1500, "u:Aesthetic dermatology:Body hyaluronic acid 20ml"], ["Aesthetic dermatology", "Profhilo – 1 vial", 450, "u:Aesthetic dermatology:Profhilo – 1 vial"], ["Aesthetic dermatology", "Calcium Hydroxyapatite (Radiesse) – 1 vial", 450, "u:Aesthetic dermatology:Calcium Hydroxyapatite (Radiesse) – 1 vial"], ["Aesthetic dermatology", "Polylactic acid (Hipla) – 1 vial", 450, "plla"], ["Aesthetic dermatology", "Polylactic acid (Sculptra) – 1 vial", 550, "sculptra"], ["Aesthetic dermatology", "Polylactic acid (Sculptra) – 2 vials", 1100, "sculptra"], ["Aesthetic dermatology", "Polylactic acid (Sculptra) – 3 vials", 1650, "sculptra"], ["Aesthetic dermatology", "Polylactic acid (Sculptra) – 4 vials", 2200, "sculptra"], ["Aesthetic dermatology", "Polynucleotides (Philart, Philart eye or Philart next) – 1 vial", 450, "u:Aesthetic dermatology:Polynucleotides (Philart, Philart eye or Philart next) – 1 vial"], ["Aesthetic dermatology", "Exosomes – 1 vial", 450, "exo"], ["Aesthetic dermatology", "Polycaprolactone (Ellansé) – 1 vial", 450, "u:Aesthetic dermatology:Polycaprolactone (Ellansé) – 1 vial"], ["Aesthetic dermatology", "Botulinum toxin – 1 area", 250, "btx"], ["Aesthetic dermatology", "Botulinum toxin – 2 areas", 350, "btx"], ["Aesthetic dermatology", "Botulinum toxin – 3 areas", 450, "btx"], ["Aesthetic dermatology", "Botulinum toxin – Full face", 650, "btx"], ["Aesthetic dermatology", "Botulinum toxin – Neck Nefertiti Lift", 450, "btx"], ["Aesthetic dermatology", "Threads – 1 zone", 750, "threads"], ["Aesthetic dermatology", "Threads – 2 zones", 1150, "threads"], ["Nail fungus", "Er:YAG laser session", 250, "eryag"], ["Nail fungus", "Low power laser 635nm", 50, "lllt"], ["Nail fungus", "De Felipe nail fungus programme", 1000, "prog-Nail fungus"], ["Psoriasis", "Infiltration of 1 to 3 plaques", 100, "infil"], ["Psoriasis", "Infiltration of 4 to 10 plaques", 150, "infil"], ["Psoriasis", "Infiltration of 11 to 50 plaques", 200, "infil"], ["Psoriasis", "Red photodynamic therapy (635nm)", 50, "u:Psoriasis:Red photodynamic therapy (635nm)"], ["Psoriasis", "Er:YAG laser session", 250, "eryag"], ["Psoriasis", "Programme for less than 10 psoriasis plaques (all inclusive)", 1000, "prog-Psoriasis"], ["Psoriasis", "Programme for more than 10 psoriasis plaques (all inclusive)", 1500, "prog-Psoriasis"], ["Other treatment (by price)", "Other treatment £250", 250, null], ["Other treatment (by price)", "Other treatment £350", 350, null], ["Other treatment (by price)", "Other treatment £450", 450, null], ["Other treatment (by price)", "Other treatment £550", 550, null], ["Other treatment (by price)", "Other treatment £800", 800, null], ["Other treatment (by price)", "Other treatment £1,000", 1000, null], ["Other treatment (by price)", "Other treatment £1,200", 1200, null], ["Other treatment (by price)", "Other treatment £1,500", 1500, null]];
+  LIST.forEach(function(r,i){ r.id=i; });
+  var CATS=[]; LIST.forEach(function(r){ if(CATS.indexOf(r[0])<0) CATS.push(r[0]); });
+
+  var S = { main:"sc", tab:"call", want:null, end:null, slots:[null,null,null,null], sq:{}, browse:{}, gmode:"free", gift:"", gprog:"", gfmt:"d", pac:"", sex:"x", me:store("me")||"", open:null };
+
+  /* ---------- search ---------- */
+  var SYN={botox:["botulinum"],btx:["botulinum"],tox:["botulinum"],ha:["hyaluronic"],filler:["filler","hyaluronic"],prp:["platelet","prp"],co2:["co2"],scar:["scar"],scars:["scar"],hair:["hair","capillary"],sweat:["sweating"],sweating:["sweating"],hifu:["liftera"],laser:["laser"],peel:["peel"],other:["other treatment"],plla:["polylactic","poly-lactic","plla"],threads:["threads"],fungus:["fungus"],pigment:["melasma","spot"]};
+  var POP={"ha":4,"btx":4,"liftera":2,"sculptra":2,"plla":1};
+  function search(q){
+    var ws=norm(q).trim().split(/\s+/).filter(Boolean); if(!ws.length) return [];
+    var out=[];
+    LIST.forEach(function(p){ var d=norm(p[1]), t=norm(p[0])+" "+d, sc=0;
+      var ok=ws.every(function(w){ var alts=(SYN[w]||[]).concat([w]); var inD=alts.some(function(a){ return d.indexOf(a)>=0; }), inT=alts.some(function(a){ return t.indexOf(a)>=0; }), num=/^\d+$/.test(w)&&Number(w)===p[2];
+        if(inD) sc+=2; if(alts.some(function(a){ return d.indexOf(a)===0; })) sc+=2; if(num) sc+=2; return inT||num; });
+      if(!ok) return; if(sc>=2*ws.length) sc+=(POP[p[3]]||0); out.push([sc,p.id]); });
+    out.sort(function(a,b){ return b[0]-a[0] || a[1]-b[1]; });
+    return out.map(function(x){ return x[1]; });
+  }
+  function resHTML(i,q){
+    if(!q.trim()) return '';
+    var ids=search(q);
+    if(!ids.length) return '<p class="hint">Nothing found for “'+esc(q)+'”. Try another word, open “See list” or type “other” and the price.</p>';
+    return '<div class="sres">'+ids.slice(0,8).map(function(id){ var p=LIST[id]; return '<button class="sri" data-pick="'+i+':'+id+'"><span class="srn">'+esc(p[1])+'<small>'+esc(p[0])+'</small></span><b>'+gbp(p[2])+'</b></button>'; }).join("")+'</div>';
+  }
+  function optsHTML(){ return '<option value="">— Choose a treatment —</option>'+CATS.map(function(c){ return '<optgroup label="'+esc(c)+'">'+LIST.filter(function(p){ return p[0]===c; }).map(function(p){ return '<option value="'+p.id+'">'+esc(p[1])+' · '+gbp(p[2])+'</option>'; }).join("")+'</optgroup>'; }).join(""); }
+  function quick(){
+    var ids=S.slots.filter(function(x){ return x!=null; }), g={}, full=0;
+    ids.forEach(function(id,k){ var p=LIST[id]; full+=p[2]; var key=p[3]||("u"+k); (g[key]=g[key]||[]).push(id); });
+    var n=Object.keys(g).length, pct=tierOf(n);
+    return {ids:ids,n:n,pct:pct,full:full,bf:full*(1-pct),g:g};
+  }
+
+  /* ---------- templates ---------- */
+  var TPLS=[
+    {id:"info", n:"Campaign information", when:"The patient replies with interest or asks in writing. Then call them back.", ch:"WhatsApp from Salesforce or email",
+     t:"It is a pleasure to be in touch.\n\nAs requested, please find below the details of our Bright Friday 2026 campaign, available on 26 and 27 November.\n\nThe campaign offers:\n· 10% off 1 treatment\n· 15% off 2 treatments\n· 20% off 3 or more treatments\n\nThe benefits of our Bright Friday campaign can be applied to treatments commenced by 25 February 2027.\n\nShould you wish to discuss which option would best suit your individual goals, our team would be delighted to provide further guidance.\n\nKind regards,\n{CLINIC}"},
+    {id:"ginfo", n:"Gift card information", when:"The patient asks about gift cards, or prefers more time to decide with the doctor.", ch:"WhatsApp from Salesforce or email",
+     t:"We hope this message finds you well. As requested, please find below the details of our gift cards during the Bright Friday campaign, on 26 and 27 November:\n\n· 10% off: for example, a gift card worth £500 costs £450.\n· It can be used for one year from the date of purchase.\n\nHow and when you will receive it:\n· You can choose a digital or a physical card. In both cases, we send it from 30 November, once your payment has been confirmed.\n· Physical cards are sent by courier to your home or directly to the person receiving it. On the back we can write the treatment, the amount or a personal message, as you prefer.\n\nIf you wish, we can call you to help choose the amount that suits best.\n\nKind regards,\n{CLINIC}"},
+    {id:"ct", n:"Purchase confirmation · treatments", when:"The patient confirms treatments. Always the last message they receive.", ch:"Always by email", pay:true,
+     t:"Further to our conversation, please find below the details of the treatments you expressed an interest in:\n\nTreatment(s):\n{LIST}\n\nStandard price: {HAB}\nBright Friday price: {BF}\n\nTo benefit from the campaign terms, the full amount must be paid on 26 or 27 November, either at the clinic or by bank transfer:\n\nAccount name: {BANK}\nSort code: {SORT}\nAccount number: {ACC}\nPayment reference: {REF}\n\nWe would appreciate it if you could reply to this email with a copy of your bank transfer confirmation.\n\nThe Bright Friday campaign allows you to begin your treatments under the campaign's preferential terms, which remain available until 25 February 2027. Before you start, your doctor will assess the treatment and confirm it is right for you.\n\nOur team remains at your disposal should you have any questions, and we hope you enjoy your treatments.\n\nKind regards,\n{CLINIC}"},
+    {id:"cg", n:"Purchase confirmation · gift card", when:"The patient confirms a gift card. Choose the format: the email explains what happens next.", ch:"Always by email", pay:true, gift:true,
+     t:"Thank you very much for your purchase. Please find below the details of your Bright Friday gift card:\n\nCard value: [amount]\nBright Friday price: [discounted amount]\nFormat: {GFMT}\n\nTo complete your purchase, the amount must be paid on 26 or 27 November, either at the clinic or by bank transfer:\n\nAccount name: {BANK}\nSort code: {SORT}\nAccount number: {ACC}\nPayment reference: {REF}\n\nWhat happens next:\n1. Send us your proof of payment by replying to this email.\n2. Once your payment has been confirmed, we will assign your card, which has its own unique number.\n3. {GSTEP}\n\nThe card can be used for one year, until [26 or 27] November 2027.\n\nOur whole team remains at your disposal for any questions.\n\nKind regards,\n{CLINIC}"}
+  ];
+  var GFMT={d:"Digital",f:"Physical card, sent by courier to [delivery address]"};
+  var GSTEP={d:"We will send you the digital card from 30 November.",f:"We will send the card by courier from 30 November to the address provided. On the back we will write: [treatment, amount or message / no text]."};
+  function tplText(tp){
+    var s=tp.t, r=quick();
+    if(s.indexOf("{LIST}")>=0){
+      if(r.ids.length) s=s.replace("{LIST}",r.ids.map(function(id){ return "· "+LIST[id][1]; }).join("\n")).replace("{HAB}",gbp(r.full)).replace("{BF}",gbp(r.bf));
+      else s=s.replace("{LIST}","· [Treatment 1]\n· [Treatment 2]\n· [Treatment 3]").replace("{HAB}","[amount]").replace("{BF}","[amount including campaign benefit]");
+    }
+    s=s.replace("{BANK}",BANK.name).replace("{SORT}",BANK.sort).replace("{ACC}",BANK.account).replace("{REF}",REFERENCE).replace("{GFMT}",GFMT[S.gfmt]).replace("{GSTEP}",GSTEP[S.gfmt]);
+    var i=s.lastIndexOf("\n"); s=s.slice(0,i)+"\n"+(S.me.trim()||"[Your name]")+"\n"+s.slice(i+1);
+    s=s.replace(/\{CLINIC\}/g,CLINIC);
+    return "Dear "+(S.pac.trim()||"[Patient's name]")+",\n\n"+s;
+  }
+  function hl(s){ return esc(s).replace(/\[[^\]]+\]/g,function(m){ return '<mark>'+m+'</mark>'; }); }
+  function copyTxt(t,b,label){
+    function ok(){ b.textContent="Copied ✓"; setTimeout(function(){ b.textContent=label; },1800); }
+    function fb(){ try{ var ta=document.createElement("textarea"); ta.value=t; ta.setAttribute("readonly",""); ta.style.position="fixed"; ta.style.opacity="0"; document.body.appendChild(ta); ta.select(); var d=document.execCommand("copy"); document.body.removeChild(ta); if(d) ok(); else b.textContent="Could not copy"; }catch(_){ b.textContent="Could not copy"; } }
+    if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(ok,fb); else fb();
+  }
+  function ph(t){ return '<span class="ph">'+t+'</span>'; }
+
+  /* ---------- Selling Ceremony ---------- */
+  function step(l,t,d,say){ return '<div class="stp"><div class="lt">'+l+'</div><div><h3>'+t+'</h3><p class="hint">'+d+'</p></div><p class="say">'+say+'</p></div>'; }
+  function vCall(){
+    var me_=ph(esc(S.me.trim()||"[your name]"));
+    var h='<details class="box prep"><summary>Before your first call <span>Key dates, checklist and how to read this guide</span></summary>'
+      +'<h2 style="margin-top:16px">Key points for 2026</h2><div class="tiles">'
+      +'<div class="tile"><b>26 & 27</b><span>November. Payment on those two days.</span></div>'
+      +'<div class="tile"><b>10 · 15 · 20%</b><span>1, 2 or 3+ different treatments, on the whole set.</span></div>'
+      +'<div class="tile"><b>25/02/2027</b><span>Deadline to start treatments.</span></div>'
+      +'<div class="tile"><b>Wed 25 · 8pm</b><span>Until then, the campaign is confidential.</span></div></div>'
+      +'<p class="hint">Not included: consultations and surgery. New treatments only; price reductions cannot be combined.</p>'
+      +'<h2 style="margin-top:22px">Checklist</h2>'
+      +['I have read the medical history and my list note: I know what was assessed and why they did not start.','I know what they are interested in and whether a doctor has already assessed it.','I know how to calculate the price and where the payment details are.','My headset and Salesforce work.'].map(function(t){ return '<label class="chk2"><input type="checkbox"> <span>'+esc(t)+'</span></label>'; }).join("")
+      +'<h2 style="margin-top:22px">How to read this guide</h2><div class="legend2">'
+      +'<div><p class="say">“Guiding phrases”</p><p class="hint">Reference phrases to support the conversation. Adapt them naturally to your own style and to each patient; they are not meant to be read word for word.</p></div>'
+      +'<div><p>'+ph("[Personal information]")+'</p><p class="hint">Details completed from the medical history and each patient\'s list, so every proposal fits their case.</p></div>'
+      +'<div><p><b>A · B · C · D</b></p><p class="hint">Open, listen, summarise and propose: the four stages of every conversation, always in this order.</p></div></div>'
+      +'<div class="why"><b>Our principle</b>At '+CLINIC+', advice inspires and is never imposed. Every proposal starts from medical criteria: before any treatment begins, a doctor assesses its suitability and confirms it is right for the patient.</div></details>';
+    h+='<section class="box"><h2>The method: four steps in every call</h2><div class="abcd">'
+      +['A · Open|Warm tone, no rush. Reason: follow-up.','B · Listen|Open questions. Understand their moment.','C · Summarise|Mirror phrase to confirm.','D · Propose|Bright Friday as the solution, after checking “Tailored proposal”.'].map(function(x){ var p=x.split("|"); return '<div><b>'+p[0]+'</b><span>'+p[1]+'</span></div>'; }).join("")
+      +'</div><p class="hint">The campaign only appears in step D. If you have not understood what they need in step B, it is not time to propose yet.</p></section>';
+    h+='<section class="box"><h2>Outgoing call · patient who is hesitant</h2><div class="stps">'
+      +step("A","Open","Close and unhurried.",'“Hello '+ph("[name]")+', this is '+me_+' from '+CLINIC+'. I am calling to see how your last visit went”.')
+      +step("B","Listen","Ask and let them talk.",'“Were we able to answer all your questions? What would you like to improve now?”')
+      +step("C","Summarise","With their need or the medical history.",'“I understand, what you would like is '+ph("[need]")+'” or “At your visit the doctor recommended '+ph("[treatment]")+'”.')
+      +step("D","Propose","Leave the choice with them.",'“In case it helps you decide: on 26 and 27 November we have Bright Friday. In your case, '+ph("[proposal]")+'. It is entirely up to you whether it suits you”.')+'</div></section>';
+    h+='<section class="box"><h2>Outgoing call · patient who is still interested</h2><div class="stps">'
+      +step("A","Open","As above.",'“Hello '+ph("[name]")+', this is '+me_+' from '+CLINIC+'. I am calling to see how things have been since your visit”.')
+      +step("B","Listen","Explore what concerns them.",'“How have things evolved since then? What concerns you most now?”')
+      +step("C","Summarise","Mirror phrase.",'“I understand, what you would like now is to work on '+ph("[need]")+'”.')
+      +step("D","Propose","Cross-selling or upselling fits here.",'“From what you tell me, this may interest you: on 26 and 27 November we have Bright Friday. I would recommend '+ph("[proposal]")+', and you would benefit from '+ph("[benefit]")+'”.')+'</div></section>';
+    h+='<section class="box"><h2>Incoming call · the patient calls us</h2><div class="stps">'
+      +step("A","Open","Usual greeting.",'“'+CLINIC+', '+me_+' speaking. How can I help you?”')
+      +step("B","Listen","Solve their request first.",'Handle their query as usual, without mentioning the campaign yet.')
+      +step("C","Summarise","Confirm their need.",'“I understand, what you need is '+ph("[need or question]")+'”.')
+      +step("D","Propose","Connect it to a benefit.",'“Also, on 26 and 27 November we have Bright Friday. In your case, '+ph("[proposal]")+'”.')+'</div></section>';
+    return h;
+  }
+  var WANT=[["known","A treatment the doctor has already recommended, or a maintenance treatment"],["new","A new treatment no doctor has assessed yet"],["both","Both: something already recommended and something new"],["gift","They want to give a gift"]];
+  var END=[["buy","Buys during the call"],["think","Interested but does not close"],["noanswer","No answer or cannot talk"],["writing","Asks for the information in writing"],["no","Not interested"]];
+  function card2(kind,title,say,next,more){ return '<div class="rc '+kind+'"><p class="rct">'+title+'</p>'+say+(next?'<p class="next"><b>Next step:</b> '+next+'</p>':'')+(more?'<details class="more"><summary>See explanation</summary>'+more+'</details>':'')+'</div>'; }
+  var DOC='<div class="why" style="margin-top:12px"><b>If the doctor changes something</b>If, after the assessment, a treatment needs to be adjusted or cancelled, we adjust the booking keeping the price reduction or, if necessary, arrange a refund.</div>';
+  function wantResult(){
+    var w=S.want;
+    if(w==="known") return card2("ok","Offer it with the price reduction",'<p class="say">“As the doctor recommended '+ph("[treatment]")+', you can start it with '+ph("[10/15/20]%")+' off these days. If you also add '+ph("[another treatment]")+', that would be two and you would get 15% on both, or even 20% on everything with a third”.</p>','calculate the price in “Treatment calculator”. If they buy, send “Purchase confirmation · treatments”.','<p>−10% with 1 treatment, −15% with 2 different treatments and −20% with 3 or more, on the whole set. Remind them that, before starting, the doctor confirms the treatment is suitable.</p>');
+    if(w==="new") return card2("gift","New treatment: the doctor confirms its suitability",'<p class="lbl2">Option 1 · Pay for it with the Bright Friday terms</p><p class="say">“You can pay for the '+ph("[scar programme]")+' with the Bright Friday terms. Before you start, the doctor will assess it and confirm it is right for you; if it needs to be adjusted or changed for another treatment, we will adjust it without any problem”.</p><p class="lbl2">Option 2 · Gift card, if they prefer more time</p><p class="say">“If you would prefer to take more time, you can choose a Bright Friday gift card: it has 10% off and you can use it for one year, so you can decide with the doctor which treatment suits you best. The first consultation is included”.</p>','option 1: “Purchase confirmation · treatments”. Option 2: calculate the card in “Gift card” and send “Purchase confirmation · gift card”.','<p>The treatment does not need to have been prescribed: it counts towards the tier like any other. What matters is explaining that, before starting, a doctor will assess its suitability and confirm whether it can go ahead or needs to be adjusted or changed. The gift card is offered for the programme amount with 10% off, first consultation included.</p>'+DOC);
+    if(w==="both") return card2("ok","Both together, as a combined booking",'<p class="say">“As the '+ph("[maintenance treatment]")+' is already recommended, you can book your first session. The doctor will assess the '+ph("[botox]")+' first, but if you book both together you will have 15% off both, which is how you benefit most from the campaign. If anything needs adjusting after the assessment, we will adjust it without any problem”.</p>','calculate both in “Treatment calculator” and, if they buy, send “Purchase confirmation · treatments”.','<p>Both are booked as a combination with the price reduction for the number of different treatments. If they also want a gift card: an amount card is separate at 10%; a card for a specific treatment counts towards the tier.</p>'+DOC);
+    return card2("gift","Gift card",'<p class="say">“You can give a Bright Friday gift card with 10% off: for example, a £500 card costs £450, and it can be used for one year”.</p>','calculate it in “Gift card”. Information: “Gift card information”. If they buy: “Purchase confirmation · gift card”.','<p>An amount card always has 10% off and is separate: it does not count towards the tier. A card for a specific treatment counts as one more treatment. Digital or physical; both are sent from 30 November.</p>');
+  }
+  function endResult(){
+    var e=S.end, w=S.want, close=(w==="gift")?"cg":"ct";
+    function go(id,l){ return '<button class="btn dark go" data-go="'+id+'">'+l+' →</button>'; }
+    if(e==="buy") return card2("ok","Confirm by email",'<p>Send the purchase confirmation by email with the treatments, prices and payment details. It is always the last message the patient receives: a purchase is never closed by WhatsApp only. Record the sale in the medical history, the billing sheet (BF column) and your list.</p>'+((w==="gift"||w==="new")?'<p class="next"><b>If it is a gift card:</b> write “Physical gift card” or “Digital gift card” in the Notes column of your patient list.</p>':'')+go(close,"Open the confirmation template"),"","");
+    if(e==="think") return card2("wa","Open a WhatsApp conversation from Salesforce",'<p>Send the follow-up template from Salesforce. When they reply, send “Campaign information” (or the gift card one) and call them back to close.</p>'+go("info","Open “Campaign information”"),"","");
+    if(e==="noanswer") return card2("wa","Message from Salesforce and try again",'<p>Send the opening template (missed call) from Salesforce, note it in your list and try again later. The goal is still the call.</p>',"","");
+    if(e==="writing") return card2("wa","Reply in writing and aim for the call",'<p>Send “Campaign information” (or the gift card one) and offer to call them.</p>'+go(w==="gift"||w==="new"?"ginfo":"info","Open the information template"),"","");
+    return card2("no","Thank them and close well",'<p>Thank them for their time, without insisting, and say goodbye warmly. Note it in your list.</p>',"","");
+  }
+  function vProposal(){
+    var h='<section class="box"><h2><span class="num">1</span>What is the patient interested in?</h2><p class="hint" style="margin:0 0 12px">Check the medical history before proposing anything.</p><div class="opts2">'
+      +WANT.map(function(w){ return '<button class="opt2'+(S.want===w[0]?' on':'')+'" data-want="'+w[0]+'">'+esc(w[1])+'</button>'; }).join("")+'</div>'+(S.want?wantResult():'')+'</section>';
+    h+='<section class="box"><h2><span class="num">2</span>How did the call end?</h2><div class="opts2">'+END.map(function(w){ return '<button class="opt2'+(S.end===w[0]?' on':'')+'" data-end="'+w[0]+'">'+esc(w[1])+'</button>'; }).join("")+'</div>'+(S.end?endResult():'')+'</section>';
+    return h;
+  }
+  function vLang(){
+    function tbl(a,h1,h2){ return '<table class="tt"><thead><tr><th>'+h1+'</th><th>'+h2+'</th></tr></thead><tbody>'+a.map(function(r){ return '<tr><td>'+r[0]+'</td><td>'+r[1]+'</td></tr>'; }).join("")+'</tbody></table>'; }
+    var rows=[["“Good morning, Bright Friday, would you like to buy?”","“I am calling to see how things have been since your last visit”."],["“If you don\'t do it now, you\'ll miss out”.","“It is entirely up to you; what matters is that it suits you”."],["“I guarantee the wrinkles will disappear”.","“The doctor will follow up to see how your skin responds”."],["“I\'ll book the treatment right away” (no assessment)","“You can pay for it now and the doctor will confirm it is right for you before you start”."],["“We have 20% discount”.","“With three treatments you would have a 20% price reduction on everything”."]];
+    var obj=[["“I need to think about it”","“Of course. What would help you decide? If you like, I can send it to you on WhatsApp and call you tomorrow”."],["“I\'m not sure I\'ll have time”","“You have until 25 February to start; after that you follow the schedule your doctor recommends”."],["“I\'d rather pay in instalments”","“You can pay the programme in instalments: the reduction applies to the first payment, made these days”."],["“I want something new”","“All our programmes are confirmed by a doctor. You can pay for it now and the doctor will assess it, or choose a gift card to decide with more time”."],["“What about a treatment I have already started?”","“The campaign is for new treatments; to complement it, I would recommend "+ph("[treatment]")+"”."]];
+    return '<section class="box"><h2>Words we use</h2><div class="two"><div class="w ok"><b>We use</b><p>price reduction · programme · advice · personalised · treatment · results · follow-up · benefit</p></div><div class="w no"><b>We avoid</b><p>discount · offer · promo · exclusive · “today only” · “last chance”</p></div></div><p class="hint">We present tailored medical solutions, not a sale. From trust, never from urgency.</p></section>'
+      +'<section class="box"><h2>Instead of… better…</h2>'+tbl(rows,"Instead of…","Better…")+'</section>'
+      +'<section class="box"><h2>If the patient says…</h2>'+tbl(obj,"If they say…","You can reply…")+'</section>'
+      +'<section class="box"><h2>Cross-selling: complement what they already want</h2><p class="say">“As we want to improve '+ph("[X]")+', I would recommend complementing it with '+ph("[Y]")+'. With Bright Friday, you would get '+ph("[Z]")+'”.</p><p class="hint">Only when it relates to their need. Before starting, the doctor assesses the suitability of each treatment. One more different treatment moves the tier: from 15% to 20% on everything.</p></section>'
+      +'<section class="box"><h2>Ethical upselling: more value, not a higher price</h2><p class="say">“For what you are looking for, I would recommend the '+ph("[programme]")+' rather than a single session: it includes '+ph("[sessions and follow-up]")+' and, with Bright Friday, you would get '+ph("[benefit]")+'”.</p></section>';
+  }
+
+  /* ---------- calculator ---------- */
+  function slotHTML(id,i){
+    var p=id!=null?LIST[id]:null;
+    var head='<div class="slh"><span>Treatment '+(i+1)+'</span>'+(p?'<button class="link" data-sclr="'+i+'">Clear</button>':(S.slots.length>4?'<button class="link" data-sclr="'+i+'">Remove</button>':''))+'</div>';
+    if(p) return '<div class="slot full">'+head+'<div class="chosen" title="'+esc(p[1])+'"><span>'+esc(p[1])+'</span><small>'+esc(p[0])+'</small></div><div class="slp">'+gbp(p[2])+'</div></div>';
+    var q=S.sq[i]||"";
+    var ctrl=S.browse[i]?'<select data-slot="'+i+'">'+optsHTML()+'</select>':'<div class="sbox"><input type="search" class="sq" data-sq="'+i+'" autocomplete="off" placeholder="Search…" value="'+esc(q)+'" aria-label="Search treatment '+(i+1)+'"><div class="drop" data-sr="'+i+'">'+resHTML(i,q)+'</div></div>';
+    return '<div class="slot">'+head+ctrl+'<div class="slfoot"><button class="link small" data-browse="'+i+'">'+(S.browse[i]?'Search':'See list')+'</button><span class="slp">—</span></div></div>';
+  }
+  function vCalc(){
+    var r=quick();
+    var h='<p class="prnote"><b>Type the treatment and choose the result.</b> De Felipe London price list. Anything not on the list: type “other” and the price.</p><div class="slots">'+S.slots.map(slotHTML).join("")+'</div>';
+    if(S.slots.length<8) h+='<button class="btn ghost" id="addslot" style="margin:0 0 16px;width:auto">+ Another treatment</button>';
+    h+='<div class="qres"><div class="qb qb1"><span>Different treatments</span><b>'+r.n+'</b></div><div class="qb qb2"><span>Standard price</span><b>'+gbp(r.full)+'</b></div><div class="qb qb3"><span>Bright Friday price'+(r.pct?' · −'+Math.round(r.pct*100)+'%':'')+'</span><b>'+(r.n?gbp(r.bf):'—')+'</b>'+(r.n?'<small>Saves '+gbp(r.full-r.bf)+'</small>':'')+'</div></div>';
+    if(Object.keys(r.g).some(function(k){ return r.g[k].length>1; })) h+='<p class="note">Some treatments are the same product (for example, two hyaluronic acid lines): they count as one.</p>';
+    if(r.n && r.n<3) h+='<p class="note tip2">With one more different treatment it would move to −'+Math.round(tierOf(r.n+1)*100)+'% on everything: what they already have would be '+gbp(r.full*(tierOf(r.n+1)-r.pct))+' cheaper.</p>';
+    h+='<p class="hint">Instalments: the reduction applies only to the first payment, made on 26 or 27 November.</p>';
+    return h;
+  }
+  /* ---------- gift card ---------- */
+  function gAmount(){ return S.gmode==="free"?(Number(S.gift)||0):(Number(S.gprog)||0); }
+  function giftRes(){
+    var g=gAmount(); if(!g) return '';
+    var pay=g*0.9, send=S.gfmt==="d"?'Digital: sent from 30 November, once payment is confirmed.':'Physical: sent by courier from 30 November, once payment is confirmed.';
+    return '<div class="res"><p class="eyebrow">Pays now</p><div class="price-line"><span class="final">'+gbp(pay)+'</span><span class="old">'+gbp(g)+'</span><span class="badge">−10%</span></div>'
+      +'<p class="say">Gift card worth '+gbp(g)+' for '+gbp(pay)+'. Saves <b>'+gbp(g-pay)+'</b>.'+(S.gmode==="prog"?' The first consultation with the doctor is included.':'')+'</p>'
+      +'<p class="sub"><b>Account:</b> '+BANK.name+' · Sort code '+BANK.sort+' · Account '+BANK.account+'</p><p class="sub"><b>What to expect:</b> '+send+' Valid for one year.</p></div>'
+      +'<div class="box steps2"><h2>After closing the gift card</h2><ol><li>Send “Purchase confirmation · gift card” by email.</li><li>In the Notes column of your patient list, write: <b>'+(S.gfmt==="d"?'Digital':'Physical')+' gift card</b>.</li></ol><button class="btn dark go" data-go="cg">Open the confirmation template →</button></div>';
+  }
+  function vGift(){
+    var amts=S.gmode==="free"?[100,250,500,750,1000]:[800,1000,1200,1500], cur=gAmount();
+    var h='<div class="tabs sub">'+[["free","Free amount"],["prog","New treatment"]].map(function(m){ return '<button class="'+(S.gmode===m[0]?'on':'')+'" data-gmode="'+m[0]+'">'+m[1]+'</button>'; }).join("")+'</div>';
+    h+='<section class="box"><h2><span class="num">1</span>'+(S.gmode==="free"?'Card amount':'Approximate programme price')+'</h2>'+(S.gmode==="prog"?'<p class="hint" style="margin:0 0 12px">For patients who want a new treatment and prefer time to decide with the doctor. The first consultation is included.</p>':'')
+      +'<div class="chips amts">'+amts.map(function(v){ return '<button class="chip'+(cur===v?' on':'')+'" data-gamt="'+v+'">'+gbp(v)+'</button>'; }).join("")+'</div>'
+      +'<label class="price wide" style="margin-top:10px"><span class="sr">Amount</span><input type="number" inputmode="decimal" min="0" id="gamt" value="'+(cur||"")+'" placeholder="Other amount"><span class="e">£</span></label></section>';
+    h+='<section class="box"><h2><span class="num">2</span>Format</h2><div class="chips">'+[["d","Digital"],["f","Physical · courier"]].map(function(x){ return '<button class="chip'+(S.gfmt===x[0]?' on':'')+'" data-gf="'+x[0]+'">'+x[1]+'</button>'; }).join("")+'</div><p class="hint">An amount card is separate at 10%: it does not count towards the tier. A gift card bought in Spain cannot, in principle, be used in London (exceptions are assessed by Carlos).</p></section>';
+    h+='<section id="result">'+giftRes()+'</section>';
+    return h;
+  }
+  /* ---------- templates ---------- */
+  function vTpl(){
+    var h='<section class="box who"><label>Patient name<input type="text" id="pac" autocomplete="off" placeholder="E.g. Emma Clarke" value="'+esc(S.pac)+'"></label><span></span><label>Your name (signature)<input type="text" id="me" autocomplete="off" placeholder="E.g. Nicky" value="'+esc(S.me)+'"></label></section>';
+    h+='<p class="hint" style="margin:0 0 14px">The opening and follow-up templates are in Salesforce. Fill in anything <mark>highlighted</mark>. Purchase confirmations are always sent by email.</p>';
+    TPLS.forEach(function(tp,i){ var open=S.open===tp.id;
+      h+='<section class="box tpl" id="tpl-'+tp.id+'"><div class="tph"><div><h2 style="margin:0 0 4px">'+esc(tp.n)+'</h2><p class="hint" style="margin:0">'+esc(tp.when)+' <b>'+esc(tp.ch)+'.</b></p></div><button class="btn dark cpy" data-cpt="'+i+'">Copy</button></div>';
+      if(tp.id==="ct") h+='<p class="note">Fills in automatically with what you calculate in “Treatment calculator”. Always check the amounts before sending.</p>';
+      if(tp.gift) h+='<p class="note"><b>For you:</b> after sending it, write “Physical gift card” or “Digital gift card” in the Notes column of your patient list.</p><div class="chips" style="margin-top:8px">'+[["d","Digital"],["f","Physical · courier"]].map(function(x){ return '<button class="chip'+(S.gfmt===x[0]?' on':'')+'" data-gf="'+x[0]+'">'+x[1]+'</button>'; }).join("")+'</div>';
+      if(tp.pay) h+='<p class="acc">Account: <b>'+BANK.name+'</b> · Sort code '+BANK.sort+' · Account '+BANK.account+'</p>';
+      h+='<button class="link tog" data-tog="'+tp.id+'">'+(open?'Hide text ▴':'Show text ▾')+'</button>'+(open?'<div class="tptext" data-id="'+tp.id+'">'+hl(tplText(tp))+'</div>':'')+'</section>'; });
+    return h;
+  }
+  function vPay(){
+    return '<section class="box"><p class="eyebrow">De Felipe London</p><h2 style="margin-top:6px">Treatments and gift cards</h2>'
+      +'<div class="kv"><span>Account name</span><b>'+BANK.name+'</b><button class="mini" data-cp="'+BANK.name+'">Copy</button></div>'
+      +'<div class="kv"><span>Sort code</span><b class="iban">'+BANK.sort+'</b><button class="mini" data-cp="'+BANK.sort+'">Copy</button></div>'
+      +'<div class="kv"><span>Account number</span><b class="iban">'+BANK.account+'</b><button class="mini" data-cp="'+BANK.account+'">Copy</button></div>'
+      +'<div class="kv"><span>Reference</span><b>'+REFERENCE+'</b><span></span></div>'
+      +'<button class="btn dark" id="cpall" style="width:auto;margin-top:14px">Copy all details</button></section>'
+      +'<p class="hint">Patients pay on 26 or 27 November, at the clinic or by bank transfer, and send the proof of payment by replying to the confirmation email.</p>';
+  }
+  /* ---------- FAQ ---------- */
+  var UPDATED="24/11/2026";
+  var FAQ=[
+    {c:"Campaign",q:"What is the price reduction?",a:"1 treatment: −10%. 2 different treatments: −15%. 3 or more: −20%. It applies to the whole set."},
+    {c:"Campaign",q:"What counts as a single treatment?",a:"Programmes, even with several sessions, and several vials or areas of the same product (for example, 2 vials of hyaluronic acid or 2 botox areas)."},
+    {c:"Campaign",q:"What is not included?",a:"Consultations and surgery. Only new treatments: not second or third instalments, outstanding payments or treatments already paid for."},
+    {c:"Campaign",q:"Until when can they start the treatment?",a:"Until 25/02/2027. Programmes start before that date and then follow the schedule the doctor recommends. Gift cards are the exception: they can be used for one year from purchase."},
+    {c:"Campaign",q:"Can I offer a treatment no doctor has assessed yet?",a:"Yes. It does not need to be prescribed: explain that, before starting, a doctor will assess its suitability and confirm whether it can go ahead or needs to be adjusted or changed."},
+    {c:"Campaign",q:"What if the doctor changes or cancels a treatment after the assessment?",a:"We adjust the booking keeping the price reduction or, if necessary, arrange a refund of one or all of the treatments."},
+    {c:"Campaign",q:"When can we talk about the campaign?",a:"It is confidential until Wednesday 25 November at 8pm. Until then, nobody mentions it to patients."},
+    {c:"Payment",q:"Does the first instalment get the price reduction?",a:"Yes, if it is paid during Bright Friday (26 and 27 November). The remaining instalments are charged at the standard price."},
+    {c:"Payment",q:"Which account do patients pay into?",a:"De Felipe Derma LTD · Sort code 30-11-08 · Account number 26401568. The full details are in “Payment details”."},
+    {c:"Payment",q:"The patient transfers on the 27th but it arrives later. Does it count?",a:"Yes. Always ask for the proof of payment by replying to the confirmation email."},
+    {c:"Gift card",q:"What is the gift card price reduction?",a:"An amount card always has 10% off and is separate: it does not count towards the tier of other treatments. A card for a specific treatment counts as one more treatment."},
+    {c:"Gift card",q:"How long can it be used?",a:"One year from purchase. For example, a card bought on 26 November 2026 can be used until 26 November 2027."},
+    {c:"Gift card",q:"How and when do they receive it?",a:"It can be digital or physical. Both are sent from 30 November, once payment is confirmed. Physical cards go by courier, to their home or directly to the recipient."},
+    {c:"Gift card",q:"Can a gift card bought in Spain be used in London?",a:"In principle, no. Tell them you will check: exceptions are assessed by Carlos."},
+    {c:"Gift card",q:"I have closed a gift card. What do I do?",a:"Send “Purchase confirmation · gift card” by email and write “Physical gift card” or “Digital gift card” in the Notes column of your patient list."},
+    {c:"Records",q:"How do I mark a Bright Friday sale in the billing sheet?",a:"With “BF” in the right-hand column. Gift cards have their own column during the campaign."},
+    {c:"Records",q:"Can I close a purchase on WhatsApp?",a:"No. The last message to a patient who buys is always the purchase confirmation by email, with the treatments, prices and payment details."}
+  ];
+  var F={q:"",c:"All"};
+  function faqList(){
+    var ws=norm(F.q).trim().split(/\s+/).filter(Boolean);
+    var rows=FAQ.filter(function(f){ if(F.c!=="All"&&f.c!==F.c) return false; var t=norm(f.q+" "+f.a); return ws.every(function(w){ return t.indexOf(w)>=0; }); });
+    if(!rows.length) return '<p class="hint">No question matches. If it is a new question, ask your support lead: we will add it here.</p>';
+    return rows.map(function(f){ return '<details class="faq"'+(ws.length?' open':'')+'><summary><span class="fcat">'+esc(f.c)+'</span>'+esc(f.q)+'</summary><p>'+esc(f.a)+'</p></details>'; }).join("");
+  }
+  function vFaq(){
+    var cats=["All"]; FAQ.forEach(function(f){ if(cats.indexOf(f.c)<0) cats.push(f.c); });
+    return '<section class="box"><h2>Frequently asked questions</h2><p class="hint" style="margin:0 0 14px">A living list: we will keep adding questions, including during the campaign. Last updated: '+UPDATED+'.</p><input type="search" id="fq" autocomplete="off" placeholder="Search: gift card, instalments, account…" value="'+esc(F.q)+'"><div class="chips" style="margin-top:12px">'+cats.map(function(c){ return '<button class="chip'+(F.c===c?' on':'')+'" data-fc="'+c+'">'+c+'</button>'; }).join("")+'</div></section><section class="box" id="flist">'+faqList()+'</section>';
+  }
+
+  /* ---------- render ---------- */
+  var MAIN=[["sc","Selling Ceremony"],["calc","Treatment calculator"],["gift","Gift card"],["tpl","Templates"],["pay","Payment details"],["faq","FAQ"]];
+  var SCT=[["call","1 · On the call"],["prop","2 · Tailored proposal"],["lang","3 · Language, objections and cross-selling"]];
+  function draw(){
+    $("#mainnav").innerHTML=MAIN.map(function(m){ return '<button class="'+(S.main===m[0]?'on':'')+'" data-main="'+m[0]+'">'+m[1]+'</button>'; }).join("");
+    var h="";
+    if(S.main==="sc"){ h+='<div class="tabs scx" role="tablist">'+SCT.map(function(t){ return '<button class="'+(S.tab===t[0]?'on':'')+'" data-tab="'+t[0]+'">'+t[1]+'</button>'; }).join("")+'</div>'; h+=({call:vCall,prop:vProposal,lang:vLang})[S.tab](); }
+    else h+=({calc:vCalc,gift:vGift,tpl:vTpl,pay:vPay,faq:vFaq})[S.main]();
+    $("#view").innerHTML=h; bind();
+  }
+  function warn(tp){
+    var box=document.getElementById("tpl-"+tp.id); if(!box) return; var o=box.querySelector(".warn-acc"); if(o) o.remove();
+    var d=document.createElement("div"); d.className="warn-acc"; d.setAttribute("role","alert");
+    d.innerHTML='<b>Before sending, check the amounts and the payment details.</b> London payments go to '+BANK.name+' · Sort code '+BANK.sort+' · Account '+BANK.account+'.<button class="link">Got it</button>';
+    d.querySelector("button").onclick=function(){ d.remove(); }; var hd=box.querySelector(".tph"); hd.parentNode.insertBefore(d,hd.nextSibling);
+  }
+  function bind(){
+    document.querySelectorAll("[data-main]").forEach(function(b){ b.onclick=function(){ S.main=b.getAttribute("data-main"); draw(); window.scrollTo(0,0); }; });
+    document.querySelectorAll("[data-tab]").forEach(function(b){ b.onclick=function(){ S.tab=b.getAttribute("data-tab"); draw(); }; });
+    document.querySelectorAll("[data-want]").forEach(function(b){ b.onclick=function(){ S.want=b.getAttribute("data-want"); draw(); }; });
+    document.querySelectorAll("[data-end]").forEach(function(b){ b.onclick=function(){ S.end=b.getAttribute("data-end"); draw(); }; });
+    document.querySelectorAll("[data-go]").forEach(function(b){ b.onclick=function(){ var id=b.getAttribute("data-go"); S.main="tpl"; S.open=id; draw(); setTimeout(function(){ var el=document.getElementById("tpl-"+id); if(el) el.scrollIntoView({behavior:"smooth",block:"start"}); },50); }; });
+    function pick(i,id){ S.slots[i]=id; S.sq[i]=""; S.browse[i]=false; draw(); var nx=document.querySelector(".sq"); if(nx&&window.innerWidth>760) nx.focus(); }
+    function bindPicks(root){ (root||document).querySelectorAll("[data-pick]").forEach(function(b){ b.onclick=function(){ var v=b.getAttribute("data-pick").split(":"); pick(+v[0],+v[1]); }; }); }
+    bindPicks();
+    document.querySelectorAll("[data-sq]").forEach(function(inp){ var i=+inp.getAttribute("data-sq");
+      inp.oninput=function(){ S.sq[i]=inp.value; var box=document.querySelector('[data-sr="'+i+'"]'); box.innerHTML=resHTML(i,inp.value); bindPicks(box); };
+      inp.onkeydown=function(e){ if(e.key==="Enter"){ var f=search(inp.value)[0]; if(f!=null){ e.preventDefault(); pick(i,f); } } }; });
+    document.querySelectorAll("[data-slot]").forEach(function(s){ s.onchange=function(){ if(s.value!=="") pick(+s.getAttribute("data-slot"),+s.value); }; });
+    document.querySelectorAll("[data-browse]").forEach(function(b){ b.onclick=function(){ var i=+b.getAttribute("data-browse"); S.browse[i]=!S.browse[i]; draw(); }; });
+    document.querySelectorAll("[data-sclr]").forEach(function(b){ b.onclick=function(){ var i=+b.getAttribute("data-sclr"); if(S.slots[i]!=null) S.slots[i]=null; else S.slots.splice(i,1); draw(); }; });
+    var as=$("#addslot"); if(as) as.onclick=function(){ S.slots.push(null); draw(); };
+    document.querySelectorAll("[data-gmode]").forEach(function(b){ b.onclick=function(){ S.gmode=b.getAttribute("data-gmode"); draw(); }; });
+    document.querySelectorAll("[data-gamt]").forEach(function(b){ b.onclick=function(){ if(S.gmode==="free") S.gift=b.getAttribute("data-gamt"); else S.gprog=b.getAttribute("data-gamt"); draw(); }; });
+    var ga=$("#gamt"); if(ga) ga.oninput=function(){ if(S.gmode==="free") S.gift=ga.value; else S.gprog=ga.value; $("#result").innerHTML=giftRes(); bind2(); };
+    document.querySelectorAll("[data-gf]").forEach(function(b){ b.onclick=function(){ S.gfmt=b.getAttribute("data-gf"); draw(); }; });
+    var pi=$("#pac"); if(pi) pi.oninput=function(){ S.pac=pi.value; refresh(); };
+    var mi=$("#me"); if(mi) mi.oninput=function(){ S.me=mi.value; store("me",mi.value); refresh(); };
+    document.querySelectorAll("[data-tog]").forEach(function(b){ b.onclick=function(){ var id=b.getAttribute("data-tog"); S.open=S.open===id?null:id; draw(); }; });
+    document.querySelectorAll("[data-cpt]").forEach(function(b){ b.onclick=function(){ var tp=TPLS[+b.getAttribute("data-cpt")]; copyTxt(tplText(tp),b,"Copy"); if(tp.pay) warn(tp); }; });
+    document.querySelectorAll("[data-cp]").forEach(function(b){ b.onclick=function(){ copyTxt(b.getAttribute("data-cp"),b,"Copy"); }; });
+    var ca=$("#cpall"); if(ca) ca.onclick=function(){ copyTxt("Account name: "+BANK.name+"\nSort code: "+BANK.sort+"\nAccount number: "+BANK.account+"\nReference: "+REFERENCE,ca,"Copy all details"); };
+    var fq=$("#fq"); if(fq) fq.oninput=function(){ F.q=fq.value; $("#flist").innerHTML=faqList(); };
+    document.querySelectorAll("[data-fc]").forEach(function(b){ b.onclick=function(){ F.c=b.getAttribute("data-fc"); draw(); }; });
+  }
+  function bind2(){ document.querySelectorAll("#result [data-go]").forEach(function(b){ b.onclick=function(){ S.main="tpl"; S.open="cg"; draw(); setTimeout(function(){ var el=document.getElementById("tpl-cg"); if(el) el.scrollIntoView({behavior:"smooth",block:"start"}); },50); }; }); }
+  function refresh(){ document.querySelectorAll(".tptext").forEach(function(el){ var id=el.getAttribute("data-id"); TPLS.forEach(function(tp){ if(tp.id===id) el.innerHTML=hl(tplText(tp)); }); }); }
+  try{ draw(); }catch(e){ $("#view").innerHTML='<div class="err"><b>The tool could not load.</b> Please reload the page. If it keeps failing, let Natalia know.</div>'; if(window.console) console.error(e); }
+})();
+
+</script>
+</body>
+</html>
