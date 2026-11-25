@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Bright Friday 2026 Tool · De Felipe London</title>
+<title>Bright Friday 2026 Tool · De Felipe Dermatologist London</title>
 <style>
 :root{--navy:#1E2840;--navy2:#2B3858;--cream:#F5F0E8;--card:#FFFDF9;--line:#E2D8C6;--bronze:#8A5E2C;--gold:#D9B27C;--muted:#4A5063;--soft:#6B6F7A;--green:#2F6B4F;--red:#9A3B2E}
 *{box-sizing:border-box}
@@ -567,7 +567,7 @@ details.prep>summary::after{content:"Show ▾"!important} details.prep[open]>sum
 </div></header>
 <noscript><div class="wrap err" style="margin:16px auto">This tool needs JavaScript enabled.</div></noscript>
 <main><div class="wrap" id="view"></div></main>
-<footer><div class="wrap">Prices: De Felipe London price list. If a price does not match, use “other” with the correct amount. If in doubt, ask your support lead.</div></footer>
+<footer><div class="wrap">Prices: De Felipe Dermatologist London price list. If a price does not match, use “other” with the correct amount. If in doubt, ask your support lead.</div></footer>
 <script>
 (function(){
   "use strict";
@@ -581,7 +581,7 @@ details.prep>summary::after{content:"Show ▾"!important} details.prep[open]>sum
   /* ======= PAYMENT DETAILS: edit only this block ======= */
   var BANK = { name:"De Felipe Derma LTD", sort:"30-11-08", account:"26401568" };
   var REFERENCE = "Patient's full name";
-  var CLINIC = "De Felipe London";
+  var CLINIC = "De Felipe Dermatologist London";
   /* ===================================================== */
 
   /* ======= PRICE LIST DE FELIPE LONDON: [category, description, price, group] ======= */
@@ -620,6 +620,10 @@ details.prep>summary::after{content:"Show ▾"!important} details.prep[open]>sum
 
   /* ---------- templates ---------- */
   var TPLS=[
+    {id:"ap", n:"Opening · missed call", when:"The patient does not answer or cannot talk. Opens the conversation to get the call.", ch:"WhatsApp from Salesforce or email",
+     t:"We are delighted to be in touch.\n\nAt {CLINIC}, we value the trust you place in us and remain committed to providing you with the highest standards of care.\n\nAs a previous patient of our clinic, we thought you might be interested in a special campaign taking place on 26 and 27 November. It has been designed to support our patients in achieving their individual skin health and aesthetic goals, while maintaining the same standards of care and expertise you have come to expect from us.\n\nShould you wish to receive further information or discuss whether any of the available options may be suitable for you, our team would be pleased to assist you. You can simply reply to this message or contact us by telephone.\n\nKind regards,\n{CLINIC}"},
+    {id:"seg", n:"Follow-up after the call", wa:true, when:"The patient answered but prefers to receive the information by WhatsApp, or is interested but has not decided yet.", ch:"WhatsApp from Salesforce",
+     t:"Hello {PAC}, this is {ME} from {CLINIC}. Thank you for speaking with us today. As we mentioned, our Bright Friday campaign takes place on 26 and 27 November and we would love you to benefit from it. If you would like to receive the details of your consultation and the next steps, simply reply to this message and we will send them to you. Kind regards."},
     {id:"info", n:"Campaign information", when:"The patient replies with interest or asks in writing. Then call them back.", ch:"WhatsApp from Salesforce or email",
      t:"It is a pleasure to be in touch.\n\nAs requested, please find below the details of our Bright Friday 2026 campaign, available on 26 and 27 November.\n\nThe campaign offers:\n· 10% off 1 treatment\n· 15% off 2 treatments\n· 20% off 3 or more treatments\n\nThe benefits of our Bright Friday campaign can be applied to treatments commenced by 25 February 2027.\n\nShould you wish to discuss which option would best suit your individual goals, our team would be delighted to provide further guidance.\n\nKind regards,\n{CLINIC}"},
     {id:"ginfo", n:"Gift card information", when:"The patient asks about gift cards, or prefers more time to decide with the doctor.", ch:"WhatsApp from Salesforce or email",
@@ -631,7 +635,8 @@ details.prep>summary::after{content:"Show ▾"!important} details.prep[open]>sum
   ];
   var GFMT={d:"Digital",f:"Physical card, sent by courier to [delivery address]"};
   var GSTEP={d:"We will send you the digital card from 30 November.",f:"We will send the card by courier from 30 November to the address provided. On the back we will write: [treatment, amount or message / no text]."};
-  function tplText(tp){
+  function tplText(tp,sf){
+    if(tp.wa) return tp.t.replace("{PAC}", sf?"{{1}}":(S.pac.trim()||"[Patient's name]")).replace("{ME}", sf?"{{2}}":(S.me.trim()||"[Your name]")).replace(/\{CLINIC\}/g,CLINIC);
     var s=tp.t, r=quick();
     if(s.indexOf("{LIST}")>=0){
       if(r.ids.length) s=s.replace("{LIST}",r.ids.map(function(id){ return "· "+LIST[id][1]; }).join("\n")).replace("{HAB}",gbp(r.full)).replace("{BF}",gbp(r.bf));
@@ -703,8 +708,8 @@ details.prep>summary::after{content:"Show ▾"!important} details.prep[open]>sum
     var e=S.end, w=S.want, close=(w==="gift")?"cg":"ct";
     function go(id,l){ return '<button class="btn dark go" data-go="'+id+'">'+l+' →</button>'; }
     if(e==="buy") return card2("ok","Confirm by email",'<p>Send the purchase confirmation by email with the treatments, prices and payment details. It is always the last message the patient receives: a purchase is never closed by WhatsApp only. Record the sale in the medical history, the billing sheet (BF column) and your list.</p>'+((w==="gift"||w==="new")?'<p class="next"><b>If it is a gift card:</b> write “Physical gift card” or “Digital gift card” in the Notes column of your patient list.</p>':'')+go(close,"Open the confirmation template"),"","");
-    if(e==="think") return card2("wa","Open a WhatsApp conversation from Salesforce",'<p>Send the follow-up template from Salesforce. When they reply, send “Campaign information” (or the gift card one) and call them back to close.</p>'+go("info","Open “Campaign information”"),"","");
-    if(e==="noanswer") return card2("wa","Message from Salesforce and try again",'<p>Send the opening template (missed call) from Salesforce, note it in your list and try again later. The goal is still the call.</p>',"","");
+    if(e==="think") return card2("wa","Open a WhatsApp conversation from Salesforce",'<p>Send “Follow-up after the call” by WhatsApp from Salesforce. When they reply, send “Campaign information” (or the gift card one) and call them back to close.</p>'+go("seg","Open “Follow-up after the call”"),"","");
+    if(e==="noanswer") return card2("wa","Message and try again",'<p>Send “Opening · missed call” by WhatsApp from Salesforce (or by email), note it in your list and try again later. The goal is still the call.</p>'+go("ap","Open “Opening · missed call”"),"","");
     if(e==="writing") return card2("wa","Reply in writing and aim for the call",'<p>Send “Campaign information” (or the gift card one) and offer to call them.</p>'+go(w==="gift"||w==="new"?"ginfo":"info","Open the information template"),"","");
     return card2("no","Thank them and close well",'<p>Thank them for their time, without insisting, and say goodbye warmly. Note it in your list.</p>',"","");
   }
@@ -736,7 +741,7 @@ details.prep>summary::after{content:"Show ▾"!important} details.prep[open]>sum
   }
   function vCalc(){
     var r=quick();
-    var h='<p class="prnote"><b>Type the treatment and choose the result.</b> De Felipe London price list. Anything not on the list: type “other” and the price.</p><div class="slots">'+S.slots.map(slotHTML).join("")+'</div>';
+    var h='<p class="prnote"><b>Type the treatment and choose the result.</b> De Felipe Dermatologist London price list. Anything not on the list: type “other” and the price.</p><div class="slots">'+S.slots.map(slotHTML).join("")+'</div>';
     if(S.slots.length<8) h+='<button class="btn ghost" id="addslot" style="margin:0 0 16px;width:auto">+ Another treatment</button>';
     h+='<div class="qres"><div class="qb qb1"><span>Different treatments</span><b>'+r.n+'</b></div><div class="qb qb2"><span>Standard price</span><b>'+gbp(r.full)+'</b></div><div class="qb qb3"><span>Bright Friday price'+(r.pct?' · −'+Math.round(r.pct*100)+'%':'')+'</span><b>'+(r.n?gbp(r.bf):'—')+'</b>'+(r.n?'<small>Saves '+gbp(r.full-r.bf)+'</small>':'')+'</div></div>';
     if(Object.keys(r.g).some(function(k){ return r.g[k].length>1; })) h+='<p class="note">Some treatments are the same product (for example, two hyaluronic acid lines): they count as one.</p>';
@@ -767,9 +772,10 @@ details.prep>summary::after{content:"Show ▾"!important} details.prep[open]>sum
   /* ---------- templates ---------- */
   function vTpl(){
     var h='<section class="box who"><label>Patient name<input type="text" id="pac" autocomplete="off" placeholder="E.g. Emma Clarke" value="'+esc(S.pac)+'"></label><span></span><label>Your name (signature)<input type="text" id="me" autocomplete="off" placeholder="E.g. Nicky" value="'+esc(S.me)+'"></label></section>';
-    h+='<p class="hint" style="margin:0 0 14px">The opening and follow-up templates are in Salesforce. Fill in anything <mark>highlighted</mark>. Purchase confirmations are always sent by email.</p>';
+    h+='<p class="hint" style="margin:0 0 14px">WhatsApp messages are sent from Salesforce. Fill in anything <mark>highlighted</mark>. Purchase confirmations are always sent by email.</p>';
     TPLS.forEach(function(tp,i){ var open=S.open===tp.id;
       h+='<section class="box tpl" id="tpl-'+tp.id+'"><div class="tph"><div><h2 style="margin:0 0 4px">'+esc(tp.n)+'</h2><p class="hint" style="margin:0">'+esc(tp.when)+' <b>'+esc(tp.ch)+'.</b></p></div><button class="btn dark cpy" data-cpt="'+i+'">Copy</button></div>';
+      if(tp.wa) h+='<p class="note">To set it up in Salesforce, copy the version with variables ({{1}} = patient name, {{2}} = your name). <button class="link" data-cps="'+i+'">Copy Salesforce version</button></p>';
       if(tp.id==="ct") h+='<p class="note">Fills in automatically with what you calculate in “Treatment calculator”. Always check the amounts before sending.</p>';
       if(tp.gift) h+='<p class="note"><b>For you:</b> after sending it, write “Physical gift card” or “Digital gift card” in the Notes column of your patient list.</p><div class="chips" style="margin-top:8px">'+[["d","Digital"],["f","Physical · courier"]].map(function(x){ return '<button class="chip'+(S.gfmt===x[0]?' on':'')+'" data-gf="'+x[0]+'">'+x[1]+'</button>'; }).join("")+'</div>';
       if(tp.pay) h+='<p class="acc">Account: <b>'+BANK.name+'</b> · Sort code '+BANK.sort+' · Account '+BANK.account+'</p>';
@@ -777,7 +783,7 @@ details.prep>summary::after{content:"Show ▾"!important} details.prep[open]>sum
     return h;
   }
   function vPay(){
-    return '<section class="box"><p class="eyebrow">De Felipe London</p><h2 style="margin-top:6px">Treatments and gift cards</h2>'
+    return '<section class="box"><p class="eyebrow">De Felipe Dermatologist London</p><h2 style="margin-top:6px">Treatments and gift cards</h2>'
       +'<div class="kv"><span>Account name</span><b>'+BANK.name+'</b><button class="mini" data-cp="'+BANK.name+'">Copy</button></div>'
       +'<div class="kv"><span>Sort code</span><b class="iban">'+BANK.sort+'</b><button class="mini" data-cp="'+BANK.sort+'">Copy</button></div>'
       +'<div class="kv"><span>Account number</span><b class="iban">'+BANK.account+'</b><button class="mini" data-cp="'+BANK.account+'">Copy</button></div>'
@@ -804,6 +810,7 @@ details.prep>summary::after{content:"Show ▾"!important} details.prep[open]>sum
     {c:"Gift card",q:"Can a gift card bought in Spain be used in London?",a:"In principle, no. Tell them you will check: exceptions are assessed by Carlos."},
     {c:"Gift card",q:"I have closed a gift card. What do I do?",a:"Send “Purchase confirmation · gift card” by email and write “Physical gift card” or “Digital gift card” in the Notes column of your patient list."},
     {c:"Records",q:"How do I mark a Bright Friday sale in the billing sheet?",a:"With “BF” in the right-hand column. Gift cards have their own column during the campaign."},
+    {c:"Records",q:"What do I send if they do not answer, or want the information by WhatsApp?",a:"No answer: “Opening · missed call”. They answer but prefer the information by WhatsApp: “Follow-up after the call”. Both are in “Templates” and are sent by WhatsApp from Salesforce."},
     {c:"Records",q:"Can I close a purchase on WhatsApp?",a:"No. The last message to a patient who buys is always the purchase confirmation by email, with the treatments, prices and payment details."}
   ];
   var F={q:"",c:"All"};
@@ -858,6 +865,7 @@ details.prep>summary::after{content:"Show ▾"!important} details.prep[open]>sum
     var mi=$("#me"); if(mi) mi.oninput=function(){ S.me=mi.value; store("me",mi.value); refresh(); };
     document.querySelectorAll("[data-tog]").forEach(function(b){ b.onclick=function(){ var id=b.getAttribute("data-tog"); S.open=S.open===id?null:id; draw(); }; });
     document.querySelectorAll("[data-cpt]").forEach(function(b){ b.onclick=function(){ var tp=TPLS[+b.getAttribute("data-cpt")]; copyTxt(tplText(tp),b,"Copy"); if(tp.pay) warn(tp); }; });
+    document.querySelectorAll("[data-cps]").forEach(function(b){ b.onclick=function(){ copyTxt(tplText(TPLS[+b.getAttribute("data-cps")],true),b,"Copy Salesforce version"); }; });
     document.querySelectorAll("[data-cp]").forEach(function(b){ b.onclick=function(){ copyTxt(b.getAttribute("data-cp"),b,"Copy"); }; });
     var ca=$("#cpall"); if(ca) ca.onclick=function(){ copyTxt("Account name: "+BANK.name+"\nSort code: "+BANK.sort+"\nAccount number: "+BANK.account+"\nReference: "+REFERENCE,ca,"Copy all details"); };
     var fq=$("#fq"); if(fq) fq.oninput=function(){ F.q=fq.value; $("#flist").innerHTML=faqList(); };
