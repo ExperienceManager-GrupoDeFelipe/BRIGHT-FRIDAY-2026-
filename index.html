@@ -899,9 +899,11 @@ header .wrap{position:relative}
   }
   function quickCalc(){
     var ids=C.slots.filter(function(x){ return x!=null; }), groups={}, full=0;
-    ids.forEach(function(id,k){ var p=PRICES[id]; full+=p[2]; var g=p[3]||("q"+k); (groups[g]=groups[g]||[]).push(id); });
+    ids.forEach(function(id,k){ var p=PRICES[id]; full+=p[2]; var g=p[3]||("q"+k);
+      if(g==="sculptra"){ var v=+((p[1].match(/(\d+)\s*vial/i)||[])[1]||1); for(var j=0;j<v;j++) (groups["sculptra"+k+"_"+j]=[]).push(id); return; } /* cada vial de Sculptra cuenta como un tratamiento */
+      (groups[g]=groups[g]||[]).push(id); });
     var n=Object.keys(groups).length, pct=tierOf(n);
-    return {n:n,pct:pct,full:full,bf:full*(1-pct),groups:groups};
+    return {n:n,pct:pct,full:full,bf:full*(1-pct),groups:groups,ids_scu:ids.some(function(id){ return PRICES[id][3]==="sculptra"; })};
   }
   function drawQuick(){
     var r=quickCalc();
@@ -916,6 +918,7 @@ header .wrap{position:relative}
       +'<div class="qb qb3"><span>Precio Bright Friday'+(r.pct?' · −'+Math.round(r.pct*100)+' %':'')+'</span><b>'+(r.n?eur(r.bf):'—')+'</b>'+(r.n?'<small>Ahorra '+eur(r.full-r.bf)+'</small>':'')+'</div>'
       +'</div>';
     if(same.length) h+='<p class="note">Hay tratamientos del mismo producto (por ejemplo, dos de ácido hialurónico): cuentan como 1.</p>';
+    if(r.ids_scu) h+='<p class="note">Sculptra: cada vial cuenta como un tratamiento distinto (3 viales = −20 %).</p>';
     if(r.n && r.n<3) h+='<p class="note tip2">Con un tratamiento distinto más pasaría al −'+Math.round(tierOf(r.n+1)*100)+' % en todo: lo que ya lleva le saldría '+eur(r.full*(tierOf(r.n+1)-r.pct))+' más barato.</p>';
     h+='<p class="hint">¿No está en la lista? Elige «Otro tratamiento» con su precio. Programa fraccionado: la bonificación se aplica solo al primer pago, abonado el 26 o el 27.</p>';
     return h;
@@ -1381,7 +1384,7 @@ header .wrap{position:relative}
   var ACTUALIZADO = "23/11/2026";
   var FAQ = [
     {c:"Campaña", q:"¿Qué bonificación tiene?", a:"1 tratamiento: −10 %. 2 tratamientos distintos: −15 %. 3 o más: −20 %. Se aplica a todo el conjunto."},
-    {c:"Campaña", q:"¿Qué cuenta como un solo tratamiento?", a:"Los programas, aunque tengan varias sesiones, y las combinaciones de varios viales o zonas de un mismo producto (por ejemplo, 2 viales de ácido hialurónico o 2 zonas de bótox)."},
+    {c:"Campaña", q:"¿Qué cuenta como un solo tratamiento?", a:"Los programas, aunque tengan varias sesiones, y las combinaciones de varios viales o zonas de un mismo producto (por ejemplo, 2 viales de ácido hialurónico o 2 zonas de bótox). Excepción: cada vial de Sculptra cuenta como un tratamiento distinto, así que 3 viales de Sculptra = −20 %."},
     {c:"Campaña", q:"¿Qué no entra en la campaña?", a:"Consultas, actos, AP y cirugía dermatológica y plástica. En Remind Hair, tampoco el trasplante capilar, porque es cirugía."},
     {c:"Campaña", q:"¿Hasta cuándo puede empezar el tratamiento?", a:"Hasta el 25/02/2027. Los programas se empiezan antes de esa fecha y después siguen con la periodicidad que indique el doctor. La tarjeta regalo es la excepción: se puede usar durante un año desde la compra."},
     {c:"Campaña", q:"¿Puedo ofrecer un tratamiento que todavía no ha valorado un doctor?", a:"Sí. No hace falta que esté pautado: lo que hay que comunicar es que, antes de empezar, un doctor evaluará su viabilidad y confirmará si puede hacerlo o si hay que ajustarlo o cambiarlo por otro."},

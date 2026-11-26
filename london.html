@@ -613,7 +613,9 @@ details.prep>summary::after{content:"Show ▾"!important} details.prep[open]>sum
   function optsHTML(){ return '<option value="">— Choose a treatment —</option>'+CATS.map(function(c){ return '<optgroup label="'+esc(c)+'">'+LIST.filter(function(p){ return p[0]===c; }).map(function(p){ return '<option value="'+p.id+'">'+esc(p[1])+' · '+gbp(p[2])+'</option>'; }).join("")+'</optgroup>'; }).join(""); }
   function quick(){
     var ids=S.slots.filter(function(x){ return x!=null; }), g={}, full=0;
-    ids.forEach(function(id,k){ var p=LIST[id]; full+=p[2]; var key=p[3]||("u"+k); (g[key]=g[key]||[]).push(id); });
+    ids.forEach(function(id,k){ var p=LIST[id]; full+=p[2]; var key=p[3]||("u"+k);
+      if(key==="sculptra"){ var v=+((p[1].match(/(\d+)\s*vial/i)||[])[1]||1); for(var j=0;j<v;j++) (g["sculptra"+k+"_"+j]=[]).push(id); return; } /* each Sculptra vial counts as one treatment */
+      (g[key]=g[key]||[]).push(id); });
     var n=Object.keys(g).length, pct=tierOf(n);
     return {ids:ids,n:n,pct:pct,full:full,bf:full*(1-pct),g:g};
   }
@@ -745,6 +747,7 @@ details.prep>summary::after{content:"Show ▾"!important} details.prep[open]>sum
     if(S.slots.length<8) h+='<button class="btn ghost" id="addslot" style="margin:0 0 16px;width:auto">+ Another treatment</button>';
     h+='<div class="qres"><div class="qb qb1"><span>Different treatments</span><b>'+r.n+'</b></div><div class="qb qb2"><span>Standard price</span><b>'+gbp(r.full)+'</b></div><div class="qb qb3"><span>Bright Friday price'+(r.pct?' · −'+Math.round(r.pct*100)+'%':'')+'</span><b>'+(r.n?gbp(r.bf):'—')+'</b>'+(r.n?'<small>Saves '+gbp(r.full-r.bf)+'</small>':'')+'</div></div>';
     if(Object.keys(r.g).some(function(k){ return r.g[k].length>1; })) h+='<p class="note">Some treatments are the same product (for example, two hyaluronic acid lines): they count as one.</p>';
+    if(r.ids.some(function(id){ return LIST[id][3]==="sculptra"; })) h+='<p class="note">Sculptra: each vial counts as a separate treatment (3 vials = −20%).</p>';
     if(r.n && r.n<3) h+='<p class="note tip2">With one more different treatment it would move to −'+Math.round(tierOf(r.n+1)*100)+'% on everything: what they already have would be '+gbp(r.full*(tierOf(r.n+1)-r.pct))+' cheaper.</p>';
     h+='<p class="hint">Instalments: the reduction applies only to the first payment, made on 26 or 27 November.</p>';
     return h;
@@ -795,7 +798,7 @@ details.prep>summary::after{content:"Show ▾"!important} details.prep[open]>sum
   var UPDATED="24/11/2026";
   var FAQ=[
     {c:"Campaign",q:"What is the price reduction?",a:"1 treatment: −10%. 2 different treatments: −15%. 3 or more: −20%. It applies to the whole set."},
-    {c:"Campaign",q:"What counts as a single treatment?",a:"Programmes, even with several sessions, and several vials or areas of the same product (for example, 2 vials of hyaluronic acid or 2 botox areas)."},
+    {c:"Campaign",q:"What counts as a single treatment?",a:"Programmes, even with several sessions, and several vials or areas of the same product (for example, 2 vials of hyaluronic acid or 2 botox areas). Exception: each Sculptra vial counts as a separate treatment, so 3 vials of Sculptra = −20%."},
     {c:"Campaign",q:"What is not included?",a:"Consultations and surgery. Only new treatments: not second or third instalments, outstanding payments or treatments already paid for."},
     {c:"Campaign",q:"Until when can they start the treatment?",a:"Until 25/02/2027. Programmes start before that date and then follow the schedule the doctor recommends. Gift cards are the exception: they can be used for one year from purchase."},
     {c:"Campaign",q:"Can I offer a treatment no doctor has assessed yet?",a:"Yes. It does not need to be prescribed: explain that, before starting, a doctor will assess its suitability and confirm whether it can go ahead or needs to be adjusted or changed."},
