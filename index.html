@@ -554,6 +554,7 @@ details.faq p{margin:0 0 14px 26px;color:var(--ink)}
 header .wrap{position:relative}
 @media (max-width:760px){ .langlink{position:static;display:inline-block;margin-top:10px} }
 .subj{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin:12px 0 0;padding:10px 12px;background:#f3f5f7;border-radius:10px;font-size:14px}.subj span{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:#586676;font-weight:700}.subj b{flex:1 1 260px;color:#1f2a36}
+.sri.free{background:#f3f5f7}.sri.free .srn{font-weight:700}
 </style>
 </head>
 <body>
@@ -657,7 +658,7 @@ header .wrap{position:relative}
     ["Otros inyectables","Lenisna / Radiesse · 2 viales",850,"radiesse"],["Medicina regenerativa","Sesión PRF",250,"prf"],["Corporal","Sesión corporal",90,"sesion-corporal"],
     ["Corporal","Criolipólisis · 1 zona + repetición",540,"crio"],["Corporal","Criolipólisis · 2 zonas + repetición",990,"crio"],["Corporal","Criolipólisis · 3 zonas + repetición",1390,"crio"],["Corporal","Criolipólisis · 4 zonas + repetición",1740,"crio"],
     ["Limpieza facial","Limpieza facial · 90 €",90,"limpieza"],["Limpieza facial","Limpieza facial · 95 €",95,"limpieza"],["Limpieza facial","Limpieza facial · 100 €",100,"limpieza"],["Limpieza facial","Limpieza facial · 110 €",110,"limpieza"],["Limpieza facial","Limpieza facial · 115 €",115,"limpieza"],["Limpieza facial","Limpieza facial · 120 €",120,"limpieza"]
-  ].concat([250,305,350,405,450,605,650,850,900,1005,1200,1300,1350,1500].map(function(v){ return ["Otro tratamiento (por precio)","Otro tratamiento de "+v+" €",v,null,{g:1,note:"Cuenta como un tratamiento distinto"}]; })));
+  ].concat([250,305,350,405,450,605,650,750,850,900,1005,1200,1300,1350,1500].map(function(v){ return ["Otro tratamiento (por precio)","Otro tratamiento de "+v+" €",v,null,{g:1,note:"Cuenta como un tratamiento distinto"}]; })));
   // En las categorías por indicación solo se muestran los programas (que ya engloban los tratamientos)
   var PROG_ONLY = ["Acné","Cicatrices","Cicatrices queloides","Rosácea","Caída de pelo","Manchas","Rejuvenecimiento","Ojeras","Varices","Psoriasis","Verrugas","Hongos en las uñas"];
   PRICES = PRICES.filter(function(p){ return PROG_ONLY.indexOf(p[0])<0 || /^Programa|sesiones/.test(p[1]); });
@@ -880,11 +881,15 @@ header .wrap{position:relative}
   }
   var QUICKPICK=["Ácido hialurónico Modelha – 1 vial","Ácido hialurónico Modelha – 2 viales","Toxina botulínica – 1 área","Toxina botulínica – 2 áreas","Programa dermatológico acné 6 sesiones","Liftera en 1 región anatómica 1 sesión"];
   function qpIds(){ return QUICKPICK.map(function(n){ for(var i=0;i<CAND.length;i++) if(PRICES[CAND[i]][1]===n) return CAND[i]; return null; }).filter(function(x){ return x!=null; }); }
+  function amtOf(q){ if(!/^[\s€£]*(otro|otra|other|precio|libre|price|free|tto|tratamiento|treatment|de|of|[\s€£:·-])*\d[\d.,]*\s*[€£]?\s*$/i.test(String(q))) return 0; var m=String(q).match(/\d[\d.]*(,\d{1,2})?/); if(!m) return 0; var v=parseFloat(m[0].replace(/\./g,"").replace(",",".")); return v>=1?v:0; }
+  function freeHTML(i,q){ var a=amtOf(q); if(!a) return ''; return '<button class="sri free" data-free="'+i+':'+a+'"><span class="srn">Precio libre · otro tratamiento<small>Importe que escribes. Cuenta como un tratamiento distinto</small></span><b>'+eur(a)+'</b></button>'; }
+  function newFree(a){ var row=["Precio libre","Otro tratamiento de "+eur(a),a,null]; row.id=PRICES.length; row.free=1; PRICES.push(row); return row.id; }
   function resHTML(i,q){
     if(!q.trim()) return ''; if(false) return '<div class="qp"><span>Lo más habitual:</span>'+qpIds().map(function(id){ return '<button class="chip" data-pick="'+i+':'+id+'">'+esc(PRICES[id][1])+'</button>'; }).join("")+'</div>';
     var ids=search(q);
-    if(!ids.length) return '<p class="hint">No encuentro «'+esc(q)+'». Prueba con otra palabra, mira «Ver por tipología» o elige «Otro tratamiento» con su importe (escribe «otro»).</p>';
-    return '<div class="sres">'+ids.slice(0,8).map(function(id){ var p=PRICES[id]; return '<button class="sri" data-pick="'+i+':'+id+'"><span class="srn">'+esc(p[1])+'<small>'+esc(p[0])+'</small></span><b>'+eur(p[2])+'</b></button>'; }).join("")+'</div>'+(ids.length>8?'<p class="hint">'+(ids.length-8)+' resultados más: escribe algo más concreto.</p>':'');
+    var fr=freeHTML(i,q);
+    if(!ids.length) return fr ? '<div class="sres">'+fr+'</div>' : '<p class="hint">No encuentro «'+esc(q)+'». Prueba con otra palabra o escribe el importe (por ejemplo, 525) para ponerlo a precio libre.</p>';
+    return '<div class="sres">'+fr+ids.slice(0,8).map(function(id){ var p=PRICES[id]; return '<button class="sri" data-pick="'+i+':'+id+'"><span class="srn">'+esc(p[1])+'<small>'+esc(p[0])+'</small></span><b>'+eur(p[2])+'</b></button>'; }).join("")+'</div>'+(ids.length>8?'<p class="hint">'+(ids.length-8)+' resultados más: escribe algo más concreto.</p>':'');
   }
   function slotHTML(id,i){
     var p=id!=null?PRICES[id]:null;
@@ -908,10 +913,10 @@ header .wrap{position:relative}
   }
   function drawQuick(){
     var r=quickCalc();
-    var h='<p class="prnote"><b>Escribe el tratamiento y elige el resultado.</b> Lista de precios De Felipe actualizada a 23/11/2026. Pago fraccionado: escribe «fraccionado». Remind Hair o algo que no esté en la lista: escribe «otro» y el importe.</p><div class="slots">';
+    var h='<p class="prnote"><b>Escribe el tratamiento y elige el resultado.</b> Lista de precios De Felipe actualizada a 23/11/2026. Pago fraccionado: escribe «fraccionado». Remind Hair o algo que no esté en la lista: escribe el importe (por ejemplo, 525) y elige «Precio libre». Puedes añadir todos los tratamientos que necesites con «+ Otro tratamiento».</p><div class="slots">';
     C.slots.forEach(function(id,i){ h+=slotHTML(id,i); });
     h+='</div>';
-    if(C.slots.length<8) h+='<button class="btn ghost" id="addslot" style="margin:0 0 16px;width:auto">+ Otro tratamiento</button>';
+    h+='<button class="btn ghost" id="addslot" style="margin:0 0 16px;width:auto">+ Otro tratamiento</button>';
     var same=Object.keys(r.groups).filter(function(g){ return r.groups[g].length>1; });
     h+='<div class="qres">'
       +'<div class="qb qb1"><span>Tratamientos distintos</span><b>'+r.n+'</b></div>'
@@ -1029,7 +1034,8 @@ header .wrap{position:relative}
     document.querySelectorAll("[data-cpt]").forEach(function(b){ b.onclick=function(){ copyTxt(tplText(TPLS[+b.getAttribute("data-cpt")],C.lang||"es"),b,"Copiar"); }; });
     document.querySelectorAll("[data-slot]").forEach(function(s){ s.onchange=function(){ C.slots[+s.getAttribute("data-slot")]= s.value===""?null:+s.value; draw(); }; });
     function pickSlot(i,id){ C.slots[i]=id; if(C.sq) C.sq[i]=""; if(C.browse) C.browse[i]=false; draw(); var nx=document.querySelector(".sq"); if(nx && window.innerWidth>760) nx.focus(); }
-    function bindPicks(root){ (root||document).querySelectorAll("[data-pick]").forEach(function(b){ b.onclick=function(){ var v=b.getAttribute("data-pick").split(":"); pickSlot(+v[0],+v[1]); }; }); }
+    function bindPicks(root){ (root||document).querySelectorAll("[data-pick]").forEach(function(b){ b.onclick=function(){ var v=b.getAttribute("data-pick").split(":"); pickSlot(+v[0],+v[1]); }; });
+      (root||document).querySelectorAll("[data-free]").forEach(function(b){ b.onclick=function(){ var v=b.getAttribute("data-free").split(":"); pickSlot(+v[0],newFree(+v[1])); }; }); }
     bindPicks();
     document.querySelectorAll("[data-sq]").forEach(function(inp){ var i=+inp.getAttribute("data-sq");
       inp.oninput=function(){ C.sq=C.sq||{}; C.sq[i]=inp.value; var box=document.querySelector('[data-sr="'+i+'"]'); box.innerHTML=resHTML(i,inp.value); bindPicks(box); };
