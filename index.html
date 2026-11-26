@@ -553,6 +553,7 @@ details.faq p{margin:0 0 14px 26px;color:var(--ink)}
 .langlink:hover{background:rgba(255,255,255,.24)}
 header .wrap{position:relative}
 @media (max-width:760px){ .langlink{position:static;display:inline-block;margin-top:10px} }
+.subj{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin:12px 0 0;padding:10px 12px;background:#f3f5f7;border-radius:10px;font-size:14px}.subj span{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:#586676;font-weight:700}.subj b{flex:1 1 260px;color:#1f2a36}
 </style>
 </head>
 <body>
@@ -560,7 +561,7 @@ header .wrap{position:relative}
   <p class="eyebrow">Grupo Dermatológico De Felipe</p>
   <h1>Herramienta Bright Friday 2026</h1>
   <a class="langlink" href="london.html">London · English version</a>
-  <div class="rules"><span>26 y 27/11</span><span>1 · 2 · 3+ tratamientos → −10 · −15 · −20 %</span><span>Mismo producto = 1</span><span>Empezar antes del 25/02/2027</span></div>
+  <div class="rules"><span>26 y 27/11</span><span>1 · 2 · 3+ tratamientos → −10 · −15 · −20 %</span><span>Mismo producto = 1 · cada línea de viales = 1</span><span>Empezar antes del 25/02/2027</span></div>
   <nav class="mainnav" id="mainnav" aria-label="Secciones"></nav>
 </div></header>
 <noscript><div class="wrap err" style="margin:16px auto">Esta herramienta necesita JavaScript activado.</div></noscript>
@@ -900,10 +901,10 @@ header .wrap{position:relative}
   function quickCalc(){
     var ids=C.slots.filter(function(x){ return x!=null; }), groups={}, full=0;
     ids.forEach(function(id,k){ var p=PRICES[id]; full+=p[2]; var g=p[3]||("q"+k);
-      if(g==="sculptra"){ var v=+((p[1].match(/(\d+)\s*vial/i)||[])[1]||1); for(var j=0;j<v;j++) (groups["sculptra"+k+"_"+j]=[]).push(id); return; } /* cada vial de Sculptra cuenta como un tratamiento */
+      var mv=p[1].match(/(\d+)\s*vial/i); if(mv||g==="sculptra"){ (groups["vial"+k]=[]).push(id); return; } /* cada línea por vial cuenta como un tratamiento; un pack de varios viales = 1 */
       (groups[g]=groups[g]||[]).push(id); });
     var n=Object.keys(groups).length, pct=tierOf(n);
-    return {n:n,pct:pct,full:full,bf:full*(1-pct),groups:groups,ids_scu:ids.some(function(id){ return PRICES[id][3]==="sculptra"; })};
+    return {n:n,pct:pct,full:full,bf:full*(1-pct),groups:groups,ids_scu:ids.some(function(id){ return PRICES[id][3]==="sculptra"||/\d+\s*vial/i.test(PRICES[id][1]); })};
   }
   function drawQuick(){
     var r=quickCalc();
@@ -917,8 +918,8 @@ header .wrap{position:relative}
       +'<div class="qb qb2"><span>Precio sin bonificación</span><b>'+eur(r.full)+'</b></div>'
       +'<div class="qb qb3"><span>Precio Bright Friday'+(r.pct?' · −'+Math.round(r.pct*100)+' %':'')+'</span><b>'+(r.n?eur(r.bf):'—')+'</b>'+(r.n?'<small>Ahorra '+eur(r.full-r.bf)+'</small>':'')+'</div>'
       +'</div>';
-    if(same.length) h+='<p class="note">Hay tratamientos del mismo producto (por ejemplo, dos de ácido hialurónico): cuentan como 1.</p>';
-    if(r.ids_scu) h+='<p class="note">Sculptra: cada vial cuenta como un tratamiento distinto (3 viales = −20 %).</p>';
+    if(same.length) h+='<p class="note">Hay tratamientos del mismo producto (por ejemplo, dos de bótox): cuentan como 1.</p>';
+    if(r.ids_scu) h+='<p class="note">Tratamientos por vial: cada línea cuenta como un tratamiento distinto, aunque sea el mismo producto. Un pack de varios viales (por ejemplo, Modelha – 3 viales) cuenta como 1.</p>';
     if(r.n && r.n<3) h+='<p class="note tip2">Con un tratamiento distinto más pasaría al −'+Math.round(tierOf(r.n+1)*100)+' % en todo: lo que ya lleva le saldría '+eur(r.full*(tierOf(r.n+1)-r.pct))+' más barato.</p>';
     h+='<p class="hint">¿No está en la lista? Elige «Otro tratamiento» con su precio. Programa fraccionado: la bonificación se aplica solo al primer pago, abonado el 26 o el 27.</p>';
     return h;
@@ -1137,6 +1138,15 @@ header .wrap{position:relative}
       en:"Further to our conversation, please find below the details of the products you expressed an interest in:\n\nProduct(s):\n{LIST}\n\nStandard price: {HAB}\nBright Friday price: {BF}\n\nTo benefit from the campaign terms, the full amount must be paid on 26 or 27 November, either at any of our clinics or by bank transfer:\n\nAccount name: {BEN}\nAccount number (IBAN): {IBAN}\nPayment reference: {CONC}\n\nWe would appreciate it if you could reply to this email with a copy of your bank transfer confirmation.\n\nOur team remains at your disposal should you have any questions, and we hope you enjoy your products.\n\nKind regards,\n{BRAND}" }
   ];
   var GTYPE = { t:{es:"Tratamientos",ca:"Tractaments",en:"Treatments"}, p:{es:"Productos",ca:"Productes",en:"Products"} };
+  var SUBJ = {
+    ap:{es:"Bright Friday 2026 · Una propuesta para usted",ca:"Bright Friday 2026 · Una proposta per a vós",en:"Bright Friday 2026 · A proposal for you"},
+    info:{es:"Bright Friday 2026 · Información de la campaña",ca:"Bright Friday 2026 · Informació de la campanya",en:"Bright Friday 2026 · Campaign information"},
+    tinfo:{es:"Bright Friday 2026 · Información de la tarjeta regalo",ca:"Bright Friday 2026 · Informació de la targeta regal",en:"Bright Friday 2026 · Gift card information"},
+    ct:{es:"Bright Friday 2026 · Siguientes pasos para confirmar su tratamiento",ca:"Bright Friday 2026 · Següents passos per confirmar el vostre tractament",en:"Bright Friday 2026 · Next steps to confirm your treatment"},
+    cg:{es:"Bright Friday 2026 · Siguientes pasos para confirmar su tarjeta regalo",ca:"Bright Friday 2026 · Següents passos per confirmar la vostra targeta regal",en:"Bright Friday 2026 · Next steps to confirm your gift card"},
+    cp:{es:"Bright Friday 2026 · Siguientes pasos para confirmar sus productos",ca:"Bright Friday 2026 · Següents passos per confirmar els vostres productes",en:"Bright Friday 2026 · Next steps to confirm your products"}
+  };
+  function subjText(id,L){ var x=SUBJ[id]; return x? x[L]+" | "+bname(L) : ""; }
   function tplById(id){ for(var i=0;i<TPLS.length;i++) if(TPLS[i].id===id) return TPLS[i]; }
   var GFMT = { d:{es:"Digital",ca:"Digital",en:"Digital"}, f:{es:"Física, enviada por mensajería a [dirección de envío]",ca:"Física, enviada per missatgeria a [adreça d'enviament]",en:"Physical card, sent by courier to [delivery address]"} };
   var GSTEP = { d:{es:"Le enviamos la tarjeta en formato digital a partir del 30 de noviembre.",ca:"Us enviem la targeta en format digital a partir del 30 de novembre.",en:"We will send you the digital card from 30 November."},
@@ -1303,10 +1313,11 @@ header .wrap{position:relative}
       +'<div class="sexw"><span>Saludo</span><div class="chips">'+[["x","Apreciado/a"],["a","Apreciada"],["o","Apreciado"]].map(function(s){ return '<button class="chip'+(S.sex===s[0]?' on':'')+'" data-sex="'+s[0]+'">'+s[1]+'</button>'; }).join("")+'</div></div>'
       +'<label>Tu nombre (firma)<input type="text" id="me" autocomplete="off" placeholder="Ej.: Laura" value="'+esc(S.me)+'"></label></section>';
     h+='<div class="langs">'+[["es","Castellano"],["ca","Català"],["en","English"]].map(function(l){ return '<button class="chip'+(L===l[0]?' on':'')+'" data-lang="'+l[0]+'">'+l[1]+'</button>'; }).join("")+'</div>';
-    h+='<p class="hint" style="margin:0 0 14px">Los WhatsApp se envían desde Salesforce. Lo <mark>marcado</mark> lo completas tú. Los cierres de compra van siempre por email.</p>';
+    h+='<p class="hint" style="margin:0 0 14px">Los WhatsApp se envían desde Salesforce. Lo <mark>marcado</mark> lo completas tú. Los cierres de compra van siempre por email. Cada email tiene su asunto: cópialo con «Copiar asunto».</p>';
     TPLS.forEach(function(tp,i){
       var open=S.open===tp.id, acc=tp.acc?accFor(tp):null;
       h+='<section class="box tpl" id="tpl-'+tp.id+'"><div class="tph"><div><h2 style="margin:0 0 4px">'+esc(tp.n)+(tp.nueva?' <span class="new">Nueva</span>':'')+'</h2><p class="hint" style="margin:0">'+esc(tp.when)+' <b>'+esc(tp.ch)+'.</b></p></div><button class="btn dark cpy" data-cpt="'+i+'">Copiar</button></div>';
+      if(SUBJ[tp.id]) h+='<p class="subj"><span>Asunto del email</span><b>'+esc(subjText(tp.id,L))+'</b><button class="mini" data-cpsub="'+tp.id+'">Copiar asunto</button></p>';
       if(tp.wa) h+='<p class="note">Para darla de alta en Salesforce: copia la versión con variables ({{1}} = nombre del paciente, {{2}} = quien escribe). Las plantillas de WhatsApp que inicia la empresa normalmente tiene que aprobarlas Meta antes de usarlas. <button class="link" data-cps="'+i+'">Copiar versión para Salesforce</button></p>';
       if(tp.acc==="g") h+='<div class="chips" style="margin-top:12px">'+[["t","Tarjeta de tratamientos"],["p","Tarjeta de productos"]].map(function(g){ return '<button class="chip'+(S.gtype===g[0]?' on':'')+'" data-gtype="'+g[0]+'">'+g[1]+'</button>'; }).join("")+'</div>';
       if(tp.acc==="g") h+='<p class="note"><b>Para ti:</b> después de enviarla, escribe en «Notas» de tu Excel de lista de pacientes «Tarjeta regalo física» o «Tarjeta regalo digital». En De Felipe, la tarjeta de tratamientos va a la cuenta de la clínica y la de productos a NOVELIUS IBÉRICA SL; en Remind Hair, las dos a IC Dermatology group SL.</p>';
@@ -1354,6 +1365,7 @@ header .wrap{position:relative}
     document.querySelectorAll("[data-gtype]").forEach(function(b){ b.onclick=function(){ S.gtype=b.getAttribute("data-gtype"); if(window.BFCALC&&BFCALC.setGift) BFCALC.setGift(S.gtype,S.gfmt||"d"); draw(); }; });
     document.querySelectorAll("[data-tog]").forEach(function(b){ b.onclick=function(){ var id=b.getAttribute("data-tog"); S.open=S.open===id?null:id; draw(); var el=document.getElementById("tpl-"+id); if(el) el.scrollIntoView({block:"nearest"}); }; });
     document.querySelectorAll("[data-cpt]").forEach(function(b){ b.onclick=function(){ var tp=TPLS[+b.getAttribute("data-cpt")]; copyTxt(tplText(tp,S.lang),b,"Copiar"); if(tp.acc) accWarn(tp); }; });
+    document.querySelectorAll("[data-cpsub]").forEach(function(b){ b.onclick=function(){ copyTxt(subjText(b.getAttribute("data-cpsub"),S.lang),b,"Copiar asunto"); }; });
     document.querySelectorAll("[data-cps]").forEach(function(b){ b.onclick=function(){ copyTxt(tplText(TPLS[+b.getAttribute("data-cps")],S.lang,true),b,"Copiar versión para Salesforce"); }; });
   }
   function refreshGift(){ var g=$("#gout"); if(!g) return; var tmp=document.createElement("div"); tmp.innerHTML=giftCalc(); var n=tmp.querySelector("#gout"); g.innerHTML=n?n.innerHTML:""; }
@@ -1384,7 +1396,7 @@ header .wrap{position:relative}
   var ACTUALIZADO = "23/11/2026";
   var FAQ = [
     {c:"Campaña", q:"¿Qué bonificación tiene?", a:"1 tratamiento: −10 %. 2 tratamientos distintos: −15 %. 3 o más: −20 %. Se aplica a todo el conjunto."},
-    {c:"Campaña", q:"¿Qué cuenta como un solo tratamiento?", a:"Los programas, aunque tengan varias sesiones, y las combinaciones de varios viales o zonas de un mismo producto (por ejemplo, 2 viales de ácido hialurónico o 2 zonas de bótox). Excepción: cada vial de Sculptra cuenta como un tratamiento distinto, así que 3 viales de Sculptra = −20 %."},
+    {c:"Campaña", q:"¿Qué cuenta como un solo tratamiento?", a:"Los programas, aunque tengan varias sesiones, y las varias zonas de un mismo producto (por ejemplo, 2 zonas de bótox). Excepción: en los tratamientos por vial (ácido hialurónico, Sculptra, Profhilo, Radiesse, polinucleótidos…), cada línea cuenta como un tratamiento distinto, aunque sea el mismo producto. Un pack de varios viales cuenta como 1: Modelha – 3 viales + ácido hialurónico 1 vial = 2 tratamientos, −15 %. Con viales sueltos sí se acumula: 3 líneas de 1 vial = −20 %."},
     {c:"Campaña", q:"¿Qué no entra en la campaña?", a:"Consultas, actos, AP y cirugía dermatológica y plástica. En Remind Hair, tampoco el trasplante capilar, porque es cirugía."},
     {c:"Campaña", q:"¿Hasta cuándo puede empezar el tratamiento?", a:"Hasta el 25/02/2027. Los programas se empiezan antes de esa fecha y después siguen con la periodicidad que indique el doctor. La tarjeta regalo es la excepción: se puede usar durante un año desde la compra."},
     {c:"Campaña", q:"¿Puedo ofrecer un tratamiento que todavía no ha valorado un doctor?", a:"Sí. No hace falta que esté pautado: lo que hay que comunicar es que, antes de empezar, un doctor evaluará su viabilidad y confirmará si puede hacerlo o si hay que ajustarlo o cambiarlo por otro."},

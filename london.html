@@ -555,6 +555,7 @@ details.faq p{margin:0 0 14px 26px;color:var(--ink)}
 header .wrap{position:relative}
 @media (max-width:760px){ .mainnav{grid-template-columns:1fr 1fr!important} .scx{grid-template-columns:1fr!important} .langlink{position:static;display:inline-block;margin-top:10px} }
 details.prep>summary::after{content:"Show ▾"!important} details.prep[open]>summary::after{content:"Hide ▴"!important}
+.subj{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin:12px 0 0;padding:10px 12px;background:#f3f5f7;border-radius:10px;font-size:14px}.subj span{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:#586676;font-weight:700}.subj b{flex:1 1 260px;color:#1f2a36}
 </style>
 </head>
 <body>
@@ -562,7 +563,7 @@ details.prep>summary::after{content:"Show ▾"!important} details.prep[open]>sum
   <p class="eyebrow">Grupo Dermatológico De Felipe · London</p>
   <h1>Bright Friday 2026 Tool</h1>
   <a class="langlink" href="index.html">Versión España (español)</a>
-  <div class="rules"><span>26 & 27/11</span><span>1 · 2 · 3+ treatments → −10 · −15 · −20%</span><span>Same product = 1</span><span>Start by 25/02/2027</span></div>
+  <div class="rules"><span>26 & 27/11</span><span>1 · 2 · 3+ treatments → −10 · −15 · −20%</span><span>Same product = 1 · each vial line = 1</span><span>Start by 25/02/2027</span></div>
   <nav class="mainnav" id="mainnav" aria-label="Sections"></nav>
 </div></header>
 <noscript><div class="wrap err" style="margin:16px auto">This tool needs JavaScript enabled.</div></noscript>
@@ -614,7 +615,7 @@ details.prep>summary::after{content:"Show ▾"!important} details.prep[open]>sum
   function quick(){
     var ids=S.slots.filter(function(x){ return x!=null; }), g={}, full=0;
     ids.forEach(function(id,k){ var p=LIST[id]; full+=p[2]; var key=p[3]||("u"+k);
-      if(key==="sculptra"){ var v=+((p[1].match(/(\d+)\s*vial/i)||[])[1]||1); for(var j=0;j<v;j++) (g["sculptra"+k+"_"+j]=[]).push(id); return; } /* each Sculptra vial counts as one treatment */
+      var mv=p[1].match(/(\d+)\s*vial/i); if(mv||key==="sculptra"){ (g["vial"+k]=[]).push(id); return; } /* each vial line counts as one treatment; a multi-vial pack = 1 */
       (g[key]=g[key]||[]).push(id); });
     var n=Object.keys(g).length, pct=tierOf(n);
     return {ids:ids,n:n,pct:pct,full:full,bf:full*(1-pct),g:g};
@@ -637,6 +638,8 @@ details.prep>summary::after{content:"Show ▾"!important} details.prep[open]>sum
   ];
   var GFMT={d:"Digital",f:"Physical card, sent by courier to [delivery address]"};
   var GSTEP={d:"We will send you the digital card from 30 November.",f:"We will send the card by courier from 30 November to the address provided. On the back we will write: [treatment, amount or message / no text]."};
+  var SUBJ={ap:"Bright Friday 2026 · A proposal for you",info:"Bright Friday 2026 · Campaign information",ginfo:"Bright Friday 2026 · Gift card information",ct:"Bright Friday 2026 · Next steps to confirm your treatment",cg:"Bright Friday 2026 · Next steps to confirm your gift card"};
+  function subjText(id){ return SUBJ[id]? SUBJ[id]+" | "+CLINIC : ""; }
   function tplText(tp,sf){
     if(tp.wa) return tp.t.replace("{PAC}", sf?"{{1}}":(S.pac.trim()||"[Patient's name]")).replace("{ME}", sf?"{{2}}":(S.me.trim()||"[Your name]")).replace(/\{CLINIC\}/g,CLINIC);
     var s=tp.t, r=quick();
@@ -746,8 +749,8 @@ details.prep>summary::after{content:"Show ▾"!important} details.prep[open]>sum
     var h='<p class="prnote"><b>Type the treatment and choose the result.</b> De Felipe Dermatologist London price list. Anything not on the list: type “other” and the price.</p><div class="slots">'+S.slots.map(slotHTML).join("")+'</div>';
     if(S.slots.length<8) h+='<button class="btn ghost" id="addslot" style="margin:0 0 16px;width:auto">+ Another treatment</button>';
     h+='<div class="qres"><div class="qb qb1"><span>Different treatments</span><b>'+r.n+'</b></div><div class="qb qb2"><span>Standard price</span><b>'+gbp(r.full)+'</b></div><div class="qb qb3"><span>Bright Friday price'+(r.pct?' · −'+Math.round(r.pct*100)+'%':'')+'</span><b>'+(r.n?gbp(r.bf):'—')+'</b>'+(r.n?'<small>Saves '+gbp(r.full-r.bf)+'</small>':'')+'</div></div>';
-    if(Object.keys(r.g).some(function(k){ return r.g[k].length>1; })) h+='<p class="note">Some treatments are the same product (for example, two hyaluronic acid lines): they count as one.</p>';
-    if(r.ids.some(function(id){ return LIST[id][3]==="sculptra"; })) h+='<p class="note">Sculptra: each vial counts as a separate treatment (3 vials = −20%).</p>';
+    if(Object.keys(r.g).some(function(k){ return r.g[k].length>1; })) h+='<p class="note">Some treatments are the same product (for example, two botox lines): they count as one.</p>';
+    if(r.ids.some(function(id){ return LIST[id][3]==="sculptra"||/\d+\s*vial/i.test(LIST[id][1]); })) h+='<p class="note">Treatments by the vial: each line counts as a separate treatment, even if it is the same product. A multi-vial pack (for example, Hyaluronic acid – 3 vials) counts as one. Single vials do add up: 3 lines of 1 vial = −20%.</p>';
     if(r.n && r.n<3) h+='<p class="note tip2">With one more different treatment it would move to −'+Math.round(tierOf(r.n+1)*100)+'% on everything: what they already have would be '+gbp(r.full*(tierOf(r.n+1)-r.pct))+' cheaper.</p>';
     h+='<p class="hint">Instalments: the reduction applies only to the first payment, made on 26 or 27 November.</p>';
     return h;
@@ -778,6 +781,7 @@ details.prep>summary::after{content:"Show ▾"!important} details.prep[open]>sum
     h+='<p class="hint" style="margin:0 0 14px">WhatsApp messages are sent from Salesforce. Fill in anything <mark>highlighted</mark>. Purchase confirmations are always sent by email.</p>';
     TPLS.forEach(function(tp,i){ var open=S.open===tp.id;
       h+='<section class="box tpl" id="tpl-'+tp.id+'"><div class="tph"><div><h2 style="margin:0 0 4px">'+esc(tp.n)+'</h2><p class="hint" style="margin:0">'+esc(tp.when)+' <b>'+esc(tp.ch)+'.</b></p></div><button class="btn dark cpy" data-cpt="'+i+'">Copy</button></div>';
+      if(SUBJ[tp.id]) h+='<p class="subj"><span>Email subject</span><b>'+esc(subjText(tp.id))+'</b><button class="mini" data-cpsub="'+tp.id+'">Copy subject</button></p>';
       if(tp.wa) h+='<p class="note">To set it up in Salesforce, copy the version with variables ({{1}} = patient name, {{2}} = your name). <button class="link" data-cps="'+i+'">Copy Salesforce version</button></p>';
       if(tp.id==="ct") h+='<p class="note">Fills in automatically with what you calculate in “Treatment calculator”. Always check the amounts before sending.</p>';
       if(tp.gift) h+='<p class="note"><b>For you:</b> after sending it, write “Physical gift card” or “Digital gift card” in the Notes column of your patient list.</p><div class="chips" style="margin-top:8px">'+[["d","Digital"],["f","Physical · courier"]].map(function(x){ return '<button class="chip'+(S.gfmt===x[0]?' on':'')+'" data-gf="'+x[0]+'">'+x[1]+'</button>'; }).join("")+'</div>';
@@ -798,7 +802,7 @@ details.prep>summary::after{content:"Show ▾"!important} details.prep[open]>sum
   var UPDATED="24/11/2026";
   var FAQ=[
     {c:"Campaign",q:"What is the price reduction?",a:"1 treatment: −10%. 2 different treatments: −15%. 3 or more: −20%. It applies to the whole set."},
-    {c:"Campaign",q:"What counts as a single treatment?",a:"Programmes, even with several sessions, and several vials or areas of the same product (for example, 2 vials of hyaluronic acid or 2 botox areas). Exception: each Sculptra vial counts as a separate treatment, so 3 vials of Sculptra = −20%."},
+    {c:"Campaign",q:"What counts as a single treatment?",a:"Programmes, even with several sessions, and several areas of the same product (for example, 2 botox areas). Exception: for treatments by the vial (hyaluronic acid, Sculptra, Profhilo, Radiesse, polynucleotides…), each line counts as a separate treatment, even if it is the same product. A multi-vial pack counts as one: Hyaluronic acid – 3 vials + Hyaluronic acid – 1 vial = 2 treatments, −15%. Single vials do add up: 3 lines of 1 vial = −20%."},
     {c:"Campaign",q:"What is not included?",a:"Consultations and surgery. Only new treatments: not second or third instalments, outstanding payments or treatments already paid for."},
     {c:"Campaign",q:"Until when can they start the treatment?",a:"Until 25/02/2027. Programmes start before that date and then follow the schedule the doctor recommends. Gift cards are the exception: they can be used for one year from purchase."},
     {c:"Campaign",q:"Can I offer a treatment no doctor has assessed yet?",a:"Yes. It does not need to be prescribed: explain that, before starting, a doctor will assess its suitability and confirm whether it can go ahead or needs to be adjusted or changed."},
@@ -868,6 +872,7 @@ details.prep>summary::after{content:"Show ▾"!important} details.prep[open]>sum
     var mi=$("#me"); if(mi) mi.oninput=function(){ S.me=mi.value; store("me",mi.value); refresh(); };
     document.querySelectorAll("[data-tog]").forEach(function(b){ b.onclick=function(){ var id=b.getAttribute("data-tog"); S.open=S.open===id?null:id; draw(); }; });
     document.querySelectorAll("[data-cpt]").forEach(function(b){ b.onclick=function(){ var tp=TPLS[+b.getAttribute("data-cpt")]; copyTxt(tplText(tp),b,"Copy"); if(tp.pay) warn(tp); }; });
+    document.querySelectorAll("[data-cpsub]").forEach(function(b){ b.onclick=function(){ copyTxt(subjText(b.getAttribute("data-cpsub")),b,"Copy subject"); }; });
     document.querySelectorAll("[data-cps]").forEach(function(b){ b.onclick=function(){ copyTxt(tplText(TPLS[+b.getAttribute("data-cps")],true),b,"Copy Salesforce version"); }; });
     document.querySelectorAll("[data-cp]").forEach(function(b){ b.onclick=function(){ copyTxt(b.getAttribute("data-cp"),b,"Copy"); }; });
     var ca=$("#cpall"); if(ca) ca.onclick=function(){ copyTxt("Account name: "+BANK.name+"\nSort code: "+BANK.sort+"\nAccount number: "+BANK.account+"\nReference: "+REFERENCE,ca,"Copy all details"); };
